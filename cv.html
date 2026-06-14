@@ -1140,57 +1140,54 @@
   </div>
 
   <script>
+    function getHtml2CanvasOptions() {
+      return {
+        scale: 2,
+        useCORS: true,
+        logging: false,
+        windowWidth: 1200,
+        onclone: function (clonedDoc) {
+          // Fix gradient text for h1
+          const h1 = clonedDoc.querySelector('.sidebar-header h1');
+          if (h1) {
+            h1.style.background = 'none';
+            h1.style.webkitBackgroundClip = 'initial';
+            h1.style.webkitTextFillColor = 'initial';
+            h1.style.color = '#ffffff';
+          }
+          
+          // Inject styles to fix animations and forced desktop layout
+          const style = clonedDoc.createElement('style');
+          style.innerHTML = `
+            .profile-img-wrapper::before { animation: none !important; transform: none !important; background: var(--primary) !important; }
+            .progress-fill::after { animation: none !important; display: none !important; }
+            .cv-wrapper { max-width: 1200px !important; width: 1200px !important; margin: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+            body { background: #ffffff !important; }
+          `;
+          clonedDoc.head.appendChild(style);
+        }
+      };
+    }
+
     function downloadPDF() {
       const element = document.querySelector('.cv-wrapper');
       
-      // Options for PDF generation
       const opt = {
-        margin:       0,
+        margin:       [0.4, 0, 0.4, 0],
         filename:     'CV_Francisco_Reyes.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        html2canvas:  getHtml2CanvasOptions(),
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak:    { mode: ['css', 'legacy'], avoid: ['.timeline-item', '.project-card', '.sidebar-section', '.skill-item'] }
       };
 
-      // Ensure the wrapper expands correctly for PDF
-      const originalBorderRadius = element.style.borderRadius;
-      const originalMargin = element.style.margin;
-      const originalBoxShadow = element.style.boxShadow;
-      
-      element.style.borderRadius = '0';
-      element.style.margin = '0';
-      element.style.boxShadow = 'none';
-
-      html2pdf().set(opt).from(element).save().then(() => {
-        // Restore styles
-        element.style.borderRadius = originalBorderRadius;
-        element.style.margin = originalMargin;
-        element.style.boxShadow = originalBoxShadow;
-      });
+      html2pdf().set(opt).from(element).save();
     }
 
     function downloadPNG() {
       const element = document.querySelector('.cv-wrapper');
-      
-      const originalBorderRadius = element.style.borderRadius;
-      const originalMargin = element.style.margin;
-      const originalBoxShadow = element.style.boxShadow;
-      
-      element.style.borderRadius = '0';
-      element.style.margin = '0';
-      element.style.boxShadow = 'none';
 
-      html2canvas(element, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: '#ffffff'
-      }).then(canvas => {
-        // Restore styles
-        element.style.borderRadius = originalBorderRadius;
-        element.style.margin = originalMargin;
-        element.style.boxShadow = originalBoxShadow;
-
-        // Create link and download
+      html2canvas(element, getHtml2CanvasOptions()).then(canvas => {
         const link = document.createElement('a');
         link.download = 'CV_Francisco_Reyes.png';
         link.href = canvas.toDataURL('image/png');
