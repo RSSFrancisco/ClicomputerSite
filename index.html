@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="es-MX" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>Clicomputer México — Soluciones Tecnológicas Integrales</title>
+  <meta name="description"
+    content="Clicomputer México: Desarrollo de software, páginas web, soporte técnico, redes e instalación de cámaras de seguridad. Soluciones tecnológicas para tu empresa.">
+  <meta name="keywords"
+    content="desarrollo software, páginas web, soporte técnico, redes, cámaras de seguridad, CCTV, México, TI">
+  <meta name="author" content="Clicomputer México">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Clicomputer México — Soluciones Tecnológicas">
+  <meta property="og:description"
+    content="Desarrollo de software, páginas web, soporte técnico, redes y cámaras de seguridad.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/img/logo-clicomputer.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap 5.3.8 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Custom CSS (Modular) -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Page Loader Overlay */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-canvas);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    body.loaded #page-loader {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--border-default);
+      border-top-color: var(--brand-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <!-- Prevent FOUC -->
+  <script>
+    (function () {
+      var theme = localStorage.getItem('cli-theme') ||
+        (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    })();
+  </script>
+</head>
+
+<body>
+  <!-- Page Loader -->
+  <div id="page-loader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <p class="text-secondary fw-medium">Cargando Clicomputer...</p>
+    </div>
+  </div>
+
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div id="section-home"></div>
+    <div id="section-services"></div>
+    <div id="section-about"></div>
+    <div id="section-projects"></div>
+    <div id="section-contact"></div>
+  </main>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <!-- ============================================================
+       Templates (For local file:// support)
+       ============================================================ -->
+
+  <template id="tpl-partial-navbar">
+    <nav class="navbar navbar-expand-lg cli-navbar" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="#inicio">
+          <img src="assets/img/logo-clicomputer.png" alt="Clicomputer México" onerror="this.style.display='none'">
+          <span>Clicomputer</span>
+        </a>
+        <div class="d-flex align-items-center gap-2 d-lg-none">
+          <button class="theme-toggle" id="themeToggleMobile" aria-label="Cambiar tema"
+            onclick="ThemeSwitcher.toggle()">
+            <i class="bi bi-sun"></i>
+          </button>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Menú">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarMain">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+            <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+            <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          </ul>
+          
+          <!-- Barra de Búsqueda -->
+          <div class="nav-search">
+            <i class="bi bi-search nav-search-icon"></i>
+            <input type="text" class="nav-search-input" placeholder="Buscar..." aria-label="Buscar" id="globalSearch">
+            <span class="nav-search-shortcut">/</span>
+          </div>
+
+          <div class="d-none d-lg-flex align-items-center gap-3">
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><i class="bi bi-sun"></i></button>
+            <a href="#contacto" class="btn btn-cta-nav"><i class="bi bi-chat-dots me-1"></i> Cotizar</a>
+          </div>
+          <div class="d-lg-none mt-2">
+            <a href="#contacto" class="btn btn-cta-nav w-100"><i class="bi bi-chat-dots me-1"></i> Cotizar Ahora</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </template>
+
+  <template id="tpl-partial-footer">
+    <footer class="cli-footer" id="footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <img src="assets/img/logo-clicomputer.png" alt="Clicomputer" height="32"
+                onerror="this.style.display='none'">
+              <h5 class="mb-0">Clicomputer México</h5>
+            </div>
+            <p>Soluciones tecnológicas integrales que impulsan tu negocio. Desarrollo de software, páginas web, soporte
+              técnico, redes y seguridad.</p>
+            <div class="footer-social">
+              <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <h5>Navegación</h5>
+            <ul class="footer-links">
+              <li><a href="#inicio">Inicio</a></li>
+              <li><a href="#servicios">Servicios</a></li>
+              <li><a href="#nosotros">Nosotros</a></li>
+              <li><a href="#proyectos">Proyectos</a></li>
+              <li><a href="#contacto">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5>Servicios</h5>
+            <ul class="footer-links">
+              <li><a href="#servicios">Desarrollo de Software</a></li>
+              <li><a href="#servicios">Desarrollo Web</a></li>
+              <li><a href="#servicios">Soporte Técnico</a></li>
+              <li><a href="#servicios">Redes</a></li>
+              <li><a href="#servicios">Cámaras de Seguridad</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5>Contacto</h5>
+            <ul class="footer-links">
+              <li><i class="bi bi-geo-alt me-2 text-brand"></i>Córdoba, Ver. México</li>
+              <li><a href="tel:+525500000000"><i class="bi bi-telephone me-2 text-brand"></i>+52 656 751 4187</a></li>
+              <li><a href="mailto:info@clcomputer.com"><i
+                    class="bi bi-envelope me-2 text-brand"></i>info@clcomputer.com</a></li>
+              <li><i class="bi bi-clock me-2 text-brand"></i>Lun - Vie: 9:00 - 18:00</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; <span id="currentYear"></span> Clicomputer México. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const yearEl = document.getElementById('currentYear');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
+  </template>
+
+  <template id="tpl-home">
+    <section class="hero-section" id="inicio">
+      <div class="bg-gradient-radial"></div>
+      <div class="bg-dots-pattern"></div>
+      <div class="hero-float-badge"><i class="bi bi-shield-check text-brand"></i> Seguridad Garantizada</div>
+      <div class="hero-float-badge"><i class="bi bi-lightning-charge text-brand"></i> Soporte 24/7</div>
+      <div class="hero-float-badge"><i class="bi bi-award text-brand"></i> +5 Años de Experiencia</div>
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <div class="section-badge fade-in-up"><i class="bi bi-rocket-takeoff"></i> Soluciones Tecnológicas
+                Integrales</div>
+              <h1 class="hero-title fade-in-up">Impulsamos tu negocio con <span class="text-gradient">tecnología</span>
+              </h1>
+              <p class="hero-subtitle fade-in-up">Desarrollo de software a la medida, páginas web profesionales, soporte
+                técnico, infraestructura de redes y sistemas de videovigilancia para tu empresa.</p>
+              <div class="hero-actions fade-in-up">
+                <a href="#servicios" class="btn btn-primary-custom"><i class="bi bi-grid-3x3-gap"></i> Ver Servicios</a>
+                <a href="#contacto" class="btn btn-outline-custom"><i class="bi bi-chat-dots"></i> Contáctanos</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="hero-terminal fade-in-right">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span
+                  class="terminal-dot green"></span>
+                <span class="terminal-title">clicomputer@server:~</span>
+              </div>
+              <div class="terminal-body"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="tech-strip">
+      <div class="container">
+        <p class="tech-strip-label">Tecnologías que dominamos</p>
+        <div class="tech-strip-logos">
+          <i class="bi bi-filetype-html" title="HTML5"></i><i class="bi bi-filetype-css" title="CSS3"></i><i
+            class="bi bi-filetype-js" title="JavaScript"></i>
+          <i class="bi bi-filetype-php" title="PHP"></i><i class="bi bi-database" title="Bases de Datos"></i><i
+            class="bi bi-git" title="Git"></i>
+          <i class="bi bi-bootstrap" title="Bootstrap"></i><i class="bi bi-windows" title="Windows"></i><i
+            class="bi bi-hdd-network" title="Networking"></i>
+          <i class="bi bi-camera-video" title="CCTV"></i>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-services">
+    <section class="services-section section-padding" id="servicios">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge fade-in-up"><i class="bi bi-grid-3x3-gap"></i> Nuestros Servicios</span>
+          <h2 class="fade-in-up">Soluciones tecnológicas <span class="text-gradient">completas</span></h2>
+          <p class="fade-in-up">Ofrecemos un portafolio integral de servicios tecnológicos para impulsar la
+            productividad y seguridad de tu empresa.</p>
+        </div>
+        <div class="row g-4 stagger-children">
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up">
+              <div class="service-card-icon"><i class="bi bi-code-slash"></i></div>
+              <h4>Desarrollo de Software</h4>
+              <p>Creamos aplicaciones a la medida que automatizan procesos y optimizan la operación de tu negocio.
+                Sistemas ERP, CRM, inventarios y más.</p>
+              <div class="d-flex flex-wrap gap-2 mb-3"><span class="tech-tag">C#</span><span
+                  class="tech-tag">Python</span><span class="tech-tag">Java</span><span class="tech-tag">SQL
+                  Server</span></div>
+              <a href="#contacto" class="service-card-link">Solicitar cotización <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up">
+              <div class="service-card-icon"><i class="bi bi-globe2"></i></div>
+              <h4>Desarrollo Web</h4>
+              <p>Diseñamos y desarrollamos sitios web profesionales, landing pages y tiendas en línea que convierten
+                visitantes en clientes.</p>
+              <div class="d-flex flex-wrap gap-2 mb-3"><span class="tech-tag">HTML5</span><span
+                  class="tech-tag">CSS3</span><span class="tech-tag">JavaScript</span><span class="tech-tag">PHP</span>
+              </div>
+              <a href="#contacto" class="service-card-link">Solicitar cotización <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up">
+              <div class="service-card-icon"><i class="bi bi-tools"></i></div>
+              <h4>Soporte Técnico</h4>
+              <p>Mantenimiento preventivo y correctivo de equipos de cómputo. Diagnóstico, reparación, actualización y
+                optimización de rendimiento.</p>
+              <div class="d-flex flex-wrap gap-2 mb-3"><span class="tech-tag">Hardware</span><span
+                  class="tech-tag">Windows</span><span class="tech-tag">Linux</span><span class="tech-tag">macOS</span>
+              </div>
+              <a href="#contacto" class="service-card-link">Solicitar cotización <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up">
+              <div class="service-card-icon"><i class="bi bi-diagram-3"></i></div>
+              <h4>Redes e Infraestructura</h4>
+              <p>Diseño, instalación y configuración de redes LAN/WAN, cableado estructurado, routers, switches y puntos
+                de acceso Wi-Fi empresariales.</p>
+              <div class="d-flex flex-wrap gap-2 mb-3"><span class="tech-tag">Cisco</span><span
+                  class="tech-tag">MikroTik</span><span class="tech-tag">Ubiquiti</span><span
+                  class="tech-tag">Grandstream</span></div>
+              <a href="#contacto" class="service-card-link">Solicitar cotización <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up">
+              <div class="service-card-icon"><i class="bi bi-camera-video"></i></div>
+              <h4>Cámaras de Seguridad</h4>
+              <p>Instalación de sistemas CCTV profesionales con cámaras IP, DVR/NVR, monitoreo remoto y configuración de
+                alertas en tiempo real.</p>
+              <div class="d-flex flex-wrap gap-2 mb-3"><span class="tech-tag">Hikvision</span><span
+                  class="tech-tag">Dahua</span><span class="tech-tag">IP</span><span class="tech-tag">NVR</span></div>
+              <a href="#contacto" class="service-card-link">Solicitar cotización <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up">
+              <div class="service-card-icon"><i class="bi bi-lightbulb"></i></div>
+              <h4>Consultoría TI</h4>
+              <p>Asesoría estratégica en tecnología para tu empresa. Evaluación de infraestructura, plan de mejora y
+                optimización de recursos tecnológicos.</p>
+              <div class="d-flex flex-wrap gap-2 mb-3"><span class="tech-tag">Auditoría</span><span
+                  class="tech-tag">Estrategia</span><span class="tech-tag">Cloud</span><span
+                  class="tech-tag">Seguridad</span></div>
+              <a href="#contacto" class="service-card-link">Solicitar cotización <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-about">
+    <section class="about-section section-padding" id="nosotros">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge fade-in-up"><i class="bi bi-people"></i> Nosotros</span>
+          <h2 class="fade-in-up">Conoce a <span class="text-gradient">Clicomputer</span></h2>
+          <p class="fade-in-up">Somos una empresa mexicana dedicada a ofrecer soluciones tecnológicas integrales con los
+            más altos estándares de calidad.</p>
+        </div>
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6 fade-in-left">
+            <div class="about-image-container"
+              style="min-height: 400px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center;">
+              <div style="text-align: center; padding: 2rem;">
+                <i class="bi bi-motherboard"
+                  style="font-size: 4rem; color: var(--brand-primary); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.5rem;">Clicomputer México</h3>
+                <p style="margin: 0;">Innovación · Calidad · Compromiso</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="fade-in-right">
+              <h3 style="font-size: var(--fs-xl); margin-bottom: var(--space-lg);">Más de <span class="text-brand">5
+                  años</span> transformando negocios con tecnología</h3>
+              <p>En Clicomputer México nos especializamos en brindar soluciones tecnológicas que se adaptan a las
+                necesidades reales de cada cliente. Nuestro equipo de profesionales certificados garantiza resultados
+                que superen tus expectativas.</p>
+              <div class="about-values">
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-bullseye"></i></div>
+                  <div>
+                    <h6>Misión</h6>
+                    <p>Impulsar el crecimiento mediante soluciones tecnológicas innovadoras.</p>
+                  </div>
+                </div>
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-eye"></i></div>
+                  <div>
+                    <h6>Visión</h6>
+                    <p>Ser referente en soluciones tecnológicas integrales en México.</p>
+                  </div>
+                </div>
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-shield-check"></i></div>
+                  <div>
+                    <h6>Calidad</h6>
+                    <p>Estándares internacionales en cada proyecto.</p>
+                  </div>
+                </div>
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-heart"></i></div>
+                  <div>
+                    <h6>Compromiso</h6>
+                    <p>Dedicación total para superar expectativas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="stats-section section-padding-sm" id="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="150" data-prefix="+">0</div>
+            <div class="stat-label">Proyectos Completados</div>
+          </div>
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="80" data-prefix="+">0</div>
+            <div class="stat-label">Clientes Satisfechos</div>
+          </div>
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="5" data-prefix="+">0</div>
+            <div class="stat-label">Años de Experiencia</div>
+          </div>
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="24" data-suffix="/7">0</div>
+            <div class="stat-label">Soporte Técnico</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-projects">
+    <section class="projects-section section-padding" id="proyectos">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge fade-in-up"><i class="bi bi-folder2-open"></i> Portafolio</span>
+          <h2 class="fade-in-up">Proyectos <span class="text-gradient">destacados</span></h2>
+          <p class="fade-in-up">Una muestra de los proyectos que hemos realizado para nuestros clientes en diversas
+            industrias.</p>
+        </div>
+        <div class="project-filters fade-in-up">
+          <button class="filter-btn active" data-filter="all">Todos</button>
+          <button class="filter-btn" data-filter="software">Software</button>
+          <button class="filter-btn" data-filter="web">Web</button>
+          <button class="filter-btn" data-filter="redes">Redes</button>
+          <button class="filter-btn" data-filter="seguridad">Seguridad</button>
+        </div>
+        <div class="row g-4 stagger-children">
+          <div class="col-lg-4 col-md-6">
+            <div class="project-card fade-in-up" data-category="software">
+              <div class="project-card-img">
+                <div
+                  style="width:100%;height:100%;background:linear-gradient(135deg, rgba(75,163,217,0.2), rgba(63,185,80,0.2));display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-kanban" style="font-size:3rem;color:var(--brand-primary)"></i>
+                </div>
+                <div class="project-card-overlay"><a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+                </div>
+              </div>
+              <div class="project-card-body">
+                <h5>Sistema de Inventarios</h5>
+                <p>Aplicación de gestión de inventarios con control de entradas y reportes en tiempo real.</p>
+                <div class="d-flex flex-wrap gap-1"><span class="tech-tag">C#</span><span class="tech-tag">SQL
+                    Server</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="project-card fade-in-up" data-category="web">
+              <div class="project-card-img">
+                <div
+                  style="width:100%;height:100%;background:linear-gradient(135deg, rgba(88,196,240,0.2), rgba(188,140,255,0.2));display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-shop" style="font-size:3rem;color:var(--accent-purple)"></i>
+                </div>
+                <div class="project-card-overlay"><a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+                </div>
+              </div>
+              <div class="project-card-body">
+                <h5>E-Commerce Corporativo</h5>
+                <p>Tienda en línea completa con carrito, pasarela de pagos y panel de administración.</p>
+                <div class="d-flex flex-wrap gap-1"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="project-card fade-in-up" data-category="redes">
+              <div class="project-card-img">
+                <div
+                  style="width:100%;height:100%;background:linear-gradient(135deg, rgba(57,210,192,0.2), rgba(75,163,217,0.2));display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-hdd-rack" style="font-size:3rem;color:var(--accent-cyan)"></i>
+                </div>
+                <div class="project-card-overlay"><a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+                </div>
+              </div>
+              <div class="project-card-body">
+                <h5>Red Corporativa</h5>
+                <p>Diseño e implementación de red LAN para oficinas con 50+ usuarios.</p>
+                <div class="d-flex flex-wrap gap-1"><span class="tech-tag">MikroTik</span><span
+                    class="tech-tag">Ubiquiti</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="cta-section section-padding-sm">
+      <div class="container">
+        <div class="cta-card fade-in-up">
+          <h2>¿Listo para impulsar tu negocio?</h2>
+          <p>Contáctanos hoy y recibe una cotización personalizada sin compromiso para tu proyecto.</p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="#contacto" class="btn btn-primary-custom"><i class="bi bi-chat-dots"></i> Solicitar Cotización</a>
+            <a href="https://wa.me/525500000000" target="_blank" class="btn btn-outline-custom"><i
+                class="bi bi-whatsapp"></i> WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-contact">
+    <section class="contact-section section-padding" id="contacto">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge fade-in-up"><i class="bi bi-envelope"></i> Contacto</span>
+          <h2 class="fade-in-up">Hablemos de tu <span class="text-gradient">proyecto</span></h2>
+          <p class="fade-in-up">Cuéntanos qué necesitas y te enviaremos una propuesta personalizada sin compromiso.</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-7 fade-in-left">
+            <div class="contact-form-card">
+              <div id="formAlerts"></div>
+              <form id="contactForm" novalidate>
+                <div class="row g-3">
+                  <div class="col-md-6"><label class="form-label">Nombre completo *</label><input type="text"
+                      class="form-control" id="contactName" required>
+                    <div class="invalid-feedback">Requerido</div>
+                  </div>
+                  <div class="col-md-6"><label class="form-label">Email *</label><input type="email"
+                      class="form-control" id="contactEmail" required>
+                    <div class="invalid-feedback">Email válido</div>
+                  </div>
+                  <div class="col-md-6"><label class="form-label">Teléfono</label><input type="tel" class="form-control"
+                      id="contactPhone"></div>
+                  <div class="col-md-6"><label class="form-label">Servicio *</label><select class="form-select"
+                      id="contactService" required>
+                      <option value="" disabled selected>Selecciona</option>
+                      <option value="software">Software</option>
+                      <option value="web">Web</option>
+                      <option value="soporte">Soporte</option>
+                      <option value="redes">Redes</option>
+                      <option value="camaras">Cámaras</option>
+                    </select></div>
+                  <div class="col-12"><label class="form-label">Mensaje *</label><textarea class="form-control"
+                      id="contactMessage" rows="5" required></textarea></div>
+                  <div class="col-12"><button type="submit" class="btn btn-primary-custom w-100"><i
+                        class="bi bi-send"></i> Enviar Mensaje</button></div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-5 fade-in-right">
+            <div class="contact-info-card">
+              <h4>Información de Contacto</h4>
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                <div>
+                  <h6>Ubicación</h6>
+                  <p>Córdoba, Ver. México</p>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><i class="bi bi-telephone-fill"></i></div>
+                <div>
+                  <h6>Teléfono</h6>
+                  <p>+52 656 751 4187</p>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><i class="bi bi-envelope-fill"></i></div>
+                <div>
+                  <h6>Email</h6>
+                  <p>info@clcomputer.com</p>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><i class="bi bi-whatsapp"></i></div>
+                <div>
+                  <h6>WhatsApp</h6>
+                  <p>Envíanos un mensaje</p>
+                </div>
+              </div>
+              <div
+                style="margin-top:2rem;height:150px;background:var(--bg-subtle);border:1px solid var(--border-default);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;">
+                <i class="bi bi-map" style="font-size:2rem;color:var(--text-tertiary)"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <!-- ============================================================
+       Scripts
+       ============================================================ -->
+  <!-- Bootstrap 5.3.8 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JS Modules -->
+  <script src="js/views/view-loader.js"></script>
+  <script src="js/components/theme-switcher.js"></script>
+  <script src="js/components/navbar.js"></script>
+  <script src="js/components/animations.js"></script>
+  <script src="js/views/contact-form.js"></script>
+  <script src="js/components/mouse-follower.js"></script>
+  <script src="js/components/search.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

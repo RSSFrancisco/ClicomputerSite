@@ -1,0 +1,69 @@
+<!-- Clicomputer México — Footer Partial -->
+<footer class="cli-footer" id="footer">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Brand Column -->
+      <div class="col-lg-4 col-md-6">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <img src="assets/img/logo-clicomputer.png" alt="Clicomputer" height="32" onerror="this.style.display='none'">
+          <h5 class="mb-0">Clicomputer México</h5>
+        </div>
+        <p>Soluciones tecnológicas integrales que impulsan tu negocio. Desarrollo de software, páginas web, soporte
+          técnico, redes y seguridad.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-lg-2 col-md-6">
+        <h5>Navegación</h5>
+        <ul class="footer-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#nosotros">Nosotros</a></li>
+          <li><a href="#proyectos">Proyectos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="col-lg-3 col-md-6">
+        <h5>Servicios</h5>
+        <ul class="footer-links">
+          <li><a href="#servicios">Desarrollo de Software</a></li>
+          <li><a href="#servicios">Desarrollo Web</a></li>
+          <li><a href="#servicios">Soporte Técnico</a></li>
+          <li><a href="#servicios">Redes</a></li>
+          <li><a href="#servicios">Cámaras de Seguridad</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-lg-3 col-md-6">
+        <h5>Contacto</h5>
+        <ul class="footer-links">
+          <li><i class="bi bi-geo-alt me-2 text-brand"></i>Córdoba, Ver. México</li>
+          <li><a href="tel:+526567514187"><i class="bi bi-telephone me-2 text-brand"></i>+52 656 751 4187</a></li>
+          <li><a href="mailto:info@clcomputer.com"><i class="bi bi-envelope me-2 text-brand"></i>info@clcomputer.com</a>
+          </li>
+          <li><i class="bi bi-clock me-2 text-brand"></i>Lun - Vie: 9:00 - 18:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <p>&copy; <span id="currentYear"></span> Clicomputer México. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Dynamic year
+  const yearEl = document.getElementById('currentYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+</script>

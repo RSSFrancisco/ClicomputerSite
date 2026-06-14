@@ -1,0 +1,61 @@
+/* ==========================================================================
+   CLICOMPUTER MÉXICO — Responsive Styles
+   ========================================================================== */
+
+/* Large Desktop (1400px+) */
+@media (min-width: 1400px) {
+  .hero-terminal { max-width: 560px; }
+}
+
+/* Desktop (1200px) */
+@media (max-width: 1199.98px) {
+  .hero-float-badge { display: none; }
+}
+
+/* Tablet landscape (992px) */
+@media (max-width: 991.98px) {
+  .hero-section { min-height: auto; padding-top: calc(var(--navbar-height) + var(--space-3xl)); padding-bottom: var(--space-3xl); }
+  .hero-title { font-size: var(--fs-3xl); }
+  .hero-terminal { max-width: 100%; margin-top: var(--space-2xl); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-values { grid-template-columns: 1fr; }
+
+  .cli-navbar .navbar-collapse {
+    background: var(--bg-default);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    padding: var(--space-md);
+    margin-top: var(--space-md);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .cli-navbar .nav-link { padding: var(--space-md) !important; }
+  .cli-navbar .nav-link.active::after { display: none; }
+  .btn-cta-nav { width: 100%; text-align: center; justify-content: center; margin-top: var(--space-sm); }
+  .theme-toggle { margin-right: var(--space-md); }
+}
+
+/* Tablet portrait (768px) */
+@media (max-width: 767.98px) {
+  .section-padding { padding: var(--space-3xl) 0; }
+  .section-header { margin-bottom: var(--space-2xl); }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .btn-primary-custom, .hero-actions .btn-outline-custom { width: 100%; justify-content: center; }
+  .cta-card { padding: var(--space-2xl); }
+  .project-filters { gap: var(--space-xs); }
+  .filter-btn { padding: var(--space-xs) var(--space-md); font-size: var(--fs-xs); }
+}
+
+/* Mobile (576px) */
+@media (max-width: 575.98px) {
+  .hero-title { font-size: var(--fs-2xl); }
+  .hero-subtitle { font-size: var(--fs-base); }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+  .stat-number { font-size: var(--fs-2xl); }
+  .service-card { padding: var(--space-lg); }
+  .contact-form-card, .contact-info-card { padding: var(--space-lg); }
+  .terminal-body { font-size: var(--fs-xs); padding: var(--space-md); min-height: 160px; }
+  .tech-strip-logos { gap: var(--space-xl); }
+  .tech-strip-logos i { font-size: 1.5rem; }
+  .footer-social { justify-content: start; }
+}

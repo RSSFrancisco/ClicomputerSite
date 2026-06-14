@@ -1,0 +1,143 @@
+/* ==========================================================================
+   CLICOMPUTER MÉXICO — Design Tokens
+   Inspirado en GitHub Dark Theme con colores corporativos azules
+   ========================================================================== */
+
+:root {
+  /* ── Brand Colors ── */
+  --brand-primary: #4BA3D9;
+  --brand-primary-light: #6BB8E8;
+  --brand-primary-dark: #2B7CB5;
+  --brand-secondary: #3A7BBD;
+  --brand-accent: #58C4F0;
+
+  /* ── Dark Theme (Default) ── */
+  --bg-canvas: #0d1117;
+  --bg-default: #161b22;
+  --bg-subtle: #1c2128;
+  --bg-inset: #010409;
+  --bg-overlay: rgba(22, 27, 34, 0.85);
+  --bg-card: #1c2128;
+  --bg-card-hover: #21262d;
+
+  --border-default: #30363d;
+  --border-muted: #21262d;
+  --border-subtle: rgba(240, 246, 252, 0.1);
+
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-tertiary: #6e7681;
+  --text-link: #58a6ff;
+  --text-on-accent: #ffffff;
+
+  --accent-blue: #58a6ff;
+  --accent-green: #3fb950;
+  --accent-purple: #bc8cff;
+  --accent-orange: #f0883e;
+  --accent-red: #f85149;
+  --accent-cyan: #39d2c0;
+
+  /* ── Gradients ── */
+  --gradient-brand: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+  --gradient-hero: linear-gradient(135deg, #4BA3D9 0%, #58C4F0 50%, #3fb950 100%);
+  --gradient-card-border: linear-gradient(135deg, var(--brand-primary), transparent 60%);
+  --gradient-bg-radial: radial-gradient(ellipse at top, rgba(75, 163, 217, 0.15) 0%, transparent 60%);
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(75, 163, 217, 0.3);
+  --shadow-glow-strong: 0 0 40px rgba(75, 163, 217, 0.4);
+
+  /* ── Typography ── */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+
+  --fs-xs: clamp(0.7rem, 0.8vw, 0.75rem);
+  --fs-sm: clamp(0.8rem, 0.9vw, 0.875rem);
+  --fs-base: clamp(0.9rem, 1vw, 1rem);
+  --fs-md: clamp(1rem, 1.2vw, 1.125rem);
+  --fs-lg: clamp(1.15rem, 1.5vw, 1.25rem);
+  --fs-xl: clamp(1.4rem, 2vw, 1.75rem);
+  --fs-2xl: clamp(1.8rem, 2.5vw, 2.25rem);
+  --fs-3xl: clamp(2.2rem, 3.5vw, 3rem);
+  --fs-4xl: clamp(2.8rem, 5vw, 4rem);
+  --fs-hero: clamp(2.5rem, 6vw, 4.5rem);
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.7;
+
+  /* ── Spacing ── */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+
+  /* ── Border Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ── Transitions ── */
+  --transition-fast: 150ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 300ms ease;
+  --transition-smooth: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Z-Index Scale ── */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-tooltip: 500;
+
+  /* ── Navbar ── */
+  --navbar-height: 64px;
+}
+
+/* ── Light Theme Override ── */
+[data-bs-theme="light"] {
+  --bg-canvas: #ffffff;
+  --bg-default: #f6f8fa;
+  --bg-subtle: #eaeef2;
+  --bg-inset: #eff2f5;
+  --bg-overlay: rgba(255, 255, 255, 0.85);
+  --bg-card: #ffffff;
+  --bg-card-hover: #f6f8fa;
+
+  --border-default: #d0d7de;
+  --border-muted: #d8dee4;
+  --border-subtle: rgba(31, 35, 40, 0.1);
+
+  --text-primary: #1f2328;
+  --text-secondary: #656d76;
+  --text-tertiary: #8b949e;
+  --text-link: #0969da;
+
+  --brand-primary: #2B7CB5;
+  --brand-primary-light: #4BA3D9;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 20px rgba(43, 124, 181, 0.15);
+  --shadow-glow-strong: 0 0 40px rgba(43, 124, 181, 0.2);
+
+  --gradient-bg-radial: radial-gradient(ellipse at top, rgba(43, 124, 181, 0.08) 0%, transparent 60%);
+}
