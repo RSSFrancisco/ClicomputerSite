@@ -53,12 +53,30 @@ const App = (() => {
 
   function initSmoothScroll() {
     document.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href^="#"]');
+      const link = e.target.closest('a');
       if (!link) return;
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
+      
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      let targetId = null;
+
+      if (href.startsWith('#')) {
+        targetId = href;
+      } else if (href.includes('.html#')) {
+        const urlObj = new URL(link.href, window.location.href);
+        if (urlObj.pathname === window.location.pathname) {
+          targetId = urlObj.hash;
+        }
+      }
+
+      if (targetId) {
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          history.pushState(null, null, targetId);
+        }
       }
     });
   }

@@ -127,7 +127,6 @@
     <div id="section-home"></div>
     <div id="section-services"></div>
     <div id="section-about"></div>
-    <div id="section-projects"></div>
     <div id="section-contact"></div>
   </main>
 
@@ -141,7 +140,7 @@
   <template id="tpl-partial-navbar">
     <nav class="navbar navbar-expand-lg cli-navbar" id="mainNavbar">
       <div class="container">
-        <a class="navbar-brand" href="#inicio">
+        <a class="navbar-brand" href="index.html#inicio">
           <img src="assets/img/logo-clicomputer.png" alt="Logotipo oficial de Clicomputer México" aria-label="Logotipo de Clicomputer México" onerror="this.style.display='none'">
           <span>Clicomputer</span>
         </a>
@@ -157,11 +156,11 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarMain">
           <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link active" href="#inicio">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
-            <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
-            <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+            <li class="nav-item"><a class="nav-link active" href="index.html#inicio">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#servicios">Servicios</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#nosotros">Nosotros</a></li>
+            <li class="nav-item"><a class="nav-link" href="proyectos.html">Proyectos</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
           </ul>
           
           <!-- Barra de Búsqueda -->
@@ -173,10 +172,10 @@
 
           <div class="d-none d-lg-flex align-items-center gap-3">
             <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><i class="bi bi-sun"></i></button>
-            <a href="#contacto" class="btn btn-cta-nav"><i class="bi bi-chat-dots me-1"></i> Cotizar</a>
+            <a href="index.html#contacto" class="btn btn-cta-nav"><i class="bi bi-chat-dots me-1"></i> Cotizar</a>
           </div>
           <div class="d-lg-none mt-2">
-            <a href="#contacto" class="btn btn-cta-nav w-100"><i class="bi bi-chat-dots me-1"></i> Cotizar Ahora</a>
+            <a href="index.html#contacto" class="btn btn-cta-nav w-100"><i class="bi bi-chat-dots me-1"></i> Cotizar Ahora</a>
           </div>
         </div>
       </div>
@@ -205,21 +204,21 @@
           <div class="col-lg-2 col-md-6">
             <h5>Navegación</h5>
             <ul class="footer-links">
-              <li><a href="#inicio">Inicio</a></li>
-              <li><a href="#servicios">Servicios</a></li>
-              <li><a href="#nosotros">Nosotros</a></li>
-              <li><a href="#proyectos">Proyectos</a></li>
-              <li><a href="#contacto">Contacto</a></li>
+              <li><a href="index.html#inicio">Inicio</a></li>
+              <li><a href="index.html#servicios">Servicios</a></li>
+              <li><a href="index.html#nosotros">Nosotros</a></li>
+              <li><a href="proyectos.html">Proyectos</a></li>
+              <li><a href="index.html#contacto">Contacto</a></li>
             </ul>
           </div>
           <div class="col-lg-3 col-md-6">
             <h5>Servicios</h5>
             <ul class="footer-links">
-              <li><a href="#servicios">Desarrollo de Software</a></li>
-              <li><a href="#servicios">Desarrollo Web</a></li>
-              <li><a href="#servicios">Soporte Técnico</a></li>
-              <li><a href="#servicios">Redes</a></li>
-              <li><a href="#servicios">Cámaras de Seguridad</a></li>
+              <li><a href="index.html#servicios">Desarrollo de Software</a></li>
+              <li><a href="index.html#servicios">Desarrollo Web</a></li>
+              <li><a href="index.html#servicios">Soporte Técnico</a></li>
+              <li><a href="index.html#servicios">Redes</a></li>
+              <li><a href="index.html#servicios">Cámaras de Seguridad</a></li>
             </ul>
           </div>
           <div class="col-lg-3 col-md-6">
@@ -469,94 +468,7 @@
     </section>
   </template>
 
-  <template id="tpl-projects">
-    <section class="projects-section section-padding" id="proyectos">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-badge fade-in-up"><i class="bi bi-folder2-open"></i> Portafolio</span>
-          <h2 class="fade-in-up">Proyectos <span class="text-gradient">destacados</span></h2>
-          <p class="fade-in-up">Una muestra de los proyectos que hemos realizado para nuestros clientes en diversas
-            industrias.</p>
-        </div>
-        <div class="project-filters fade-in-up">
-          <button class="filter-btn active" data-filter="all">Todos</button>
-          <button class="filter-btn" data-filter="software">Software</button>
-          <button class="filter-btn" data-filter="web">Web</button>
-          <button class="filter-btn" data-filter="redes">Redes</button>
-          <button class="filter-btn" data-filter="seguridad">Seguridad</button>
-        </div>
-        <div class="row g-4 stagger-children">
-          <div class="col-lg-4 col-md-6">
-            <div class="project-card fade-in-up" data-category="software">
-              <div class="project-card-img">
-                <div
-                  style="width:100%;height:100%;background:linear-gradient(135deg, rgba(75,163,217,0.2), rgba(63,185,80,0.2));display:flex;align-items:center;justify-content:center;">
-                  <i class="bi bi-kanban" style="font-size:3rem;color:var(--brand-primary)"></i>
-                </div>
-                <div class="project-card-overlay"><a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
-                </div>
-              </div>
-              <div class="project-card-body">
-                <h5>Sistema de Inventarios</h5>
-                <p>Aplicación de gestión de inventarios con control de entradas y reportes en tiempo real.</p>
-                <div class="d-flex flex-wrap gap-1"><span class="tech-tag">C#</span><span class="tech-tag">SQL
-                    Server</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="project-card fade-in-up" data-category="web">
-              <div class="project-card-img">
-                <div
-                  style="width:100%;height:100%;background:linear-gradient(135deg, rgba(88,196,240,0.2), rgba(188,140,255,0.2));display:flex;align-items:center;justify-content:center;">
-                  <i class="bi bi-shop" style="font-size:3rem;color:var(--accent-purple)"></i>
-                </div>
-                <div class="project-card-overlay"><a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
-                </div>
-              </div>
-              <div class="project-card-body">
-                <h5>E-Commerce Corporativo</h5>
-                <p>Tienda en línea completa con carrito, pasarela de pagos y panel de administración.</p>
-                <div class="d-flex flex-wrap gap-1"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="project-card fade-in-up" data-category="redes">
-              <div class="project-card-img">
-                <div
-                  style="width:100%;height:100%;background:linear-gradient(135deg, rgba(57,210,192,0.2), rgba(75,163,217,0.2));display:flex;align-items:center;justify-content:center;">
-                  <i class="bi bi-hdd-rack" style="font-size:3rem;color:var(--accent-cyan)"></i>
-                </div>
-                <div class="project-card-overlay"><a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
-                </div>
-              </div>
-              <div class="project-card-body">
-                <h5>Red Corporativa</h5>
-                <p>Diseño e implementación de red LAN para oficinas con 50+ usuarios.</p>
-                <div class="d-flex flex-wrap gap-1"><span class="tech-tag">MikroTik</span><span
-                    class="tech-tag">Ubiquiti</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="cta-section section-padding-sm">
-      <div class="container">
-        <div class="cta-card fade-in-up">
-          <h2>¿Listo para impulsar tu negocio?</h2>
-          <p>Contáctanos hoy y recibe una cotización personalizada sin compromiso para tu proyecto.</p>
-          <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a href="#contacto" class="btn btn-primary-custom"><i class="bi bi-chat-dots"></i> Solicitar Cotización</a>
-            <a href="https://wa.me/525500000000" target="_blank" class="btn btn-outline-custom"><i
-                class="bi bi-whatsapp"></i> WhatsApp</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </template>
+
 
   <template id="tpl-contact">
     <section class="contact-section section-padding" id="contacto">
