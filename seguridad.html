@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es-MX" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <!-- SEO Meta Tags -->
+  <title>Cámaras de Seguridad — Clicomputer México</title>
+  <meta name="description"
+    content="Instalación de cámaras de seguridad CCTV y sistemas de videovigilancia. Protege tu hogar o negocio con Clicomputer México.">
+  <meta name="keywords"
+    content="camaras de seguridad, cctv, videovigilancia, instalacion de camaras, hikvision, dahua, seguridad, cordoba, veracruz">
+  <meta name="author" content="Clicomputer México">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Cámaras de Seguridad — Clicomputer México">
+  <meta property="og:description"
+    content="Instalación de cámaras de seguridad CCTV y sistemas de videovigilancia. Protege tu hogar o negocio con Clicomputer México.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/img/logo-clicomputer.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap 5.3.8 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Custom CSS (Modular) -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    /* Page Loader Overlay */
+    #page-loader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-canvas);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    body.loaded #page-loader {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      text-align: center;
+    }
+
+    .loader-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid var(--border-default);
+      border-top-color: var(--brand-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <!-- Prevent FOUC -->
+  <script>
+    (function () {
+      var theme = localStorage.getItem('cli-theme') ||
+        (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      document.documentElement.setAttribute('data-bs-theme', theme);
+    })();
+  </script>
+
+</head>
+
+<body>
+  <!-- Page Loader -->
+  <div id="page-loader">
+    <div class="loader-content">
+      <div class="loader-spinner"></div>
+      <p class="text-secondary fw-medium">Cargando Clicomputer...</p>
+    </div>
+  </div>
+
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
+
+  <!-- Main Content -->
+  <main>
+    <div id="section-seguridad"></div>
+  </main>
+
+  <!-- Footer Container -->
+  <div id="footer-container"></div>
+
+  <!-- ============================================================
+       Templates (For local file:// support)
+       ============================================================ -->
+
+  <template id="tpl-partial-navbar">
+    <nav class="navbar navbar-expand-lg cli-navbar" id="mainNavbar">
+      <div class="container">
+        <a class="navbar-brand" href="index.html#inicio">
+          <img src="assets/img/logo-clicomputer.png" alt="Logotipo oficial de Clicomputer México" aria-label="Logotipo de Clicomputer México" onerror="this.style.display='none'">
+          <span>Clicomputer</span>
+        </a>
+        <div class="d-flex align-items-center gap-2 d-lg-none">
+          <button class="theme-toggle" id="themeToggleMobile" aria-label="Cambiar tema"
+            onclick="ThemeSwitcher.toggle()">
+            <i class="bi bi-sun"></i>
+          </button>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Menú">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarMain">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="index.html#inicio">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#servicios">Servicios</a></li>
+            <li class="nav-item"><a class="nav-link active" href="seguridad.html">Seguridad</a></li>
+            <li class="nav-item"><a class="nav-link" href="proyectos.html">Proyectos</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html#contacto">Contacto</a></li>
+          </ul>
+          
+          <!-- Barra de Búsqueda -->
+          <div class="nav-search">
+            <i class="bi bi-search nav-search-icon"></i>
+            <input type="text" class="nav-search-input" placeholder="Buscar..." aria-label="Buscar" id="globalSearch">
+            <span class="nav-search-shortcut">/</span>
+          </div>
+
+          <div class="d-none d-lg-flex align-items-center gap-3">
+            <button class="theme-toggle" id="themeToggle" aria-label="Cambiar tema"><i class="bi bi-sun"></i></button>
+            <a href="index.html#contacto" class="btn btn-cta-nav"><i class="bi bi-chat-dots me-1"></i> Cotizar</a>
+          </div>
+          <div class="d-lg-none mt-2">
+            <a href="index.html#contacto" class="btn btn-cta-nav w-100"><i class="bi bi-chat-dots me-1"></i> Cotizar Ahora</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </template>
+
+  <template id="tpl-partial-footer">
+    <footer class="cli-footer" id="footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4 col-md-6">
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <img src="assets/img/logo-clicomputer.png" alt="Logotipo miniatura de Clicomputer México" aria-label="Logotipo de Clicomputer México en el pie de página" height="32"
+                onerror="this.style.display='none'">
+              <h5 class="mb-0">Clicomputer México</h5>
+            </div>
+            <p>Soluciones tecnológicas integrales que impulsan tu negocio. Desarrollo de software, páginas web, soporte
+              técnico, redes y seguridad.</p>
+            <div class="footer-social">
+              <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+              <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-6">
+            <h5>Navegación</h5>
+            <ul class="footer-links">
+              <li><a href="index.html#inicio">Inicio</a></li>
+              <li><a href="index.html#servicios">Servicios</a></li>
+              <li><a href="index.html#nosotros">Nosotros</a></li>
+              <li><a href="seguridad.html">Seguridad</a></li>
+              <li><a href="proyectos.html">Proyectos</a></li>
+              <li><a href="index.html#contacto">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5>Servicios</h5>
+            <ul class="footer-links">
+              <li><a href="index.html#servicios">Desarrollo de Software</a></li>
+              <li><a href="index.html#servicios">Desarrollo Web</a></li>
+              <li><a href="index.html#servicios">Soporte Técnico</a></li>
+              <li><a href="index.html#servicios">Redes</a></li>
+              <li><a href="seguridad.html">Cámaras de Seguridad</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <h5>Contacto</h5>
+            <ul class="footer-links">
+              <li><i class="bi bi-geo-alt me-2 text-brand"></i>Córdoba, Ver. México</li>
+              <li><a href="tel:+525500000000"><i class="bi bi-telephone me-2 text-brand"></i>+52 656 751 4187</a></li>
+              <li><a href="mailto:info@clcomputer.com"><i
+                    class="bi bi-envelope me-2 text-brand"></i>info@clcomputer.com</a></li>
+              <li><i class="bi bi-clock me-2 text-brand"></i>Lun - Vie: 9:00 - 18:00</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; <span id="currentYear"></span> Clicomputer México. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const yearEl = document.getElementById('currentYear');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+    </script>
+  </template>
+
+  <template id="tpl-seguridad">
+    <section class="hero-section" id="inicio" style="padding-top: 150px; padding-bottom: 80px; min-height: auto;">
+      <div class="bg-gradient-radial"></div>
+      <div class="bg-dots-pattern"></div>
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <div class="section-badge fade-in-up"><i class="bi bi-shield-lock"></i> Videovigilancia Inteligente</div>
+              <h1 class="hero-title fade-in-up">Cámaras de <span class="text-gradient">Seguridad</span> y CCTV</h1>
+              <p class="hero-subtitle fade-in-up">Protege tu negocio y hogar con sistemas de vigilancia de última generación. Monitoreo remoto 24/7, alta definición y detección inteligente.</p>
+              <div class="hero-actions fade-in-up">
+                <a href="index.html#contacto" class="btn btn-primary-custom"><i class="bi bi-chat-dots"></i> Cotizar Instalación</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="fade-in-right position-relative">
+              <div style="width:100%;height:400px;background:linear-gradient(135deg, rgba(248,81,73,0.1), rgba(240,136,62,0.1));border:1px solid var(--border-default);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="bg-dots-pattern" style="opacity: 0.3;"></div>
+                <div class="d-flex flex-column align-items-center" style="z-index: 1;">
+                   <i class="bi bi-camera-video-fill text-brand" style="font-size: 6rem; filter: drop-shadow(0 0 20px rgba(248,81,73,0.4)); animation: pulse 2s infinite;"></i>
+                   <h3 class="mt-4 fw-bold" style="letter-spacing: 2px;">VIGILANCIA 24/7</h3>
+                </div>
+                <div style="position: absolute; top: 20px; left: 20px; background: rgba(255,0,0,0.8); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                   <span style="width: 8px; height: 8px; background: white; border-radius: 50%; display: inline-block; animation: blink 1s infinite;"></span> REC
+                </div>
+              </div>
+              <style>
+                @keyframes pulse {
+                  0% { transform: scale(1); }
+                  50% { transform: scale(1.05); }
+                  100% { transform: scale(1); }
+                }
+                @keyframes blink {
+                  0% { opacity: 1; }
+                  50% { opacity: 0; }
+                  100% { opacity: 1; }
+                }
+              </style>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section section-padding" style="background-color: var(--bg-subtle);">
+      <div class="container">
+        <div class="section-header text-center mb-5">
+          <h2 class="fade-in-up">Características de nuestros <span class="text-gradient">sistemas</span></h2>
+          <p class="fade-in-up">Ofrecemos tecnología de vanguardia para garantizar tu tranquilidad en todo momento.</p>
+        </div>
+        <div class="row g-4 stagger-children">
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-phone"></i></div>
+              <h4 class="mt-4">Monitoreo Remoto</h4>
+              <p>Visualiza tus cámaras en tiempo real desde cualquier lugar del mundo a través de tu smartphone, tablet o computadora.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-eye"></i></div>
+              <h4 class="mt-4">Resolución Ultra HD</h4>
+              <p>Cámaras con resolución desde Full HD 1080p hasta 4K, que ofrecen imágenes nítidas para reconocer rostros y matrículas.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-moon-stars"></i></div>
+              <h4 class="mt-4">Visión Nocturna</h4>
+              <p>Tecnología infrarroja y sensores de baja luminosidad (ColorVu/Starlight) para capturar video claro incluso en la oscuridad total.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-person-bounding-box"></i></div>
+              <h4 class="mt-4">Detección Inteligente</h4>
+              <p>Notificaciones y alertas inmediatas al detectar movimiento, intrusión en zonas restringidas o cruce de líneas virtuales.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-hdd-network"></i></div>
+              <h4 class="mt-4">Almacenamiento Seguro</h4>
+              <p>Grabadores NVR/DVR de alta capacidad y opciones de respaldo en la nube para mantener tu evidencia protegida.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-shield-check"></i></div>
+              <h4 class="mt-4">Equipos Profesionales</h4>
+              <p>Trabajamos exclusivamente con las mejores marcas del mercado como Hikvision y Dahua para asegurar durabilidad y confiabilidad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section section-padding-sm">
+      <div class="container">
+        <div class="cta-card fade-in-up" style="background: linear-gradient(135deg, var(--bg-card), var(--bg-subtle)); border: 1px solid var(--brand-primary); box-shadow: 0 0 30px rgba(248,81,73,0.1);">
+          <h2>Protege lo que más importa</h2>
+          <p>Realizamos un levantamiento en tu sitio para diseñar el sistema de seguridad que mejor se adapte a tus necesidades y presupuesto.</p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+            <a href="index.html#contacto" class="btn btn-primary-custom">
+              <i class="bi bi-chat-dots"></i> Agendar Visita Técnica
+            </a>
+            <a href="https://wa.me/525500000000" target="_blank" class="btn btn-outline-custom">
+              <i class="bi bi-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <!-- ============================================================
+       Scripts
+       ============================================================ -->
+  <!-- Bootstrap 5.3.8 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JS Modules -->
+  <script src="js/views/view-loader.js"></script>
+  <script src="js/components/theme-switcher.js"></script>
+  <script src="js/components/navbar.js"></script>
+  <script src="js/components/animations.js"></script>
+  <script src="js/views/contact-form.js"></script>
+  <script src="js/components/mouse-follower.js"></script>
+  <script src="js/components/search.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

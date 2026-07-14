@@ -15,6 +15,7 @@ const App = (() => {
     await ViewLoader.load('services', '#section-services');
     await ViewLoader.load('about', '#section-about');
     await ViewLoader.load('projects', '#section-projects');
+    await ViewLoader.load('seguridad', '#section-seguridad');
     await ViewLoader.load('contact', '#section-contact');
   }
 
