@@ -4,13 +4,32 @@
    ========================================================================== */
 
 /* ── Hero Section ── */
+.page-breadcrumb { padding-top: calc(var(--navbar-height) + 2rem); padding-bottom: 1rem; }
+.page-breadcrumb ol { display: flex; flex-wrap: wrap; gap: .65rem; list-style: none; margin: 0; padding: 0; color: var(--text-secondary); }
+.page-breadcrumb li + li::before { content: "/"; margin-right: .65rem; color: var(--text-tertiary); }
+.service-intro { max-width: 850px; }
+.service-intro h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); margin-bottom: 1.5rem; }
+.service-intro .hero-subtitle { max-width: 760px; }
+.service-intro .hero-actions { margin-bottom: 0; }
+.service-details { margin: 2rem 0 0; max-width: 850px; }
+.service-process { background: var(--bg-default); }
+.process-list { padding-left: 1.5rem; margin-top: 1.5rem; color: var(--text-secondary); }
+.process-list li { padding: .5rem 0 .5rem .5rem; }
+.service-faq { max-width: 960px; }
+.service-faq details { border-bottom: 1px solid var(--border-default); padding: 1.25rem 0; }
+.service-faq summary { cursor: pointer; font-weight: 600; font-size: var(--fs-md); }
+.service-faq details p { margin: 1rem 0 0; }
+.related-services { display: flex; flex-wrap: wrap; gap: .8rem 2rem; padding-left: 1.25rem; margin-top: 1.5rem; }
+.contact-info-card a { overflow-wrap: anywhere; }
+
 .hero-section {
   min-height: 100vh;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding-top: var(--navbar-height);
+  padding-top: calc(var(--navbar-height) + var(--space-2xl));
+  padding-bottom: var(--space-2xl);
 }
 
 .hero-section .bg-gradient-radial {
@@ -56,75 +75,10 @@
   margin-bottom: var(--space-3xl);
 }
 
-/* Terminal Animation */
-.hero-terminal {
-  background: var(--bg-default);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  max-width: 520px;
-  width: 100%;
-}
-
-.terminal-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-md) var(--space-lg);
-  background: var(--bg-subtle);
-  border-bottom: 1px solid var(--border-default);
-}
-
-.terminal-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.terminal-dot.red { background: #f85149; }
-.terminal-dot.yellow { background: #f0883e; }
-.terminal-dot.green { background: #3fb950; }
-
-.terminal-title {
-  flex: 1;
-  text-align: center;
-  font-size: var(--fs-xs);
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-}
-
-.terminal-body {
-  padding: var(--space-lg);
-  font-family: var(--font-mono);
-  font-size: var(--fs-sm);
-  line-height: 1.8;
-  min-height: 200px;
-}
-
-.terminal-line { margin-bottom: var(--space-xs); }
-.terminal-prompt { color: var(--accent-green); }
-.terminal-command { color: var(--text-primary); }
-.terminal-output { color: var(--text-secondary); }
-.terminal-highlight { color: var(--brand-primary); }
-.terminal-string { color: var(--accent-orange); }
-
-.terminal-cursor {
-  display: inline-block;
-  width: 8px;
-  height: 18px;
-  background: var(--brand-primary);
-  vertical-align: text-bottom;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
-}
-
-/* Hero floating elements */
+/* Hero badges stay in normal flow so they cannot overlap longer headings. */
+.hero-badges { position: relative; display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
 .hero-float-badge {
-  position: absolute;
+  position: static;
   display: inline-flex;
   align-items: center;
   gap: var(--space-sm);
@@ -135,13 +89,8 @@
   border-radius: var(--radius-full);
   font-size: var(--fs-xs);
   color: var(--text-secondary);
-  animation: float 6s ease-in-out infinite;
   z-index: 1;
 }
-
-.hero-float-badge:nth-child(1) { top: 20%; right: 5%; animation-delay: 0s; }
-.hero-float-badge:nth-child(2) { top: 45%; right: 10%; animation-delay: 2s; }
-.hero-float-badge:nth-child(3) { bottom: 25%; right: 3%; animation-delay: 4s; }
 
 @keyframes float {
   0%, 100% { transform: translateY(0px); }

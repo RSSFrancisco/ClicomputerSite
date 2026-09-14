@@ -1,0 +1,84 @@
+<section class="about-section section-padding" id="nosotros">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge fade-in-up"><i class="bi bi-people"></i> Nosotros</span>
+          <h2 class="fade-in-up">Conoce a <span class="text-gradient">Clicomputer</span></h2>
+          <p class="fade-in-up">Somos una empresa mexicana dedicada a ofrecer soluciones tecnológicas integrales con los
+            más altos estándares de calidad.</p>
+        </div>
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-6 fade-in-left">
+            <div class="about-image-container"
+              style="min-height: 400px; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center;">
+              <div style="text-align: center; padding: 2rem;">
+                <i class="bi bi-motherboard"
+                  style="font-size: 4rem; color: var(--brand-primary); margin-bottom: 1rem; display: block;"></i>
+                <h3 style="font-size: var(--fs-xl); margin-bottom: 0.5rem;">Clicomputer México</h3>
+                <p style="margin: 0;">Innovación · Calidad · Compromiso</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="fade-in-right">
+              <h3 style="font-size: var(--fs-xl); margin-bottom: var(--space-lg);">Más de <span class="text-brand">5
+                  años</span> transformando negocios con tecnología</h3>
+              <p>En Clicomputer México nos especializamos en brindar soluciones tecnológicas que se adaptan a las
+                necesidades reales de cada cliente. Nuestro equipo de profesionales certificados garantiza resultados
+                que superen tus expectativas.</p>
+              <div class="about-values">
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-bullseye"></i></div>
+                  <div>
+                    <h6>Misión</h6>
+                    <p>Impulsar el crecimiento mediante soluciones tecnológicas innovadoras.</p>
+                  </div>
+                </div>
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-eye"></i></div>
+                  <div>
+                    <h6>Visión</h6>
+                    <p>Ser referente en soluciones tecnológicas integrales en México.</p>
+                  </div>
+                </div>
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-shield-check"></i></div>
+                  <div>
+                    <h6>Calidad</h6>
+                    <p>Estándares internacionales en cada proyecto.</p>
+                  </div>
+                </div>
+                <div class="about-value-item">
+                  <div class="about-value-icon"><i class="bi bi-heart"></i></div>
+                  <div>
+                    <h6>Compromiso</h6>
+                    <p>Dedicación total para superar expectativas.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="stats-section section-padding-sm" id="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="150" data-prefix="+">+150</div>
+            <div class="stat-label">Proyectos Completados</div>
+          </div>
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="80" data-prefix="+">+80</div>
+            <div class="stat-label">Clientes Satisfechos</div>
+          </div>
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="5" data-prefix="+">+5</div>
+            <div class="stat-label">Años de Experiencia</div>
+          </div>
+          <div class="stat-item fade-in-up">
+            <div class="stat-number" data-counter="24" data-suffix="/7">24/7</div>
+            <div class="stat-label">Soporte Técnico</div>
+          </div>
+        </div>
+      </div>
+    </section>

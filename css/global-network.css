@@ -1,0 +1,168 @@
+/* Tierra y red global. Las formas se dibujan con CSS, sin imágenes ni canvas. */
+.global-network {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.network-scene {
+  position: relative;
+  aspect-ratio: 1;
+  isolation: isolate;
+  background: radial-gradient(circle, rgba(75, 163, 217, .13), transparent 68%);
+}
+
+.network-globe {
+  position: absolute;
+  inset: 17%;
+  overflow: hidden;
+  border: 1px solid rgba(110, 214, 255, .65);
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 28%, #175878, #092b48 55%, #041122);
+  box-shadow: inset -22px -12px 38px #020c21, 0 0 35px rgba(75, 163, 217, .2);
+}
+
+/* Luz y sombra sobre los continentes dan volumen a la esfera. */
+.network-globe::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at 32% 28%, transparent 30%, rgba(2, 12, 33, .75) 90%);
+  box-shadow: inset 7px 4px 20px rgba(131, 231, 255, .16);
+}
+
+.globe-land {
+  position: absolute;
+  background: linear-gradient(145deg, #67d5c0, #237c89);
+  opacity: .85;
+}
+
+.globe-land--north-america {
+  left: 7%; top: 16%; width: 42%; height: 40%;
+  clip-path: polygon(0 24%, 12% 6%, 32% 0, 44% 12%, 67% 4%, 84% 16%, 100% 15%, 92% 36%, 74% 43%, 68% 61%, 55% 65%, 54% 85%, 66% 100%, 48% 94%, 32% 78%, 22% 57%, 8% 49%);
+}
+
+.globe-land--south-america {
+  left: 33%; top: 51%; width: 24%; height: 44%;
+  clip-path: polygon(0 0, 37% 0, 54% 12%, 84% 21%, 100% 38%, 75% 59%, 62% 77%, 39% 100%, 29% 84%, 28% 61%, 10% 42%, 13% 25%);
+}
+
+.globe-land--greenland {
+  left: 43%; top: 5%; width: 17%; height: 21%;
+  clip-path: polygon(0 15%, 59% 0, 100% 22%, 80% 72%, 41% 100%, 20% 57%);
+}
+
+.globe-land--europe {
+  left: 60%; top: 19%; width: 24%; height: 23%;
+  clip-path: polygon(0 72%, 20% 54%, 18% 29%, 41% 5%, 62% 0, 54% 39%, 77% 39%, 100% 57%, 86% 100%, 65% 81%, 53% 95%, 35% 73%, 14% 90%);
+}
+
+.globe-land--africa {
+  left: 57%; top: 40%; width: 30%; height: 43%;
+  clip-path: polygon(17% 0, 63% 2%, 78% 22%, 100% 34%, 85% 48%, 67% 51%, 60% 75%, 38% 100%, 26% 87%, 21% 59%, 2% 41%, 0 20%);
+}
+
+.globe-land--asia {
+  left: 78%; top: 16%; width: 37%; height: 44%;
+  clip-path: polygon(4% 8%, 40% 0, 91% 12%, 100% 53%, 77% 71%, 67% 100%, 43% 89%, 39% 64%, 18% 68%, 0 43%);
+}
+
+.globe-grid {
+  position: absolute;
+  border: 1px solid rgba(138, 219, 246, .16);
+  border-radius: 50%;
+}
+
+.globe-grid--meridian { inset: 0 22%; }
+.globe-grid--meridian-small { inset: 0 40%; }
+.globe-grid--latitude { inset: 24% 0 46%; }
+.globe-grid--latitude-south { inset: 51% 0 19%; }
+
+.network-node {
+  position: absolute;
+  z-index: 1;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d5fff7;
+  box-shadow: 0 0 10px #68efd1;
+}
+
+.network-node::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid #8cf2df;
+  border-radius: inherit;
+  animation: network-pulse 3s ease-out var(--delay) infinite;
+}
+
+/* Una órbita circular comprimida forma una elipse; el punto gira con transform. */
+.network-orbit {
+  position: absolute;
+  inset: 8%;
+  border: 1px solid rgba(88, 196, 240, .3);
+  border-radius: 50%;
+  transform: rotate(var(--tilt)) scaleY(.48);
+}
+
+.network-packet {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  animation: network-travel var(--duration) linear var(--delay) infinite;
+}
+
+.network-packet::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #beefff;
+  box-shadow: 0 0 8px #58c4f0, 0 0 18px #58c4f0;
+}
+
+[data-bs-theme="light"] .network-orbit { border-color: rgba(35, 122, 173, .4); }
+[data-bs-theme="light"] .network-packet::before { background: #389fca; box-shadow: 0 0 8px rgba(56, 159, 202, .6); }
+
+.network-label {
+  position: absolute;
+  padding: .4rem .75rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  background: var(--bg-default);
+  color: var(--text-secondary);
+  font: 500 clamp(.65rem, 1.2vw, .75rem) var(--font-mono);
+  box-shadow: var(--shadow-sm);
+}
+
+.network-label::before { content: ""; display: inline-block; width: 5px; height: 5px; margin-right: .5rem; border-radius: 50%; background: var(--brand-primary); }
+.network-label--software { left: 1%; top: 25%; }
+.network-label--data { right: 7%; top: 14%; }
+.network-label--networks { right: 2%; bottom: 23%; }
+.network-caption strong { display: block; font-size: var(--fs-md); color: var(--text-primary); }
+.network-caption span { display: block; margin-top: .35rem; font-size: var(--fs-sm); color: var(--text-secondary); }
+
+/* Sin JS el dibujo queda visible y quieto. jQuery solo controla la reproducción. */
+.network-packet, .network-node::before { animation-play-state: paused; }
+.global-network.is-running .network-packet,
+.global-network.is-running .network-node::before { animation-play-state: running; }
+
+@keyframes network-travel { to { transform: rotate(360deg); } }
+@keyframes network-pulse { from { transform: scale(.6); opacity: .8; } to { transform: scale(2.6); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .network-packet, .network-node::before { animation: none; }
+}
+
+@media (max-width: 991.98px) {
+  .hero-section .hero-actions { margin-bottom: 0; }
+  .global-network { max-width: 440px; }
+}

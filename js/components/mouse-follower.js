@@ -15,6 +15,7 @@ const MouseFollower = (() => {
   function createCat() {
     cat = document.createElement('div');
     cat.id = 'mouse-cat';
+    cat.setAttribute('aria-hidden', 'true');
     cat.innerHTML = '🐱'; // Emoji de gatito
     document.body.appendChild(cat);
   }
@@ -45,6 +46,7 @@ const MouseFollower = (() => {
   function init() {
     // Solo activar en desktop o si el usuario no tiene desactivadas las animaciones
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     
     createCat();
     window.addEventListener('mousemove', onMouseMove);

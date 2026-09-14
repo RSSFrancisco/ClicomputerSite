@@ -1,101 +1,46 @@
-/**
- * Clicomputer México — Contact Form
- * Validación client-side con feedback visual
- * Preparado para enviar vía fetch() a endpoint PHP
- */
+/** Prepares a WhatsApp draft. A visitor explicitly opens and sends it. */
 const ContactForm = (() => {
   'use strict';
 
-  let form = null;
-
-  function validate(field) {
-    const value = field.value.trim();
-    let isValid = true;
-    let message = '';
-
-    if (field.hasAttribute('required') && !value) {
-      isValid = false;
-      message = 'Este campo es requerido';
-    } else if (field.type === 'email' && value) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
-        isValid = false;
-        message = 'Ingresa un email válido';
-      }
-    } else if (field.type === 'tel' && value) {
-      const phoneRegex = /^[\d\s\-\+\(\)]{7,15}$/;
-      if (!phoneRegex.test(value)) {
-        isValid = false;
-        message = 'Ingresa un teléfono válido';
-      }
-    }
-
-    toggleFieldState(field, isValid, message);
-    return isValid;
-  }
-
-  function toggleFieldState(field, isValid, message) {
-    const feedback = field.parentElement.querySelector('.invalid-feedback');
-    if (isValid) {
-      field.classList.remove('is-invalid');
-      field.classList.add('is-valid');
-    } else {
-      field.classList.remove('is-valid');
-      field.classList.add('is-invalid');
-      if (feedback) feedback.textContent = message;
-    }
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const fields = form.querySelectorAll('.form-control, .form-select');
-    let allValid = true;
-
-    fields.forEach((field) => {
-      if (!validate(field)) allValid = false;
-    });
-
-    if (!allValid) return;
-
-    const submitBtn = form.querySelector('[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Enviando...';
-    submitBtn.disabled = true;
-
-    // Simular envío (reemplazar con fetch a PHP endpoint)
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      showAlert('success', '¡Mensaje enviado! Nos pondremos en contacto contigo pronto.');
-      form.reset();
-      fields.forEach((f) => f.classList.remove('is-valid', 'is-invalid'));
-    } catch (error) {
-      showAlert('danger', 'Error al enviar. Intenta nuevamente.');
-    } finally {
-      submitBtn.innerHTML = originalText;
-      submitBtn.disabled = false;
-    }
-  }
-
-  function showAlert(type, message) {
-    const alertContainer = document.getElementById('formAlerts');
-    if (!alertContainer) return;
-    alertContainer.innerHTML = `
-      <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-        <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      </div>`;
+  function buildMessage(values) {
+    const clean = (value) => String(value || '').trim();
+    const lines = ['Hola, Clicomputer. Me gustaría solicitar una cotización.',
+      `Nombre: ${clean(values.name)}`, `Servicio: ${clean(values.service)}`];
+    if (clean(values.email)) lines.push(`Email: ${clean(values.email)}`);
+    if (clean(values.phone)) lines.push(`Teléfono: ${clean(values.phone)}`);
+    lines.push('', clean(values.message));
+    return lines.join('\n');
   }
 
   function init() {
-    form = document.getElementById('contactForm');
-    if (!form) return;
+    const form = document.getElementById('contactForm');
+    const result = document.getElementById('formAlerts');
+    const link = document.getElementById('preparedWhatsApp');
+    if (!form || !result || !link || form.dataset.initialized) return;
+    const destination = form.dataset.whatsapp;
+    if (!/^https:\/\/wa\.me\/\d{10,15}$/.test(destination || '')) return;
 
-    form.addEventListener('submit', handleSubmit);
-    const fields = form.querySelectorAll('.form-control, .form-select');
-    fields.forEach((field) => {
-      field.addEventListener('blur', () => validate(field));
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.querySelectorAll('[required]').forEach((field) => {
+        field.setCustomValidity(field.value.trim() ? '' : 'Completa este campo.');
+      });
+      if (!form.reportValidity()) return;
+      const values = Object.fromEntries(new FormData(form));
+      link.href = `${destination}?text=${encodeURIComponent(buildMessage(values))}`;
+      link.hidden = false;
+      result.textContent = 'Tu mensaje está preparado. Ábrelo en WhatsApp, revísalo y pulsa Enviar para hacérnoslo llegar.';
+      link.focus();
     });
+    form.addEventListener('input', (event) => {
+      if (typeof event.target.setCustomValidity === 'function') event.target.setCustomValidity('');
+      link.hidden = true;
+      link.removeAttribute('href');
+      result.textContent = '';
+    });
+    form.dataset.initialized = 'true';
+    form.hidden = false;
   }
 
-  return { init };
+  return { init, buildMessage };
 })();

@@ -1,6 +1,6 @@
 /**
  * Clicomputer México — Scroll Animations
- * IntersectionObserver para fade-in, counters, terminal typing
+ * IntersectionObserver para fade-in y contadores
  */
 const Animations = (() => {
   'use strict';
@@ -55,87 +55,10 @@ const Animations = (() => {
     requestAnimationFrame(update);
   }
 
-  function initTerminalTyping() {
-    const terminal = document.querySelector('.terminal-body');
-    if (!terminal) return;
-
-    const lines = [
-      { type: 'prompt', text: '$ ' },
-      { type: 'command', text: 'clicomputer --servicios' },
-      { type: 'output', text: '' },
-      { type: 'highlight', text: '→ Desarrollo de Software' },
-      { type: 'highlight', text: '→ Desarrollo Web' },
-      { type: 'highlight', text: '→ Soporte Técnico' },
-      { type: 'highlight', text: '→ Redes e Infraestructura' },
-      { type: 'highlight', text: '→ Cámaras de Seguridad' },
-      { type: 'output', text: '' },
-      { type: 'prompt', text: '$ ' },
-      { type: 'string', text: '"Soluciones tecnológicas que impulsan tu negocio"' },
-    ];
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          typeLines(terminal, lines);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    observer.observe(terminal);
-  }
-
-  function typeLines(container, lines) {
-    container.innerHTML = '';
-    let lineIndex = 0;
-
-    function nextLine() {
-      if (lineIndex >= lines.length) {
-        const cursor = document.createElement('span');
-        cursor.className = 'terminal-cursor';
-        container.lastElementChild.appendChild(cursor);
-        return;
-      }
-
-      const line = lines[lineIndex];
-      const div = document.createElement('div');
-      div.className = 'terminal-line';
-
-      const span = document.createElement('span');
-      span.className = 'terminal-' + line.type;
-      div.appendChild(span);
-      container.appendChild(div);
-
-      if (line.text === '') {
-        lineIndex++;
-        setTimeout(nextLine, 100);
-        return;
-      }
-
-      let charIndex = 0;
-      const speed = line.type === 'command' ? 50 : 20;
-
-      function typeChar() {
-        if (charIndex < line.text.length) {
-          span.textContent += line.text[charIndex];
-          charIndex++;
-          setTimeout(typeChar, speed);
-        } else {
-          lineIndex++;
-          setTimeout(nextLine, 200);
-        }
-      }
-
-      typeChar();
-    }
-
-    nextLine();
-  }
-
   function init() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
     initScrollAnimations();
     initCounters();
-    initTerminalTyping();
   }
 
   return { init };

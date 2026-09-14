@@ -1,0 +1,39 @@
+# Apache: canonical URLs for the production domain only. Local previews are unaffected.
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # /index.html and /index.php -> /. THE_REQUEST excludes internal rewrites.
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?clcomputer\.com(?::[0-9]+)?$ [NC]
+  RewriteCond %{THE_REQUEST} \s/+index\.(?:html|php)(?:[?\s]) [NC]
+  RewriteRule ^index\.(?:html|php)$ https://www.clcomputer.com/ [R=301,L,NE]
+
+  RewriteCond %{HTTP_HOST} ^(?:www\.)?clcomputer\.com(?::[0-9]+)?$ [NC]
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} !^www\.clcomputer\.com$ [NC]
+  RewriteRule ^ https://www.clcomputer.com%{REQUEST_URI} [R=301,L,NE]
+
+  # Templates and tooling are not independent pages for visitors or search engines.
+  RewriteRule ^(?:app|config|data|views|templates|content|scripts|tests|docs|\.git)(?:/|$) - [F,L]
+  RewriteRule ^(?:router\.php|README\.md|Clicomputer\ Site\.zip)$ - [F,L]
+
+  # Existing public URLs now render through MVC, even if old HTML is left on the host.
+  RewriteRule ^(?:(?:index|seguridad|proyectos|cv|desarrollo-web|desarrollo-software|soporte-tecnico|redes|consultoria-ti)\.html|sitemap\.xml|robots\.txt)$ index.php [L,QSA]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.php [L,QSA]
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json application/xml text/xml image/svg+xml
+</IfModule>
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+  ExpiresByType image/png "access plus 7 days"
+  ExpiresByType image/jpeg "access plus 7 days"
+  ExpiresByType image/svg+xml "access plus 7 days"
+</IfModule>

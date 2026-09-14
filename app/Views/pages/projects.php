@@ -6,12 +6,12 @@
       <span class="section-badge fade-in-up">
         <i class="bi bi-folder2-open"></i> Portafolio
       </span>
-      <h2 class="fade-in-up">Proyectos <span class="text-gradient">destacados</span></h2>
+      <h1 class="fade-in-up">Proyectos <span class="text-gradient">destacados</span></h1>
       <p class="fade-in-up">Una muestra de los proyectos que hemos realizado para nuestros clientes en diversas industrias.</p>
     </div>
 
     <!-- Filter Buttons -->
-    <div class="project-filters fade-in-up">
+    <div class="project-filters fade-in-up" hidden>
       <button class="filter-btn active" data-filter="all">Todos</button>
       <button class="filter-btn" data-filter="software">Software</button>
       <button class="filter-btn" data-filter="web">Web</button>
@@ -29,11 +29,11 @@
               <i class="bi bi-kanban" style="font-size:3rem;color:var(--brand-primary)"></i>
             </div>
             <div class="project-card-overlay">
-              <a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
             </div>
           </div>
           <div class="project-card-body">
-            <h5>Sistema de Inventarios</h5>
+            <h2 class="h5">Sistema de Inventarios</h2>
             <p>Aplicación de gestión de inventarios con control de entradas, salidas y reportes en tiempo real.</p>
             <div class="d-flex flex-wrap gap-1">
               <span class="tech-tag">C#</span>
@@ -52,11 +52,11 @@
               <i class="bi bi-shop" style="font-size:3rem;color:var(--accent-purple)"></i>
             </div>
             <div class="project-card-overlay">
-              <a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
             </div>
           </div>
           <div class="project-card-body">
-            <h5>E-Commerce Corporativo</h5>
+            <h2 class="h5">E-Commerce Corporativo</h2>
             <p>Tienda en línea completa con carrito, pasarela de pagos y panel de administración.</p>
             <div class="d-flex flex-wrap gap-1">
               <span class="tech-tag">PHP</span>
@@ -75,11 +75,11 @@
               <i class="bi bi-hdd-rack" style="font-size:3rem;color:var(--accent-cyan)"></i>
             </div>
             <div class="project-card-overlay">
-              <a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
             </div>
           </div>
           <div class="project-card-body">
-            <h5>Infraestructura de Red Corporativa</h5>
+            <h2 class="h5">Infraestructura de Red Corporativa</h2>
             <p>Diseño e implementación de red LAN para oficinas con 50+ usuarios y cobertura Wi-Fi empresarial.</p>
             <div class="d-flex flex-wrap gap-1">
               <span class="tech-tag">MikroTik</span>
@@ -98,11 +98,11 @@
               <i class="bi bi-camera-video" style="font-size:3rem;color:var(--accent-orange)"></i>
             </div>
             <div class="project-card-overlay">
-              <a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
             </div>
           </div>
           <div class="project-card-body">
-            <h5>CCTV Planta Industrial</h5>
+            <h2 class="h5">CCTV Planta Industrial</h2>
             <p>Sistema de 32 cámaras IP con NVR, monitoreo remoto 24/7 y almacenamiento en la nube.</p>
             <div class="d-flex flex-wrap gap-1">
               <span class="tech-tag">Hikvision</span>
@@ -121,11 +121,11 @@
               <i class="bi bi-laptop" style="font-size:3rem;color:var(--accent-blue)"></i>
             </div>
             <div class="project-card-overlay">
-              <a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
             </div>
           </div>
           <div class="project-card-body">
-            <h5>Landing Page Energía Solar</h5>
+            <h2 class="h5">Landing Page Energía Solar</h2>
             <p>Página web optimizada para conversión de leads en el sector de energía renovable.</p>
             <div class="d-flex flex-wrap gap-1">
               <span class="tech-tag">HTML5</span>
@@ -144,11 +144,11 @@
               <i class="bi bi-receipt" style="font-size:3rem;color:var(--accent-green)"></i>
             </div>
             <div class="project-card-overlay">
-              <a href="#contacto" class="btn btn-primary-custom btn-sm">Ver Más</a>
+              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
             </div>
           </div>
           <div class="project-card-body">
-            <h5>Sistema de Facturación</h5>
+            <h2 class="h5">Sistema de Facturación</h2>
             <p>Sistema de facturación electrónica CFDI integrado con SAT para PyMEs mexicanas.</p>
             <div class="d-flex flex-wrap gap-1">
               <span class="tech-tag">PHP</span>
@@ -167,11 +167,11 @@
               <i class="bi bi-globe" style="font-size:3rem;color:var(--accent-purple)"></i>
             </div>
             <div class="project-card-overlay">
-              <a href="https://ceopi.com" target="_blank" class="btn btn-primary-custom btn-sm">Visitar Web</a>
+              <a href="https://ceopi.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom btn-sm">Visitar Web</a>
             </div>
           </div>
           <div class="project-card-body">
-            <h5>Página Web CEOPI</h5>
+            <h2 class="h5">Página Web CEOPI</h2>
             <p>Diseño y desarrollo de página web institucional para la empresa ceopi.com.</p>
             <div class="d-flex flex-wrap gap-1">
               <span class="tech-tag">HTML5</span>
@@ -192,10 +192,10 @@
       <h2>¿Listo para impulsar tu negocio?</h2>
       <p>Contáctanos hoy y recibe una cotización personalizada sin compromiso para tu proyecto.</p>
       <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <a href="#contacto" class="btn btn-primary-custom">
+        <a href="/#contacto" class="btn btn-primary-custom">
           <i class="bi bi-chat-dots"></i> Solicitar Cotización
         </a>
-        <a href="https://wa.me/525500000000" target="_blank" class="btn btn-outline-custom">
+        <a href="<?= e('https://wa.me/' . ltrim($site['telephone'], '+')) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-outline-custom">
           <i class="bi bi-whatsapp"></i> WhatsApp
         </a>
       </div>

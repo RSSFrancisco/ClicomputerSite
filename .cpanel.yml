@@ -1,0 +1,53 @@
+---
+deployment:
+  tasks:
+    - |
+      set -eu
+
+      # Raíz del sitio confirmada en el Administrador de archivos de cPanel.
+      DEPLOY_PATH="/home2/cesarre1/public_html"
+      case "$DEPLOY_PATH" in
+        /*) ;;
+        *) echo "Configura DEPLOY_PATH con la raíz absoluta del dominio." >&2; exit 1 ;;
+      esac
+      if [ ! -d "$DEPLOY_PATH" ] || [ ! -w "$DEPLOY_PATH" ]; then
+        echo "El destino debe existir y permitir escritura." >&2
+        exit 1
+      fi
+
+      # Evita copiar el repositorio sobre sí mismo o dentro de él.
+      REPOSITORY_PATH=$(pwd -P)
+      DEPLOY_PATH=$(cd "$DEPLOY_PATH" && pwd -P)
+      case "$DEPLOY_PATH/" in
+        "$REPOSITORY_PATH/"*) echo "El destino debe estar fuera del repositorio." >&2; exit 1 ;;
+      esac
+      case "$REPOSITORY_PATH/" in
+        "$DEPLOY_PATH/"*) echo "El repositorio debe estar fuera de la carpeta pública." >&2; exit 1 ;;
+      esac
+
+      # Comprueba todos los archivos antes de modificar el sitio.
+      for item in app config data assets css js index.php .htaccess; do
+        if [ ! -e "$item" ]; then
+          echo "Falta un archivo o carpeta del despliegue: $item" >&2
+          exit 1
+        fi
+      done
+
+      # Conserva íntegro el .htaccess del alojamiento, incluidos los bloques de PHP.
+      # Las reglas del proyecto deben figurar como un bloque continuo dentro de él.
+      if [ -e "$DEPLOY_PATH/.htaccess" ]; then
+        PROJECT_RULES=$(cat .htaccess)
+        SERVER_RULES=$(cat "$DEPLOY_PATH/.htaccess")
+        case "$SERVER_RULES" in
+          *"$PROJECT_RULES"*) ;;
+          *) echo "Integra primero las reglas de .htaccess del repositorio en el .htaccess del dominio, conservando la configuración de cPanel." >&2; exit 1 ;;
+        esac
+      fi
+
+      # Copia explícita: no publica .git, pruebas, herramientas ni respaldos.
+      /bin/cp -R app config data assets css js "$DEPLOY_PATH/"
+      /bin/cp index.php "$DEPLOY_PATH/index.php"
+      if [ ! -e "$DEPLOY_PATH/.htaccess" ]; then
+        /bin/cp .htaccess "$DEPLOY_PATH/.htaccess"
+      fi
+      echo "Despliegue completado en $DEPLOY_PATH"
