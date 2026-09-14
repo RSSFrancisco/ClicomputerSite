@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="accent"><stop stop-color="#4ba3d9"/><stop offset="1" stop-color="#3fb950"/></linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0d1117"/>
+  <rect x="60" y="60" width="1080" height="510" rx="24" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  <rect x="108" y="111" width="100" height="8" rx="4" fill="url(#accent)"/>
+  <text x="108" y="220" fill="#e6edf3" font-size="76" font-weight="700" font-family="Arial, sans-serif">Clicomputer México</text>
+  <text x="108" y="300" fill="#6bb8e8" font-size="36" font-family="Arial, sans-serif">Tecnología para tu negocio</text>
+  <text x="108" y="373" fill="#c3ccd5" font-size="27" font-family="Arial, sans-serif">Software · Páginas web · Soporte técnico</text>
+  <text x="108" y="418" fill="#c3ccd5" font-size="27" font-family="Arial, sans-serif">Redes · Cámaras de seguridad</text>
+  <path d="M108 459h984" stroke="#30363d" stroke-width="2"/>
+  <text x="108" y="518" fill="#9da7b3" font-size="25" font-family="Arial, sans-serif">Córdoba, Veracruz</text>
+  <text x="1092" y="518" text-anchor="end" fill="#9da7b3" font-size="25" font-family="Arial, sans-serif">www.clcomputer.com</text>
+</svg>

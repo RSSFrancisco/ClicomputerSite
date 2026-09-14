@@ -8,10 +8,11 @@ const SearchController = (() => {
   function init() {
     const searchInput = document.getElementById('globalSearch');
     if (!searchInput) return;
+    searchInput.closest('.nav-search').hidden = false;
 
     // Atajo de teclado: "/" para buscar
     document.addEventListener('keydown', (e) => {
-      if (e.key === '/' && document.activeElement !== searchInput) {
+      if (e.key === '/' && !e.target.closest('input, textarea, select, [contenteditable="true"]')) {
         e.preventDefault();
         searchInput.focus();
       }
@@ -28,7 +29,7 @@ const SearchController = (() => {
 
   function performSearch(term) {
     // Buscar en secciones principales
-    const sections = ['#section-home', '#section-services', '#section-about', '#section-projects', '#section-contact'];
+    const sections = ['#section-home', '#section-services', '#section-about', '#section-projects', '#section-seguridad', '#section-contact', '#servicio'];
     let bestMatch = null;
 
     for (const id of sections) {

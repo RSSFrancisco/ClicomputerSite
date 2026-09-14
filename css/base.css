@@ -3,6 +3,7 @@
    ========================================================================== */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[hidden] { display: none !important; }
 html{scroll-behavior:smooth;scroll-padding-top:var(--navbar-height);-webkit-text-size-adjust:100%}
 
 body {
@@ -60,13 +61,13 @@ img { max-width: 100%; height: auto; display: block; }
 .section-divider { width:60px;height:3px;background:var(--gradient-brand);border-radius:var(--radius-full);margin:var(--space-lg) auto }
 
 /* Animations */
-.fade-in-up { opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease }
+.fade-in-up { opacity:1;transform:none }
 .fade-in-up.visible { opacity:1;transform:translateY(0) }
-.fade-in-left { opacity:0;transform:translateX(-30px);transition:opacity .6s ease,transform .6s ease }
+.fade-in-left { opacity:1;transform:none }
 .fade-in-left.visible { opacity:1;transform:translateX(0) }
-.fade-in-right { opacity:0;transform:translateX(30px);transition:opacity .6s ease,transform .6s ease }
+.fade-in-right { opacity:1;transform:none }
 .fade-in-right.visible { opacity:1;transform:translateX(0) }
-.scale-in { opacity:0;transform:scale(.9);transition:opacity .5s ease,transform .5s ease }
+.scale-in { opacity:1;transform:none }
 .scale-in.visible { opacity:1;transform:scale(1) }
 
 .stagger-children>*:nth-child(1){transition-delay:0ms}

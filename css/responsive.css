@@ -37,6 +37,7 @@
 
 /* Tablet portrait (768px) */
 @media (max-width: 767.98px) {
+  .row.g-5 { --bs-gutter-x: 1.5rem; }
   .section-padding { padding: var(--space-3xl) 0; }
   .section-header { margin-bottom: var(--space-2xl); }
   .hero-actions { flex-direction: column; }

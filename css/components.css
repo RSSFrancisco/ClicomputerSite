@@ -24,6 +24,12 @@
   box-shadow: var(--shadow-md);
 }
 
+/* Without Bootstrap JS the navigation remains expanded and in document flow. */
+.cli-navbar:not(.navigation-ready) { position: static; background: var(--bg-default); }
+.skip-link { position: fixed; top: -100px; left: 1rem; z-index: 1000; padding: 1rem; background: var(--bg-default); }
+.skip-link:focus { top: 1rem; }
+:focus-visible { outline: 3px solid var(--brand-primary); outline-offset: 4px; }
+
 .cli-navbar .navbar-brand {
   display: flex;
   align-items: center;
@@ -220,7 +226,7 @@
   transform: scale(1.1);
 }
 
-.service-card h4 {
+.service-card h4, .service-card h3.h4 {
   font-size: var(--fs-lg);
   margin-bottom: var(--space-sm);
 }
@@ -289,7 +295,7 @@
 
 .project-card-body { padding: var(--space-lg); }
 
-.project-card-body h5 {
+.project-card-body h5, .project-card-body h2.h5 {
   font-size: var(--fs-base);
   margin-bottom: var(--space-sm);
 }
@@ -489,4 +495,3 @@
     margin: var(--space-md) 0;
   }
 }
-

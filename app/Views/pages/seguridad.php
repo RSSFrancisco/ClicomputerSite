@@ -1,0 +1,121 @@
+<section class="hero-section" id="inicio" style="padding-top: 40px; padding-bottom: 80px; min-height: auto;">
+      <div class="bg-gradient-radial"></div>
+      <div class="bg-dots-pattern"></div>
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <div class="hero-content">
+              <div class="section-badge fade-in-up"><i class="bi bi-shield-lock"></i> Videovigilancia Inteligente</div>
+              <h1 class="hero-title fade-in-up">Cámaras de seguridad <span class="text-gradient">en Córdoba, Veracruz</span></h1>
+              <p class="hero-subtitle fade-in-up">Protege tu negocio y hogar con sistemas de vigilancia de última generación. Monitoreo remoto 24/7, alta definición y detección inteligente.</p>
+              <div class="hero-actions fade-in-up">
+                <a href="/#contacto" class="btn btn-primary-custom"><i class="bi bi-chat-dots"></i> Cotizar Instalación</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="fade-in-right position-relative">
+              <div style="width:100%;height:400px;background:linear-gradient(135deg, rgba(248,81,73,0.1), rgba(240,136,62,0.1));border:1px solid var(--border-default);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+                <div class="bg-dots-pattern" style="opacity: 0.3;"></div>
+                <div class="d-flex flex-column align-items-center" style="z-index: 1;">
+                   <i class="bi bi-camera-video-fill text-brand" style="font-size: 6rem; filter: drop-shadow(0 0 20px rgba(248,81,73,0.4)); animation: pulse 2s infinite;"></i>
+                   <h3 class="mt-4 fw-bold" style="letter-spacing: 2px;">VIGILANCIA 24/7</h3>
+                </div>
+                <div style="position: absolute; top: 20px; left: 20px; background: rgba(255,0,0,0.8); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                   <span style="width: 8px; height: 8px; background: white; border-radius: 50%; display: inline-block; animation: blink 1s infinite;"></span> REC
+                </div>
+              </div>
+              <style>
+                @keyframes pulse {
+                  0% { transform: scale(1); }
+                  50% { transform: scale(1.05); }
+                  100% { transform: scale(1); }
+                }
+                @keyframes blink {
+                  0% { opacity: 1; }
+                  50% { opacity: 0; }
+                  100% { opacity: 1; }
+                }
+              </style>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section section-padding" style="background-color: var(--bg-subtle);">
+      <div class="container">
+        <div class="section-header text-center mb-5">
+          <h2 class="fade-in-up">Características de nuestros <span class="text-gradient">sistemas</span></h2>
+          <p class="fade-in-up">Ofrecemos tecnología de vanguardia para garantizar tu tranquilidad en todo momento.</p>
+        </div>
+        <div class="row g-4 stagger-children">
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-phone"></i></div>
+              <h3 class="h4 mt-4">Monitoreo Remoto</h3>
+              <p>Visualiza tus cámaras en tiempo real desde cualquier lugar del mundo a través de tu smartphone, tablet o computadora.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-eye"></i></div>
+              <h3 class="h4 mt-4">Resolución Ultra HD</h3>
+              <p>Cámaras con resolución desde Full HD 1080p hasta 4K, que ofrecen imágenes nítidas para reconocer rostros y matrículas.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-moon-stars"></i></div>
+              <h3 class="h4 mt-4">Visión Nocturna</h3>
+              <p>Tecnología infrarroja y sensores de baja luminosidad (ColorVu/Starlight) para capturar video claro incluso en la oscuridad total.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-person-bounding-box"></i></div>
+              <h3 class="h4 mt-4">Detección Inteligente</h3>
+              <p>Notificaciones y alertas inmediatas al detectar movimiento, intrusión en zonas restringidas o cruce de líneas virtuales.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-hdd-network"></i></div>
+              <h3 class="h4 mt-4">Almacenamiento Seguro</h3>
+              <p>Grabadores NVR/DVR de alta capacidad y opciones de respaldo en la nube para mantener tu evidencia protegida.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="service-card fade-in-up text-center h-100" style="padding: 3rem 2rem;">
+              <div class="service-card-icon mx-auto" style="width: 80px; height: 80px; font-size: 2.5rem;"><i class="bi bi-shield-check"></i></div>
+              <h3 class="h4 mt-4">Equipos Profesionales</h3>
+              <p>Trabajamos exclusivamente con las mejores marcas del mercado como Hikvision y Dahua para asegurar durabilidad y confiabilidad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section section-padding-sm">
+      <div class="container">
+        <div class="cta-card fade-in-up" style="background: linear-gradient(135deg, var(--bg-card), var(--bg-subtle)); border: 1px solid var(--brand-primary); box-shadow: 0 0 30px rgba(248,81,73,0.1);">
+          <h2>Protege lo que más importa</h2>
+          <p>Realizamos un levantamiento en tu sitio para diseñar el sistema de seguridad que mejor se adapte a tus necesidades y presupuesto.</p>
+          <div class="d-flex justify-content-center gap-3 flex-wrap mt-4">
+            <a href="/#contacto" class="btn btn-primary-custom">
+              <i class="bi bi-chat-dots"></i> Agendar Visita Técnica
+            </a>
+            <a href="<?= e('https://wa.me/' . ltrim($site['telephone'], '+')) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-outline-custom">
+              <i class="bi bi-whatsapp"></i> WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="section-padding-sm"><div class="container service-faq"><h2 class="mb-4">Antes de instalar tu sistema CCTV</h2>
+<details><summary>¿Qué necesitan para cotizar la instalación?</summary><p>Indícanos la ubicación, las áreas que quieres vigilar y si ya tienes cámaras o cableado. Una revisión del sitio permite definir equipos, recorridos y almacenamiento.</p></details>
+<details><summary>¿Puedo ver las cámaras desde mi teléfono?</summary><p>Es posible con equipos compatibles y una conexión de internet adecuada. La configuración de acceso remoto y los permisos se acuerdan según el sistema elegido.</p></details>
+<details><summary>¿Cuántos días de grabación puedo conservar?</summary><p>Depende del número de cámaras, resolución, capacidad del disco y modalidad de grabación. Definimos estas necesidades antes de seleccionar el grabador y el almacenamiento.</p></details>
+<p class="mt-4">Consulta también nuestro servicio de <a href="/redes.html">redes y cableado estructurado</a> y los <a href="/proyectos.html">proyectos de videovigilancia</a>.</p></div></section>

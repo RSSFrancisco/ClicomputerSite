@@ -133,6 +133,7 @@ const Animations = (() => {
   }
 
   function init() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
     initScrollAnimations();
     initCounters();
     initTerminalTyping();
