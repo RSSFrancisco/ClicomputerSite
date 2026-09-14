@@ -24,7 +24,7 @@ const App = (() => {
   function init() {
     const modules = [
       () => ContactForm.init(), () => ThemeSwitcher.init(), () => NavbarController.init(),
-      () => Animations.init(), () => MouseFollower.init(), () => SearchController.init(),
+      () => Animations.init(), () => SearchController.init(),
       initProjectFilters
     ];
     modules.forEach((initModule) => {

@@ -18,7 +18,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <?= $view->render('partials/global-network') ?>
+            <?= $view->render('partials/global-network', ['services' => $site['network_services']]) ?>
             <div class="hero-badges">
               <span class="hero-float-badge"><i class="bi bi-shield-check text-brand" aria-hidden="true"></i> Seguridad Garantizada</span>
               <span class="hero-float-badge"><i class="bi bi-lightning-charge text-brand" aria-hidden="true"></i> Soporte 24/7</span>
