@@ -104,7 +104,7 @@ Clonar el repositorio o hacer push a GitHub no publica automáticamente el sitio
 
 Se añadió marcado `Organization`, `WebSite`, `WebPage`, `Service` y rutas de navegación según la página. No se han inventado direcciones de calle, reseñas, precios ni perfiles sociales. El marcado específico de negocio local puede completarse cuando estén confirmados los datos necesarios.
 
-El logotipo original no estaba en el repositorio ni en el respaldo: se utiliza el nombre como marca tipográfica, un favicon propio y una imagen PNG de 1200 × 630 para compartir. `assets/img/social-card.svg` es el original editable de esa imagen.
+La identidad web usa el logo completo y el símbolo originales proporcionados por el propietario, guardados en `assets/img/clicomputer-logo.png` y `assets/img/clicomputer-symbol.png`. El parcial `app/Views/partials/brand.php` comparte el logo entre navegación y pie; el símbolo se usa como favicon. La paleta se define en `css/variables.css` y su aplicación en `css/brand.css`. Consulta [la guía de identidad](docs/identidad.md). La imagen PNG de 1200 × 630 para compartir conserva por ahora el diseño anterior; `assets/img/social-card.svg` es su original editable.
 
 Se conservaron las cifras y descripciones de proyectos que ya figuraban en el sitio. Conviene confirmar que reflejan trabajos y disponibilidad reales. Córdoba, Veracruz, el teléfono y el correo proceden del contenido existente.
 

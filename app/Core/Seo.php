@@ -17,6 +17,7 @@ final class Seo
         $graph = [[
             '@type' => 'Organization', '@id' => $base . '/#organization',
             'name' => $site['name'], 'url' => $base . '/',
+            'logo' => $base . '/assets/img/clicomputer-symbol.png',
             'telephone' => $site['telephone'], 'email' => $site['email'],
             'address' => ['@type' => 'PostalAddress', 'addressLocality' => $site['locality'],
                 'addressRegion' => $site['region'], 'addressCountry' => $site['country']],

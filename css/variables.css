@@ -1,33 +1,36 @@
 /* ==========================================================================
    CLICOMPUTER MÉXICO — Design Tokens
-   Inspirado en GitHub Dark Theme con colores corporativos azules
+   Identidad web basada en el símbolo azul y gris de Clicomputer
    ========================================================================== */
 
 :root {
   /* ── Brand Colors ── */
-  --brand-primary: #4BA3D9;
-  --brand-primary-light: #6BB8E8;
-  --brand-primary-dark: #2B7CB5;
-  --brand-secondary: #3A7BBD;
-  --brand-accent: #58C4F0;
+  --brand-blue: #009ed3;
+  --brand-slate: #505e65;
+  --brand-primary: #49bce2;
+  --brand-primary-light: #81d6ee;
+  --brand-primary-dark: #006f98;
+  --brand-secondary: var(--brand-slate);
+  --brand-accent: var(--brand-blue);
+  --brand-action: #006f98;
 
   /* ── Dark Theme (Default) ── */
-  --bg-canvas: #0d1117;
-  --bg-default: #161b22;
-  --bg-subtle: #1c2128;
-  --bg-inset: #010409;
-  --bg-overlay: rgba(22, 27, 34, 0.85);
-  --bg-card: #1c2128;
-  --bg-card-hover: #21262d;
+  --bg-canvas: #111b20;
+  --bg-default: #18252b;
+  --bg-subtle: #203139;
+  --bg-inset: #0d1519;
+  --bg-overlay: rgba(17, 27, 32, 0.96);
+  --bg-card: #1b2a31;
+  --bg-card-hover: #203139;
 
-  --border-default: #30363d;
-  --border-muted: #21262d;
+  --border-default: #35464e;
+  --border-muted: #2a3a42;
   --border-subtle: rgba(240, 246, 252, 0.1);
 
-  --text-primary: #e6edf3;
-  --text-secondary: #8b949e;
-  --text-tertiary: #6e7681;
-  --text-link: #58a6ff;
+  --text-primary: #f3f6f7;
+  --text-secondary: #afbec5;
+  --text-tertiary: #90a6b0;
+  --text-link: var(--brand-primary);
   --text-on-accent: #ffffff;
 
   --accent-blue: #58a6ff;
@@ -38,8 +41,8 @@
   --accent-cyan: #39d2c0;
 
   /* ── Gradients ── */
-  --gradient-brand: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
-  --gradient-hero: linear-gradient(135deg, #4BA3D9 0%, #58C4F0 50%, #3fb950 100%);
+  --gradient-brand: linear-gradient(135deg, var(--brand-action), #0083b0);
+  --gradient-hero: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
   --gradient-card-border: linear-gradient(135deg, var(--brand-primary), transparent 60%);
   --gradient-bg-radial: radial-gradient(ellipse at top, rgba(75, 163, 217, 0.15) 0%, transparent 60%);
 
@@ -52,6 +55,7 @@
 
   /* ── Typography ── */
   --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-brand: Georgia, 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
 
   --fs-xs: clamp(0.7rem, 0.8vw, 0.75rem);
@@ -88,8 +92,8 @@
 
   /* ── Border Radius ── */
   --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
   --radius-xl: 16px;
   --radius-2xl: 24px;
   --radius-full: 9999px;
@@ -108,30 +112,30 @@
   --z-tooltip: 500;
 
   /* ── Navbar ── */
-  --navbar-height: 64px;
+  --navbar-height: 80px;
 }
 
 /* ── Light Theme Override ── */
 [data-bs-theme="light"] {
-  --bg-canvas: #ffffff;
-  --bg-default: #f6f8fa;
-  --bg-subtle: #eaeef2;
-  --bg-inset: #eff2f5;
-  --bg-overlay: rgba(255, 255, 255, 0.85);
+  --bg-canvas: #fafcfb;
+  --bg-default: #f0f5f6;
+  --bg-subtle: #e5eef1;
+  --bg-inset: #e0eaee;
+  --bg-overlay: rgba(250, 252, 251, 0.97);
   --bg-card: #ffffff;
-  --bg-card-hover: #f6f8fa;
+  --bg-card-hover: #f5fafb;
 
   --border-default: #d0d7de;
   --border-muted: #d8dee4;
   --border-subtle: rgba(31, 35, 40, 0.1);
 
-  --text-primary: #1f2328;
-  --text-secondary: #656d76;
-  --text-tertiary: #8b949e;
-  --text-link: #0969da;
+  --text-primary: #273a43;
+  --text-secondary: #505e65;
+  --text-tertiary: #5f737e;
+  --text-link: #006f98;
 
-  --brand-primary: #2B7CB5;
-  --brand-primary-light: #4BA3D9;
+  --brand-primary: #006f98;
+  --brand-primary-light: #005f84;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);

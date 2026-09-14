@@ -3,7 +3,7 @@
 
 <head>
   <?= $view->render('partials/seo', compact('page', 'site', 'canonical', 'schema')) ?>
-  <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="<?= e(asset('assets/img/clicomputer-symbol.png')) ?>" type="image/png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
