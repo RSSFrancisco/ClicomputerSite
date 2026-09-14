@@ -71,6 +71,24 @@ El servidor no envía mensajes, no almacena solicitudes y no requiere credencial
 
 La vista previa con `php -S` no aplica `.htaccess`; la normalización del dominio y HTTPS se verifica por separado en Apache. El proyecto no ha sido publicado automáticamente.
 
+## Desplegar desde GitHub con cPanel
+
+El archivo `.cpanel.yml` define una tarea de despliegue hacia `/home2/cesarre1/public_html`, la carpeta del sitio confirmada en cPanel. La copia del repositorio está en `/home2/cesarre1/repositories/ClicomputerSite`. Si cambia el alojamiento o la raíz del dominio, actualiza `DEPLOY_PATH` con la nueva ruta absoluta. La carpeta de destino debe existir, ser escribible y estar separada de la copia del repositorio.
+
+La tarea copia `app/`, `config/`, `data/`, `assets/`, `css/`, `js/` e `index.php`. Sobrescribe los archivos correspondientes, conserva los demás archivos existentes y no hace una publicación atómica. Guarda un respaldo del sitio antes del primer despliegue. No necesitas Node ni Composer en el servidor.
+
+Si el dominio ya tiene `.htaccess`, la tarea verifica que contiene el contenido completo del `.htaccess` del repositorio como un bloque continuo, y lo conserva sin cambios. Si faltan esas reglas, se detiene **antes de copiar**. Integra el bloque del proyecto una vez en el archivo del dominio, preservando los bloques PHP generados por cPanel y revisando las reglas antiguas que puedan entrar en conflicto. Si posteriormente cambia el `.htaccess` del repositorio, actualiza también ese bloque en el servidor. Cuando el destino no tiene `.htaccess`, la tarea instala el del proyecto al terminar la copia.
+
+Para publicar:
+
+1. Guarda y sube a GitHub el código y `.cpanel.yml` mediante commit y push en la rama que vas a desplegar.
+2. En cPanel → Git Version Control → Manage, selecciona esa rama. La copia del servidor debe tener un árbol de trabajo limpio.
+3. En Pull or Deploy, pulsa **Update from Remote** y comprueba que aparece el commit esperado.
+4. Pulsa **Deploy HEAD Commit**. Si la tarea se detiene por el destino o por `.htaccess`, corrige el motivo indicado antes de repetirla.
+5. Verifica las páginas, las animaciones, el formulario, las rutas SEO y los errores 404 indicados en la sección anterior.
+
+Clonar el repositorio o hacer push a GitHub no publica automáticamente el sitio con este flujo. Referencia: [despliegue Git de cPanel](https://docs.cpanel.net/knowledge-base/web-services/guide-to-git-deployment/).
+
 ## Seguimiento SEO
 
 - Usa la propiedad existente de Search Console o verifica el dominio con el registro DNS que Google indique. No se ha inventado un código de verificación.
