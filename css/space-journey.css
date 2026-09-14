@@ -1,0 +1,125 @@
+/* Fondo < cohete < contenido Bootstrap. Las tarjetas conservan su fondo opaco. */
+.has-space-journey { position: relative; isolation: isolate; }
+.has-space-journey .container { position: relative; z-index: 2; }
+
+.space-journey {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.space-journey.is-enabled { visibility: visible; }
+
+/* Estrellas estáticas: no imágenes, canvas ni partículas generadas por frame. */
+.space-journey::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .35;
+  background-image:
+    radial-gradient(circle at 24px 38px, #6bb8e8 1px, transparent 1.5px),
+    radial-gradient(circle at 80px 120px, #83d8d0 1px, transparent 1.5px),
+    radial-gradient(circle at 150px 65px, #6bb8e8 .7px, transparent 1.2px);
+  background-size: 247px 311px, 373px 257px, 193px 419px;
+  mask-image: linear-gradient(transparent, #000 900px);
+}
+
+.space-rocket, .space-journey-spark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.space-rocket { will-change: transform; }
+
+/* La punta mira hacia arriba; JavaScript orienta el conjunto según la curva. */
+.space-rocket-shape {
+  position: absolute;
+  width: 54px;
+  height: 88px;
+  left: -27px;
+  top: -44px;
+  filter: drop-shadow(0 0 12px rgba(88, 196, 240, .3));
+}
+
+.space-rocket-body {
+  position: absolute;
+  inset: 0 13px 17px;
+  border: 1px solid #9ed5ed;
+  border-radius: 50% 50% 24% 24% / 55% 55% 12% 12%;
+  background: linear-gradient(90deg, #81aec5, #e6f5fa 40%, #c1dfe9 65%, #5d91af);
+}
+
+.space-rocket-body::after {
+  content: "";
+  position: absolute;
+  inset: auto 3px 7px;
+  height: 4px;
+  border-radius: 2px;
+  background: #337ca7;
+}
+
+.space-rocket-window {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  left: 19px;
+  top: 25px;
+  border: 3px solid #548eae;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d1fbff, #3ba2d1 45%, #143e62 50%);
+}
+
+.space-rocket-fin {
+  position: absolute;
+  width: 17px;
+  height: 35px;
+  top: 39px;
+  background: linear-gradient(100deg, #287eb3, #6dc7eb);
+}
+
+.space-rocket-fin--left { left: 1px; clip-path: polygon(100% 0, 100% 85%, 0 100%, 15% 48%); }
+.space-rocket-fin--right { right: 1px; clip-path: polygon(0 0, 0 85%, 100% 100%, 85% 48%); }
+
+.space-rocket-flame {
+  position: absolute;
+  top: 66px;
+  left: 19px;
+  width: 16px;
+  height: 44px;
+  border-radius: 20% 20% 50% 50%;
+  background: linear-gradient(#f5fbff, #8de5f6 25%, #3eacdf 58%, transparent);
+  transform-origin: center top;
+  animation: rocket-flame .32s ease-in-out infinite alternate paused;
+}
+
+.space-journey.is-flying .space-rocket-flame { animation-play-state: running; }
+
+.space-journey-spark {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px;
+  border-radius: 50%;
+  background: #83dbe9;
+  box-shadow: 0 0 9px rgba(88, 196, 240, .65);
+}
+
+@keyframes rocket-flame {
+  from { transform: scaleY(.8); opacity: .7; }
+  to { transform: scaleY(1.12); opacity: 1; }
+}
+
+[data-bs-theme="light"] .space-journey::before { opacity: .2; }
+[data-bs-theme="light"] .space-journey-spark { background: #2888b5; }
+
+@media (max-width: 575.98px) {
+  .space-rocket-shape { transform: scale(.75); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .space-journey { display: none; }
+}

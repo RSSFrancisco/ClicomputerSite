@@ -19,6 +19,7 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <?php endforeach ?>
   <?php if ($hasGlobalNetwork): ?>
     <link rel="stylesheet" href="<?= e(asset('css/global-network.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset('css/space-journey.css')) ?>">
   <?php endif ?>
   <?php if ($hasSecurityNetwork): ?>
     <link rel="stylesheet" href="<?= e(asset('css/security-network.css')) ?>">
@@ -34,7 +35,10 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <?= $view->render('partials/navbar', compact('page')) ?>
-  <main id="contenido">
+  <main id="contenido"<?= $hasGlobalNetwork ? ' class="has-space-journey"' : '' ?>>
+    <?php if ($hasGlobalNetwork): ?>
+      <?= $view->render('partials/space-journey') ?>
+    <?php endif ?>
     <?php if ($page['file'] !== 'index.html'): ?>
       <?= $view->render('partials/breadcrumb', compact('page')) ?>
     <?php endif ?>
@@ -46,7 +50,11 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
     <script defer src="<?= e(asset('js/vendor/jquery-4.0.0.slim.min.js')) ?>"></script>
     <script defer src="<?= e(asset('js/components/network-animation.js')) ?>"></script>
   <?php endif ?>
-  <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'views/contact-form', 'components/mouse-follower', 'components/search', 'app'] as $script): ?>
+  <?php if ($hasGlobalNetwork): ?>
+    <script defer src="<?= e(asset('js/components/service-popovers.js')) ?>"></script>
+    <script defer src="<?= e(asset('js/components/space-journey.js')) ?>"></script>
+  <?php endif ?>
+  <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'views/contact-form', 'components/search', 'app'] as $script): ?>
     <script defer src="<?= e(asset('js/' . $script . '.js')) ?>"></script>
   <?php endforeach ?>
 </body>

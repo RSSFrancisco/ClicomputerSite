@@ -10,6 +10,28 @@ return array (
   'locality' => 'Córdoba',
   'region' => 'Veracruz',
   'country' => 'MX',
+  'network_services' => [
+    [
+      'id' => 'seguridad', 'label' => 'Seguridad', 'icon' => 'bi-shield-lock',
+      'description' => 'Cámaras de seguridad, grabación y monitoreo remoto para proteger tu hogar o negocio.',
+    ],
+    [
+      'id' => 'soporte', 'label' => 'Soporte', 'icon' => 'bi-tools',
+      'description' => 'Diagnóstico, mantenimiento y reparación de equipos de cómputo para mantener tu operación en marcha.',
+    ],
+    [
+      'id' => 'redes', 'label' => 'Redes', 'icon' => 'bi-diagram-3',
+      'description' => 'Redes empresariales, cableado estructurado y Wi-Fi para conectar tus equipos de forma estable y segura.',
+    ],
+    [
+      'id' => 'marketing', 'label' => 'Marketing', 'icon' => 'bi-megaphone',
+      'description' => 'Estrategia digital, contenido y presencia en línea para dar a conocer tu negocio y conectar con tus clientes.',
+    ],
+    [
+      'id' => 'software', 'label' => 'Software', 'icon' => 'bi-code-slash',
+      'description' => 'Sistemas a la medida para organizar información, automatizar procesos y facilitar la operación de tu empresa.',
+    ],
+  ],
   'pages' => 
   array (
     0 => 

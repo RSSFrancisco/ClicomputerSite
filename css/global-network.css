@@ -14,6 +14,9 @@
   background: radial-gradient(circle, rgba(75, 163, 217, .13), transparent 68%);
 }
 
+/* Los botones quedan fuera de la imagen decorativa para ser accesibles. */
+.network-artwork { position: absolute; inset: 0; pointer-events: none; }
+
 .network-globe {
   position: absolute;
   inset: 17%;
@@ -134,19 +137,49 @@
 
 .network-label {
   position: absolute;
-  padding: .4rem .75rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 44px;
+  padding: .55rem .85rem;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-full);
   background: var(--bg-default);
-  color: var(--text-secondary);
-  font: 500 clamp(.65rem, 1.2vw, .75rem) var(--font-mono);
+  color: var(--text-primary);
+  font: 500 clamp(.75rem, 1.2vw, .8rem) var(--font-primary);
   box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+  transition: border-color .2s, background-color .2s;
 }
 
-.network-label::before { content: ""; display: inline-block; width: 5px; height: 5px; margin-right: .5rem; border-radius: 50%; background: var(--brand-primary); }
-.network-label--software { left: 1%; top: 25%; }
-.network-label--data { right: 7%; top: 14%; }
-.network-label--networks { right: 2%; bottom: 23%; }
+.network-label .bi { color: var(--brand-primary); font-size: 1rem; }
+.network-label:hover, .network-label[aria-expanded="true"] { color: var(--text-primary); background: var(--bg-card-hover); border-color: var(--brand-primary); }
+.network-label:focus-visible { outline: 2px solid var(--brand-primary); outline-offset: 4px; box-shadow: none; }
+.network-label--seguridad { left: 0; top: 20%; }
+.network-label--soporte { right: 0; top: 17%; }
+.network-label--redes { right: 0; bottom: 21%; }
+.network-label--marketing { left: 0; bottom: 24%; }
+.network-label--software { left: 50%; bottom: 1%; transform: translateX(-50%); }
+
+.network-service-popover {
+  --bs-popover-max-width: min(290px, calc(100vw - 24px));
+  --bs-popover-bg: var(--bg-default);
+  --bs-popover-border-color: var(--brand-primary);
+  --bs-popover-header-bg: var(--bg-subtle);
+  --bs-popover-header-color: var(--text-primary);
+  --bs-popover-body-color: var(--text-secondary);
+  --bs-popover-header-padding-x: 1rem;
+  --bs-popover-header-padding-y: .85rem;
+  --bs-popover-body-padding-x: 1rem;
+  --bs-popover-body-padding-y: 1rem;
+  font-family: var(--font-primary);
+  box-shadow: var(--shadow-lg);
+}
+.network-service-popover .popover-header { font-size: .95rem; }
+.network-service-popover .popover-header .bi { color: var(--brand-primary); font-size: 1.2rem; }
+.network-service-popover .popover-body { font-size: .875rem; line-height: 1.6; }
 .network-caption strong { display: block; font-size: var(--fs-md); color: var(--text-primary); }
 .network-caption span { display: block; margin-top: .35rem; font-size: var(--fs-sm); color: var(--text-secondary); }
 
@@ -165,4 +198,14 @@
 @media (max-width: 991.98px) {
   .hero-section .hero-actions { margin-bottom: 0; }
   .global-network { max-width: 440px; }
+}
+
+@media (max-width: 575.98px) {
+  .network-label { padding: .45rem .65rem; gap: .35rem; }
+  .network-label--seguridad { top: 12%; }
+  .network-label--soporte { top: 12%; }
+  .network-label--marketing { bottom: 20%; }
+  .network-label--redes { bottom: 20%; }
+  .network-label--software { bottom: 0; }
+  .network-caption { margin-top: .75rem; }
 }
