@@ -1,0 +1,162 @@
+/* Red CCTV dibujada con CSS. El movimiento usa únicamente transform y opacity. */
+.security-network {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
+  background: var(--bg-default);
+  box-shadow: var(--shadow-md);
+}
+
+.cctv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .5rem;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid var(--border-default);
+  color: var(--text-primary);
+  font-size: var(--fs-sm);
+}
+
+.cctv-protocol { color: var(--text-secondary); font: .65rem var(--font-mono); letter-spacing: .08em; }
+.cctv-scene {
+  position: relative;
+  aspect-ratio: 1.2;
+  isolation: isolate;
+  background: radial-gradient(ellipse at center, rgba(75, 163, 217, .12), transparent 70%),
+    radial-gradient(var(--border-default) 1px, transparent 1px);
+  background-size: auto, 20px 20px;
+}
+
+/* Cuatro recorridos en L enlazan las cámaras con el centro del monitor. */
+.cctv-link {
+  position: absolute;
+  left: 18%; top: 22%; width: 32%; height: 28%;
+  border-left: 1px solid var(--brand-primary);
+  border-bottom: 1px solid var(--brand-primary);
+  border-radius: 0 0 0 10px;
+  transform: scale(var(--flip-x, 1), var(--flip-y, 1));
+  opacity: .7;
+}
+
+.cctv-link--top-right, .cctv-link--bottom-right { left: 50%; --flip-x: -1; }
+.cctv-link--bottom-left, .cctv-link--bottom-right { top: 50%; --flip-y: -1; }
+.cctv-signal { position: absolute; inset: 0; animation: cctv-transfer 4s linear var(--delay) infinite; }
+.cctv-signal::before {
+  content: "";
+  position: absolute;
+  left: -3px; top: -3px; width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #7ae8c4;
+  box-shadow: 0 0 8px #3fb950;
+}
+
+/* Cuerpo, lente y soporte de las cámaras; los equipos de la derecha se reflejan. */
+.cctv-camera { position: absolute; left: 4%; top: 5%; width: 28%; text-align: center; }
+.cctv-camera--top-right, .cctv-camera--bottom-right { left: 68%; --direction: -1; }
+.cctv-camera--bottom-left, .cctv-camera--bottom-right { top: 70%; }
+.cctv-camera-icon {
+  position: relative;
+  width: clamp(52px, 14vw, 74px);
+  aspect-ratio: 1.35;
+  margin: 0 auto .35rem;
+  transform: scaleX(var(--direction, 1));
+}
+
+.cctv-camera-icon::before, .cctv-camera-icon::after {
+  content: "";
+  position: absolute;
+  background: #7099b2;
+  border-radius: 2px;
+}
+.cctv-camera-icon::before { left: 28%; top: 43%; width: 8%; height: 53%; transform: rotate(-18deg); }
+.cctv-camera-icon::after { left: 10%; bottom: 0; width: 38%; height: 8%; }
+.cctv-camera-head {
+  position: absolute;
+  z-index: 1;
+  left: 3%; top: 10%; width: 80%; height: 53%;
+  border: 1px solid #a4c9dc;
+  border-radius: 8px 5px 5px 8px;
+  background: linear-gradient(#edf6fb, #9dbed0);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, .15);
+  transform: rotate(10deg);
+  transform-origin: 25% 50%;
+  animation: cctv-pan 7s ease-in-out var(--delay) infinite alternate;
+}
+.cctv-camera-head::before { content: ""; position: absolute; left: -3%; top: -12%; width: 112%; height: 16%; border-radius: 4px; background: #dcecf5; }
+.cctv-camera-lens {
+  position: absolute;
+  right: -8%; top: 6%; width: 22%; height: 88%;
+  border: 3px solid #668ba1;
+  border-radius: 45%;
+  background: radial-gradient(ellipse, #83e4eb 10%, #25759e 23%, #071724 45%);
+}
+.cctv-camera-name { display: inline-block; padding: .15rem .5rem; border-radius: var(--radius-full); background: var(--bg-default); color: var(--text-secondary); font-size: var(--fs-xs); }
+
+/* Monitor con cuatro canales estilizados y un grabador, sin video ni imágenes. */
+.cctv-hub { position: absolute; left: 31%; top: 34%; width: 38%; }
+.cctv-monitor {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 7px;
+  border: 1px solid #5c8fa9;
+  border-bottom-width: 5px;
+  border-radius: 8px;
+  background: #081624;
+  box-shadow: 0 0 24px rgba(75, 163, 217, .17);
+}
+.cctv-monitor::after { content: ""; position: absolute; left: 44%; bottom: -13px; width: 12%; height: 9px; background: #5c8fa9; }
+.cctv-feed {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.4;
+  border-radius: 2px;
+  background: linear-gradient(155deg, #173544, #0b1e2b);
+}
+.cctv-feed::before {
+  content: "";
+  position: absolute;
+  inset: 35% 8% 0;
+  background: repeating-linear-gradient(90deg, transparent 0 10px, rgba(130, 218, 206, .15) 10px 12px), #2c5665;
+  clip-path: polygon(0 100%, 0 40%, 20% 40%, 20% 10%, 52% 10%, 52% 50%, 72% 50%, 72% 0, 100% 0, 100% 100%);
+}
+.cctv-feed:nth-child(even)::before { transform: scaleX(-1); }
+.cctv-feed::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-left: 1px solid #7ae8c4;
+  background: linear-gradient(90deg, rgba(122, 232, 196, .2), transparent 30%);
+  animation: cctv-scan 5s ease-in-out var(--delay) infinite alternate;
+}
+.cctv-feed span { position: relative; z-index: 1; display: block; margin: 4px; color: #b9e3e8; font: clamp(6px, .7vw, 9px) var(--font-mono); }
+.cctv-recorder { display: flex; justify-content: space-between; align-items: center; margin: 13px 10% 0; padding: .35rem .5rem; border: 1px solid var(--border-default); border-radius: 4px; background: var(--bg-subtle); color: var(--text-secondary); font: .55rem var(--font-mono); }
+.cctv-recorder-lights { width: 4px; height: 4px; margin-right: 12px; border-radius: 50%; background: #56ceab; box-shadow: 6px 0 #56ceab, 12px 0 #4ba3d9; }
+.cctv-caption { padding: .75rem 1rem 1.5rem; text-align: center; }
+.cctv-caption strong { display: block; color: var(--text-primary); font-size: var(--fs-md); }
+.cctv-caption span { display: block; margin-top: .4rem; color: var(--text-secondary); font-size: var(--fs-sm); }
+
+.cctv-signal, .cctv-camera-head, .cctv-feed::after { animation-play-state: paused; }
+.security-network.is-running .cctv-signal,
+.security-network.is-running .cctv-camera-head,
+.security-network.is-running .cctv-feed::after { animation-play-state: running; }
+
+@keyframes cctv-transfer {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  45% { transform: translate(0, 100%); }
+  90% { opacity: 1; }
+  100% { transform: translate(100%, 100%); opacity: 0; }
+}
+@keyframes cctv-pan { from { transform: rotate(2deg); } to { transform: rotate(18deg); } }
+@keyframes cctv-scan { from { transform: translateX(0); } to { transform: translateX(100%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cctv-signal, .cctv-camera-head, .cctv-feed::after { animation: none; }
+}

@@ -2,11 +2,6 @@
    CLICOMPUTER MÉXICO — Responsive Styles
    ========================================================================== */
 
-/* Large Desktop (1400px+) */
-@media (min-width: 1400px) {
-  .hero-terminal { max-width: 560px; }
-}
-
 /* Desktop (1200px) */
 @media (max-width: 1199.98px) {
   .hero-float-badge { display: none; }
@@ -16,7 +11,6 @@
 @media (max-width: 991.98px) {
   .hero-section { min-height: auto; padding-top: calc(var(--navbar-height) + var(--space-3xl)); padding-bottom: var(--space-3xl); }
   .hero-title { font-size: var(--fs-3xl); }
-  .hero-terminal { max-width: 100%; margin-top: var(--space-2xl); }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .about-values { grid-template-columns: 1fr; }
 
@@ -55,7 +49,6 @@
   .stat-number { font-size: var(--fs-2xl); }
   .service-card { padding: var(--space-lg); }
   .contact-form-card, .contact-info-card { padding: var(--space-lg); }
-  .terminal-body { font-size: var(--fs-xs); padding: var(--space-md); min-height: 160px; }
   .tech-strip-logos { gap: var(--space-xl); }
   .tech-strip-logos i { font-size: 1.5rem; }
   .footer-social { justify-content: start; }

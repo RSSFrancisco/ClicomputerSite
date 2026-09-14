@@ -14,30 +14,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="fade-in-right position-relative">
-              <div style="width:100%;height:400px;background:linear-gradient(135deg, rgba(248,81,73,0.1), rgba(240,136,62,0.1));border:1px solid var(--border-default);border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-                <div class="bg-dots-pattern" style="opacity: 0.3;"></div>
-                <div class="d-flex flex-column align-items-center" style="z-index: 1;">
-                   <i class="bi bi-camera-video-fill text-brand" style="font-size: 6rem; filter: drop-shadow(0 0 20px rgba(248,81,73,0.4)); animation: pulse 2s infinite;"></i>
-                   <h3 class="mt-4 fw-bold" style="letter-spacing: 2px;">VIGILANCIA 24/7</h3>
-                </div>
-                <div style="position: absolute; top: 20px; left: 20px; background: rgba(255,0,0,0.8); color: white; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
-                   <span style="width: 8px; height: 8px; background: white; border-radius: 50%; display: inline-block; animation: blink 1s infinite;"></span> REC
-                </div>
-              </div>
-              <style>
-                @keyframes pulse {
-                  0% { transform: scale(1); }
-                  50% { transform: scale(1.05); }
-                  100% { transform: scale(1); }
-                }
-                @keyframes blink {
-                  0% { opacity: 1; }
-                  50% { opacity: 0; }
-                  100% { opacity: 1; }
-                }
-              </style>
-            </div>
+            <?= $view->render('partials/security-network') ?>
           </div>
         </div>
       </div>

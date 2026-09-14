@@ -18,14 +18,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="hero-terminal fade-in-right">
-              <div class="terminal-header">
-                <span class="terminal-dot red"></span><span class="terminal-dot yellow"></span><span
-                  class="terminal-dot green"></span>
-                <span class="terminal-title">clicomputer@server:~</span>
-              </div>
-              <div class="terminal-body" aria-hidden="true"><div class="terminal-line terminal-command">$ clicomputer --servicios</div><div class="terminal-line terminal-highlight">→ Software y páginas web</div><div class="terminal-line terminal-highlight">→ Soporte técnico y redes</div><div class="terminal-line terminal-highlight">→ Cámaras de seguridad</div></div>
-            </div>
+            <?= $view->render('partials/global-network') ?>
             <div class="hero-badges">
               <span class="hero-float-badge"><i class="bi bi-shield-check text-brand" aria-hidden="true"></i> Seguridad Garantizada</span>
               <span class="hero-float-badge"><i class="bi bi-lightning-charge text-brand" aria-hidden="true"></i> Soporte 24/7</span>

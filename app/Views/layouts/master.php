@@ -1,3 +1,7 @@
+<?php
+$hasGlobalNetwork = in_array('home', $page['sections'] ?? [], true);
+$hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
+?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
 <head>
@@ -13,6 +17,12 @@
   <?php foreach (['variables', 'base', 'components', 'sections', 'responsive'] as $style): ?>
     <link rel="stylesheet" href="<?= e(asset('css/' . $style . '.css')) ?>">
   <?php endforeach ?>
+  <?php if ($hasGlobalNetwork): ?>
+    <link rel="stylesheet" href="<?= e(asset('css/global-network.css')) ?>">
+  <?php endif ?>
+  <?php if ($hasSecurityNetwork): ?>
+    <link rel="stylesheet" href="<?= e(asset('css/security-network.css')) ?>">
+  <?php endif ?>
   <script>
     try {
       var theme = localStorage.getItem('cli-theme');
@@ -32,6 +42,10 @@
   </main>
   <?= $view->render('partials/footer', compact('site')) ?>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <?php if ($hasGlobalNetwork || $hasSecurityNetwork): ?>
+    <script defer src="<?= e(asset('js/vendor/jquery-4.0.0.slim.min.js')) ?>"></script>
+    <script defer src="<?= e(asset('js/components/network-animation.js')) ?>"></script>
+  <?php endif ?>
   <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'views/contact-form', 'components/mouse-follower', 'components/search', 'app'] as $script): ?>
     <script defer src="<?= e(asset('js/' . $script . '.js')) ?>"></script>
   <?php endforeach ?>

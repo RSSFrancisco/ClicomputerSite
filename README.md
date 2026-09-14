@@ -43,6 +43,14 @@ Node solo se usa para las pruebas del comportamiento JavaScript; no se necesita 
 
 `tests/http.php` requiere la vista previa en el puerto 8780 y la extensión cURL. En macOS también inicia una instancia aislada de Apache en el puerto 8781 para verificar `.htaccess` con archivos de prueba; la detiene al terminar. No modifica el servicio Apache del sistema ni el sitio publicado.
 
+## Animaciones CSS
+
+`app/Views/partials/global-network.php` dibuja la Tierra y sus nodos desde la vista de inicio. Las formas, órbitas y puntos de información están en `css/global-network.css`; solo se animan `transform` y `opacity`.
+
+`app/Views/partials/security-network.php` genera cuatro cámaras, sus conexiones y los canales del monitor en la página de seguridad. `css/security-network.css` dibuja los equipos y anima las señales, el movimiento de las cámaras y el barrido de los canales. Para cambiar los nombres o posiciones de las cuatro cámaras, edita el arreglo `$cameras` del parcial; las posiciones corresponden a las cuatro esquinas definidas en CSS.
+
+`js/components/network-animation.js` usa jQuery para controlar ambas ilustraciones mediante `data-network-animation`. Las pausa al salir de pantalla, ocultar la pestaña o activar movimiento reducido. Sin JavaScript se muestran estáticas. La plantilla maestra carga el CSS de cada ilustración solo en su página, y la copia local de [jQuery Slim 4.0.0](https://releases.jquery.com/) junto con el controlador compartido solo en inicio y seguridad. No hay botones visibles ni temporizadores de JavaScript.
+
 ## Contacto
 
 El formulario prepara un borrador para WhatsApp al número configurado. El visitante debe abrir el enlace, revisar el texto y enviarlo en WhatsApp. No se muestra una confirmación de envío ni se borran los campos al preparar el borrador.
