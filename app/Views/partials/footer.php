@@ -2,12 +2,8 @@
       <div class="container">
         <div class="row g-4">
           <div class="col-lg-4 col-md-6">
-            <div class="d-flex align-items-center gap-2 mb-3">
-
-              <h5 class="mb-0">Clicomputer México</h5>
-            </div>
-            <p>Soluciones tecnológicas integrales que impulsan tu negocio. Desarrollo de software, páginas web, soporte
-              técnico, redes y seguridad.</p>
+            <a class="footer-brand" href="/" aria-label="Clicomputer, volver al inicio"><?= $view->render('partials/brand') ?></a>
+            <p>Páginas web, software, soporte técnico, redes y cámaras de seguridad para tu negocio en <?= e($site['locality'] . ', ' . $site['region']) ?>.</p>
             <div class="footer-social">
 
 

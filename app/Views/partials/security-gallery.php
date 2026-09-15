@@ -1,0 +1,50 @@
+<section class="security-gallery section-padding" id="instalaciones" aria-labelledby="security-gallery-title">
+  <div class="container">
+    <div class="row align-items-end g-3 mb-4">
+      <div class="col-lg-7">
+        <span class="section-badge">Trabajo en campo</span>
+        <h2 id="security-gallery-title">Instalaciones de videovigilancia</h2>
+      </div>
+      <div class="col-lg-5">
+        <p class="mb-0">El equipo, el montaje y el monitoreo, vistos de cerca. Selecciona una fotografía para ampliarla.</p>
+      </div>
+    </div>
+    <div class="security-gallery-grid">
+      <?php foreach ($photos as $photo): ?>
+        <?php
+        $path = 'assets/img/seguridad/' . $photo['file'];
+        $full = asset($path . '-960.webp');
+        $small = asset($path . '-480.webp');
+        ?>
+        <figure class="security-photo security-photo--<?= e($photo['id']) ?>">
+          <a class="security-photo-link" href="<?= e($full) ?>" data-security-photo aria-label="<?= e('Ampliar fotografía: ' . $photo['title']) ?>">
+            <img src="<?= e($small) ?>" srcset="<?= e($small) ?> 480w, <?= e($full) ?> 960w"
+              sizes="(max-width: 767px) calc(100vw - 24px), (max-width: 991px) 50vw, <?= $photo['id'] === 'monitoreo' ? '60vw' : '40vw' ?>"
+              width="<?= e($photo['width']) ?>" height="<?= e($photo['height']) ?>"
+              alt="<?= e($photo['alt']) ?>" loading="lazy" decoding="async">
+            <span class="security-photo-expand" aria-hidden="true"><i class="bi bi-arrows-fullscreen"></i></span>
+          </a>
+          <figcaption>
+            <h3><?= e($photo['title']) ?></h3>
+            <p><?= e($photo['description']) ?></p>
+          </figcaption>
+        </figure>
+      <?php endforeach ?>
+    </div>
+  </div>
+</section>
+
+<div class="modal fade security-photo-modal" id="securityPhotoModal" tabindex="-1" aria-labelledby="securityPhotoTitle" aria-describedby="securityPhotoCaption" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title h5" id="securityPhotoTitle">Fotografía de instalación</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar fotografía"></button>
+      </div>
+      <div class="modal-body">
+        <img class="security-photo-full" alt="" hidden>
+        <p id="securityPhotoCaption" class="mt-3 mb-0"></p>
+      </div>
+    </div>
+  </div>
+</div>

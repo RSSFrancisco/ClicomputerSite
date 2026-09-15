@@ -51,6 +51,8 @@ Las cinco etiquetas interactivas del planeta se configuran en `config/site.php`,
 
 `app/Views/partials/security-network.php` genera cuatro cámaras, sus conexiones y los canales del monitor en la página de seguridad. `css/security-network.css` dibuja los equipos y anima las señales, el movimiento de las cámaras y el barrido de los canales. Para cambiar los nombres o posiciones de las cuatro cámaras, edita el arreglo `$cameras` del parcial; las posiciones corresponden a las cuatro esquinas definidas en CSS.
 
+
+
 `js/components/network-animation.js` usa jQuery para controlar ambas ilustraciones mediante `data-network-animation`. Las pausa al salir de pantalla, ocultar la pestaña o activar movimiento reducido. Sin JavaScript se muestran estáticas. La plantilla maestra carga el CSS de cada ilustración solo en su página, y la copia local de [jQuery Slim 4.0.0](https://releases.jquery.com/) junto con el controlador compartido solo en inicio y seguridad. Este controlador no añade botones de pausa ni usa temporizadores de JavaScript.
 
 El cohete del inicio se genera en `app/Views/partials/space-journey.php` y se dibuja con CSS en `css/space-journey.css`. Viaja por detrás del contenido Bootstrap, desde la posición real de la Tierra hasta el final del contenido, siguiendo el scroll en ambos sentidos. `js/components/space-journey.js` usa jQuery y agrupa las actualizaciones con `requestAnimationFrame`; recalcula medidas únicamente cuando cambia el tamaño o se restaura la página. En `measure()` se pueden ajustar `amplitude` (ancho de las curvas) y `wavelength` (distancia entre vueltas). Las seis partículas de la estela se reutilizan, sin crear elementos durante el scroll. La capa no recibe clics y queda oculta sin JavaScript, con movimiento reducido o al ocultar la pestaña. Sus recursos se cargan solo en el inicio.
@@ -104,7 +106,7 @@ Clonar el repositorio o hacer push a GitHub no publica automáticamente el sitio
 
 Se añadió marcado `Organization`, `WebSite`, `WebPage`, `Service` y rutas de navegación según la página. No se han inventado direcciones de calle, reseñas, precios ni perfiles sociales. El marcado específico de negocio local puede completarse cuando estén confirmados los datos necesarios.
 
-El logotipo original no estaba en el repositorio ni en el respaldo: se utiliza el nombre como marca tipográfica, un favicon propio y una imagen PNG de 1200 × 630 para compartir. `assets/img/social-card.svg` es el original editable de esa imagen.
+La identidad web usa el logo completo y el símbolo originales proporcionados por el propietario, guardados en `assets/img/clicomputer-logo.png` y `assets/img/clicomputer-symbol.png`. El parcial `app/Views/partials/brand.php` comparte el logo entre navegación y pie; el símbolo se usa como favicon. La paleta se define en `css/variables.css` y su aplicación en `css/brand.css`. Consulta [la guía de identidad](docs/identidad.md). La imagen PNG de 1200 × 630 para compartir conserva por ahora el diseño anterior; `assets/img/social-card.svg` es su original editable.
 
 Se conservaron las cifras y descripciones de proyectos que ya figuraban en el sitio. Conviene confirmar que reflejan trabajos y disponibilidad reales. Córdoba, Veracruz, el teléfono y el correo proceden del contenido existente.
 

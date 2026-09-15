@@ -1,0 +1,66 @@
+/* Las fotografías son el centro; el color y el texto siguen la identidad del sitio. */
+.security-gallery { border-top: 1px solid var(--border-default); }
+.security-gallery h2 { font-family: var(--font-brand); font-weight: 400; font-size: var(--fs-3xl); }
+.security-gallery-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-areas: "detalle monitoreo monitoreo" "detalle estructura cubierta";
+  gap: 1.5rem;
+}
+.security-photo { display: flex; flex-direction: column; min-width: 0; margin: 0; }
+.security-photo--detalle { grid-area: detalle; }
+.security-photo--monitoreo { grid-area: monitoreo; }
+.security-photo--estructura { grid-area: estructura; }
+.security-photo--cubierta { grid-area: cubierta; }
+.security-photo-link {
+  display: block;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+}
+.security-photo--detalle .security-photo-link { aspect-ratio: 3 / 4; }
+.security-photo--monitoreo .security-photo-link { aspect-ratio: 16 / 9; }
+.security-photo--estructura .security-photo-link,
+.security-photo--cubierta .security-photo-link { flex: none; }
+.security-photo-link img { width: 100%; height: 100%; object-fit: cover; }
+.security-photo--detalle img { object-position: 60% 50%; }
+.security-photo--estructura img { object-position: 50% 28%; }
+.security-photo--cubierta img { object-position: 50% 22%; }
+.security-photo-expand {
+  position: absolute;
+  right: .75rem;
+  bottom: .75rem;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 3px;
+  background: rgba(17, 27, 32, .8);
+  color: #fff;
+}
+.security-photo-link:hover .security-photo-expand,
+.security-photo-link:focus-visible .security-photo-expand { background: var(--brand-action); }
+.security-photo-link:focus-visible { outline: 3px solid var(--brand-primary); outline-offset: 4px; }
+.security-photo figcaption { padding-top: 1rem; }
+.security-photo h3 { font-size: 1rem; margin-bottom: .4rem; }
+.security-photo p { font-size: .875rem; line-height: 1.55; margin: 0; }
+.security-photo-modal .modal-content { background: var(--bg-default); color: var(--text-primary); border-color: var(--border-default); }
+.security-photo-modal .modal-header { border-color: var(--border-default); }
+.security-photo-modal .modal-title { font-family: var(--font-primary); font-weight: 600; font-size: 1.1rem; }
+.security-photo-full { max-width: 100%; width: auto; height: auto; max-height: 72vh; margin: auto; object-fit: contain; }
+
+@media (max-width: 991.98px) {
+  .security-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "detalle monitoreo" "estructura cubierta"; }
+  .security-photo .security-photo-link { aspect-ratio: 4 / 3; flex: none; }
+}
+@media (max-width: 767.98px) {
+  .security-gallery-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "detalle" "monitoreo" "estructura" "cubierta"; gap: 2rem; }
+  .security-photo--detalle .security-photo-link { aspect-ratio: 3 / 4; }
+  .security-photo--monitoreo .security-photo-link { aspect-ratio: 16 / 9; }
+  .security-photo-full { max-height: 65vh; }
+}

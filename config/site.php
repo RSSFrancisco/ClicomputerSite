@@ -54,6 +54,7 @@ return array (
       'title' => 'Cámaras de seguridad en Córdoba, Veracruz | Clicomputer',
       'description' => 'Instalación de cámaras de seguridad y CCTV en Córdoba, Veracruz. Sistemas IP, grabación y acceso remoto para hogares y negocios. Cotiza tu instalación.',
       'label' => 'Cámaras de seguridad',
+      'gallery' => require ROOT_PATH . '/data/security-gallery.php',
       'service' => 'Instalación de cámaras de seguridad y CCTV',
       'sections' => 
       array (

@@ -8,7 +8,7 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $view->render('partials/seo', compact('page', 'site', 'canonical', 'schema')) ?>
-  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+  <link rel="icon" type="image/png" href="<?= e(asset('assets/img/clicomputer-symbol.png')) ?>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
@@ -23,7 +23,9 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <?php endif ?>
   <?php if ($hasSecurityNetwork): ?>
     <link rel="stylesheet" href="<?= e(asset('css/security-network.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset('css/security-gallery.css')) ?>">
   <?php endif ?>
+  <link rel="stylesheet" href="<?= e(asset('css/brand.css')) ?>">
   <script>
     try {
       var theme = localStorage.getItem('cli-theme');
@@ -53,6 +55,9 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <?php if ($hasGlobalNetwork): ?>
     <script defer src="<?= e(asset('js/components/service-popovers.js')) ?>"></script>
     <script defer src="<?= e(asset('js/components/space-journey.js')) ?>"></script>
+  <?php endif ?>
+  <?php if ($hasSecurityNetwork): ?>
+    <script defer src="<?= e(asset('js/components/security-gallery.js')) ?>"></script>
   <?php endif ?>
   <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'views/contact-form', 'components/search', 'app'] as $script): ?>
     <script defer src="<?= e(asset('js/' . $script . '.js')) ?>"></script>

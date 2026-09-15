@@ -1,0 +1,151 @@
+/* Identidad Clicomputer: logo original, azul, gris y tipografía editorial. */
+.cli-brand { display: inline-flex; align-items: center; }
+.cli-brand-logo { display: block; width: 210px; height: auto; }
+.cli-navbar .navbar-brand { padding: 0; margin-right: 1.5rem; }
+.cli-navbar .navbar-brand img { width: 210px; height: auto; }
+
+/* Ambas superficies siguen el tema; en claro conservan el fondo blanco del logo. */
+.cli-navbar, .cli-footer { --brand-surface: var(--bg-default); }
+[data-bs-theme="light"] .cli-navbar,
+[data-bs-theme="light"] .cli-footer { --brand-surface: #fff; }
+
+/* El fondo blanco pasa a negro y screen lo integra con la superficie oscura.
+   El dibujo y las letras se muestran blancos sin modificar el archivo original. */
+[data-bs-theme="dark"] .cli-brand-logo {
+  filter: grayscale(1) invert(1) brightness(3);
+  mix-blend-mode: screen;
+}
+
+.cli-navbar, .cli-navbar.scrolled {
+  padding: 8px 0;
+  background: var(--brand-surface);
+  border-bottom: 1px solid var(--border-default);
+  box-shadow: none;
+  transition: background-color .2s, border-color .2s;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.cli-navbar:not(.navigation-ready) { background: var(--brand-surface); }
+.cli-navbar .nav-link { padding-inline: .7rem !important; border-radius: 0; }
+.cli-navbar .nav-link:hover, .cli-navbar .nav-link.active { background: transparent; color: var(--brand-primary); }
+.cli-navbar .nav-link.active::after { width: 24px; height: 2px; }
+.cli-navbar .nav-search { width: 160px; margin-inline: .75rem; }
+.cli-navbar .nav-search-input:focus { width: 100%; }
+.cli-navbar .nav-search-input::placeholder { color: var(--text-tertiary); opacity: 1; }
+.cli-navbar .theme-toggle { flex-shrink: 0; }
+.cli-navbar .navbar-toggler { color: var(--text-secondary); }
+
+.btn-cta-nav, .btn-primary-custom { background: var(--brand-action); border-radius: 3px; }
+.btn-cta-nav:hover, .btn-primary-custom:hover {
+  background: #005b7e;
+  box-shadow: none;
+  transform: translateY(-1px);
+  opacity: 1;
+}
+.btn-outline-custom { border-radius: 3px; }
+.text-gradient { background: none; -webkit-text-fill-color: currentColor; color: var(--brand-primary); }
+
+/* Serifas en los títulos; Inter para textos, navegación y formularios. */
+.hero-title, .section-header h1, .section-header h2 {
+  font-family: var(--font-brand);
+  font-weight: 400;
+  letter-spacing: -.035em;
+}
+.section-header h1, .section-header h2 { line-height: 1.15; }
+.section-badge {
+  border: 0;
+  border-radius: 0;
+  border-left: 2px solid var(--brand-blue);
+  background: none;
+  padding: .15rem .75rem;
+}
+.section-badge .bi { display: none; }
+.brand-hero { min-height: 740px; padding-block: 150px 84px; }
+.brand-hero .hero-title { font-size: clamp(2.6rem, 4.3vw, 3.9rem); line-height: 1.1; max-width: 620px; }
+.brand-hero .hero-subtitle { max-width: 460px; font-size: 1.05rem; margin-block: 1.75rem 2rem; }
+.brand-hero .hero-actions { gap: .8rem; margin-bottom: 0; }
+.brand-hero .hero-actions a { padding: .9rem 1.1rem; font-size: .875rem; }
+.brand-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  align-items: center;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 1.6rem;
+}
+.brand-eyebrow::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background: var(--brand-blue);
+  transform: rotate(45deg);
+  margin-right: .25rem;
+}
+.brand-eyebrow span { color: var(--brand-primary); }
+.brand-hero .bg-gradient-radial { opacity: .35; }
+.brand-hero .bg-dots-pattern { opacity: .12; }
+.brand-hero .network-scene { background: none; }
+.brand-hero .network-caption strong { font-family: var(--font-brand); font-size: 1.2rem; font-weight: 400; }
+.brand-hero .network-label { border-radius: 4px; box-shadow: none; }
+.brand-hero .globe-land { background: linear-gradient(145deg, #65c4df, #2686ad); }
+.space-journey::before { opacity: .16; }
+
+.service-card, .project-card {
+  box-shadow: none;
+  transition: border-color .2s, background-color .2s, transform .2s;
+}
+.service-card:hover, .project-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.service-card-icon { border-radius: 3px; }
+.service-card:hover .service-card-icon { transform: none; background: var(--brand-action); }
+.tech-strip { padding-block: 2.5rem; }
+.tech-strip-label { font-size: .65rem; letter-spacing: .13em; }
+.stat-item { min-width: 0; padding: 1.25rem .75rem; }
+.stat-number { background: none; -webkit-text-fill-color: currentColor; color: var(--brand-primary); }
+.stat-label { overflow-wrap: anywhere; }
+
+.cli-footer {
+  background: var(--brand-surface);
+  color: var(--text-secondary);
+}
+.footer-brand { display: inline-flex; margin-bottom: 1.25rem; }
+.footer-brand .cli-brand-logo { width: 240px; }
+.cli-footer .footer-brand + p { max-width: 330px; }
+
+@media (max-width: 1199.98px) {
+  .cli-navbar .navbar-collapse {
+    background: var(--brand-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-top: .5rem;
+    box-shadow: none;
+    max-height: calc(100dvh - var(--navbar-height) - 16px);
+    overflow-y: auto;
+  }
+  .cli-navbar .nav-link { padding: .8rem !important; }
+  .cli-navbar .nav-link.active::after { display: none; }
+  .cli-navbar .nav-search { width: 100%; margin: .5rem 0; }
+  .cli-navbar .btn-cta-nav { width: 100%; }
+  .cli-navbar .theme-toggle { margin-right: 0; }
+}
+
+@media (max-width: 991.98px) {
+  .brand-hero { min-height: 0; padding-block: 130px 64px; }
+  .brand-hero .hero-content { max-width: 640px; }
+  .brand-hero .global-network { max-width: 450px; }
+}
+
+@media (max-width: 575.98px) {
+  :root { --navbar-height: 72px; }
+  .cli-navbar .navbar-brand { margin-right: .5rem; }
+  .cli-navbar .navbar-brand img { width: clamp(160px, 48vw, 190px); }
+  .brand-hero { padding-top: 118px; }
+  .brand-hero .hero-title { font-size: clamp(2.35rem, 9.5vw, 3rem); }
+  .brand-hero .hero-subtitle { font-size: 1rem; }
+  .brand-eyebrow { font-size: .63rem; letter-spacing: .06em; gap: .4rem; }
+  .brand-hero .global-network { margin-top: .75rem; }
+}
