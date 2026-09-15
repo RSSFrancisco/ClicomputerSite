@@ -67,6 +67,7 @@ return array (
       'title' => 'Proyectos de software, web y redes | Clicomputer México',
       'description' => 'Conoce los proyectos de Clicomputer: sistemas de inventarios, sitios web, redes empresariales y videovigilancia. Encuentra ideas para tu próximo proyecto.',
       'label' => 'Proyectos',
+      'projects' => require ROOT_PATH . '/data/projects.php',
       'sections' => 
       array (
         0 => 'projects',

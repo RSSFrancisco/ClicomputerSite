@@ -50,7 +50,13 @@ verify($status === 301 && $headers['location'] === '/?origen=prueba', 'Legacy HT
 verify($status === 200 && $headers['cache-control'] === 'no-store', 'HTTP contact failed');
 verify(str_contains($body, 'https://wa.me/' . ltrim($model->settings()['telephone'], '+') . '?text='), 'PHP did not prepare the draft');
 verify(request('http://127.0.0.1:8780/contacto/preparar', [], ['name' => ''])[0] === 422, 'Invalid HTTP contact accepted');
-echo "OK: nueve páginas MVC, recursos SEO, 404, redirección y formulario PHP por HTTP.\n";
+[$status, $headers, $body] = request('http://127.0.0.1:8780/buscar?q=camaras&format=json');
+$suggestions = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+verify($status === 200 && str_starts_with($headers['content-type'], 'application/json'), 'HTTP search JSON failed');
+verify(($suggestions['results'][0]['url'] ?? '') === '/seguridad.html', 'HTTP search lost the query');
+[$status, $headers, $body] = request('http://127.0.0.1:8780/buscar?q=wifi');
+verify($status === 200 && $headers['x-robots-tag'] === 'noindex, follow' && str_contains($body, 'Redes e infraestructura'), 'HTTP search HTML failed');
+echo "OK: nueve páginas MVC, recursos SEO, 404, redirección, búsqueda y formulario PHP por HTTP.\n";
 
 // Optional Apache checks use a separate loopback-only instance, never the system service.
 $httpd = '/usr/sbin/httpd';
@@ -96,6 +102,7 @@ try {
     verify(request('http://127.0.0.1:8781/app/Views/pages/home.php', ['Host: localhost'])[0] === 403, 'Apache exposed internal views');
     verify(request('http://127.0.0.1:8781/assets/img/favicon.svg', ['Host: localhost'])[0] === 200, 'Apache blocked a public asset');
     verify(request('http://127.0.0.1:8781/redes.html', ['Host: localhost'])[2] === 'MVC route marker', 'Apache did not route to MVC');
+    verify(request('http://127.0.0.1:8781/buscar?q=camaras', ['Host: localhost'])[2] === 'MVC route marker', 'Apache did not route search to MVC');
     echo "OK: reglas Apache de redirección, rutas y parámetros conservados, protección de vistas y recursos públicos.\n";
 } finally {
     proc_terminate($process);

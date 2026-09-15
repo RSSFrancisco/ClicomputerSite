@@ -14,7 +14,10 @@
       }
 
       $(document).on('visibilitychange.networkAnimation', update);
-      motion.addEventListener('change', update);
+      // WebViews antiguos usan addListener; no deben interrumpir la inicialización.
+      if (motion.addEventListener) motion.addEventListener('change', update);
+      else if (motion.addListener) motion.addListener(update);
+      $(window).on('pageshow.networkAnimation', update);
 
       if ('IntersectionObserver' in window) {
         const observer = new IntersectionObserver(function (entries) {

@@ -9,7 +9,8 @@
 
 .network-scene {
   position: relative;
-  aspect-ratio: 1;
+  height: 0;
+  padding-bottom: 100%;
   isolation: isolate;
   background: radial-gradient(circle, rgba(75, 163, 217, .13), transparent 68%);
 }
