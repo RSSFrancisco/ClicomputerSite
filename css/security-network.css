@@ -25,7 +25,8 @@
 .cctv-protocol { color: var(--text-secondary); font: .65rem var(--font-mono); letter-spacing: .08em; }
 .cctv-scene {
   position: relative;
-  aspect-ratio: 1.2;
+  height: 0;
+  padding-bottom: 83.3333%;
   isolation: isolate;
   background: radial-gradient(ellipse at center, rgba(75, 163, 217, .12), transparent 70%),
     radial-gradient(var(--border-default) 1px, transparent 1px);

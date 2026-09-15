@@ -26,6 +26,7 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
     <link rel="stylesheet" href="<?= e(asset('css/security-gallery.css')) ?>">
   <?php endif ?>
   <link rel="stylesheet" href="<?= e(asset('css/brand.css')) ?>">
+  <link rel="stylesheet" href="<?= e(asset('css/search.css')) ?>">
   <script>
     try {
       var theme = localStorage.getItem('cli-theme');
@@ -36,7 +37,7 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
 </head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
-  <?= $view->render('partials/navbar', compact('page')) ?>
+  <?= $view->render('partials/navbar', ['page' => $page, 'searchQuery' => $searchQuery ?? '']) ?>
   <main id="contenido"<?= $hasGlobalNetwork ? ' class="has-space-journey"' : '' ?>>
     <?php if ($hasGlobalNetwork): ?>
       <?= $view->render('partials/space-journey') ?>
@@ -48,8 +49,8 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   </main>
   <?= $view->render('partials/footer', compact('site')) ?>
   <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script defer src="<?= e(asset('js/vendor/jquery-4.0.0.slim.min.js')) ?>"></script>
   <?php if ($hasGlobalNetwork || $hasSecurityNetwork): ?>
-    <script defer src="<?= e(asset('js/vendor/jquery-4.0.0.slim.min.js')) ?>"></script>
     <script defer src="<?= e(asset('js/components/network-animation.js')) ?>"></script>
   <?php endif ?>
   <?php if ($hasGlobalNetwork): ?>

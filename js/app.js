@@ -20,6 +20,23 @@ const App = (() => {
       button.setAttribute('aria-pressed', String(button.classList.contains('active')));
     });
     filters.hidden = false;
+    function showLinkedProject() {
+      if (!window.location.hash.startsWith('#proyecto-')) return;
+      const target = document.getElementById(window.location.hash.slice(1));
+      if (!target?.matches('.project-card')) return;
+      // Un filtro previo no debe ocultar un proyecto seleccionado desde la búsqueda.
+      filters.querySelector('[data-filter="all"]').click();
+      target.scrollIntoView({ block: 'start' });
+    }
+    window.addEventListener('hashchange', showLinkedProject);
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('.site-search-result');
+      // Repetir el mismo enlace no dispara hashchange, pero debe quitar un filtro nuevo.
+      if (link?.href === window.location.href && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+        showLinkedProject();
+      }
+    });
+    showLinkedProject();
   }
   function init() {
     const modules = [

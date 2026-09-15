@@ -1,4 +1,4 @@
-/* Fondo < cohete < contenido Bootstrap. Las tarjetas conservan su fondo opaco. */
+/* En escritorio, el cohete viaja detrás del contenido Bootstrap. */
 .has-space-journey { position: relative; isolation: isolate; }
 .has-space-journey .container { position: relative; z-index: 2; }
 
@@ -116,10 +116,15 @@
 [data-bs-theme="light"] .space-journey::before { opacity: .2; }
 [data-bs-theme="light"] .space-journey-spark { background: #2888b5; }
 
-@media (max-width: 575.98px) {
-  .space-rocket-shape { transform: scale(.75); }
+@media (max-width: 767.98px) {
+  /* Sin un contexto propio, las estrellas quedan detrás y el cohete sobre los bordes.
+     La capa absoluta no cambia el ancho de las secciones ni recibe toques. */
+  .space-journey { z-index: auto; }
+  .space-journey::before { z-index: 1; }
+  .space-rocket, .space-journey-spark { z-index: 3; }
+  .space-rocket-shape { transform: scale(.6); filter: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .space-journey { display: none; }
+  .space-journey::before, .space-journey-spark, .space-rocket-flame { display: none; }
 }

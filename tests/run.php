@@ -65,6 +65,8 @@ foreach ($model->pages() as $page) {
 }
 check(count(array_unique($titles)) === count($titles), 'Duplicate titles');
 check(count(array_unique($descriptions)) === count($descriptions), 'Duplicate descriptions');
+// La búsqueda es una ruta pública, pero sus consultas no pertenecen al sitemap.
+$documents['/buscar'] = document($app->handle('GET', '/buscar')->body);
 
 foreach ($documents as $currentPath => $xpath) {
     foreach ($xpath->query('//*[@href or @src]') as $node) {

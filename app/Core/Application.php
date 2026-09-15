@@ -5,6 +5,8 @@ namespace App\Core;
 
 use App\Controllers\ContactController;
 use App\Controllers\PageController;
+use App\Controllers\SearchController;
+use App\Models\Search;
 use App\Models\Service;
 use App\Models\Site;
 
@@ -34,6 +36,10 @@ final class Application
         }
         if (!in_array($method, ['GET', 'HEAD'], true)) {
             return new Response('Método no permitido.', 405, ['Content-Type' => 'text/plain; charset=UTF-8', 'Allow' => 'GET, HEAD']);
+        }
+        if ($path === '/buscar') {
+            parse_str(parse_url($uri, PHP_URL_QUERY) ?? '', $params);
+            return (new SearchController(new Search($this->site), $this->pages))->show($params);
         }
         return match ($path) {
             '/sitemap.xml' => $this->pages->sitemap(),

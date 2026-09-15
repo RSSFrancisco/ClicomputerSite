@@ -4,6 +4,26 @@
   if (!$ || !window.bootstrap?.Modal) return;
 
   $(function () {
+    function openLinkedGallery() {
+      const gallery = document.getElementById('industrialPhotos');
+      if (window.location.hash !== '#industrialPhotos' || !gallery || !window.bootstrap.Collapse) return;
+      const scroll = () => document.getElementById('instalaciones').scrollIntoView({ block: 'start' });
+      // El buscador puede enlazar al contenido cerrado: se abre antes de desplazar la página.
+      if (gallery.classList.contains('show')) scroll();
+      else {
+        $(gallery).one('shown.bs.collapse', scroll);
+        window.bootstrap.Collapse.getOrCreateInstance(gallery, { toggle: false }).show();
+      }
+    }
+    $(window).on('hashchange.securityGallery', openLinkedGallery);
+    $(document).on('click.securityGallery', '.site-search-result', function (event) {
+      // Permite volver a abrir la galería si se cerró sin cambiar la URL.
+      if (this.href === window.location.href && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+        openLinkedGallery();
+      }
+    });
+    openLinkedGallery();
+
     const $modal = $('#securityPhotoModal');
     if (!$modal.length) return;
     const $image = $modal.find('.security-photo-full');

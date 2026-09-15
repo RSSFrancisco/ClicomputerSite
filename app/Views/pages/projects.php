@@ -19,168 +19,33 @@
       <button class="filter-btn" data-filter="seguridad">Seguridad</button>
     </div>
 
-    <!-- Projects Grid -->
+    <!-- Los identificadores permiten enlazar directamente desde el buscador. -->
     <div class="row g-4 stagger-children">
-      <!-- Project 1 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="project-card fade-in-up" data-category="software">
-          <div class="project-card-img">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(75,163,217,0.2), rgba(63,185,80,0.2));display:flex;align-items:center;justify-content:center;">
-              <i class="bi bi-kanban" style="font-size:3rem;color:var(--brand-primary)"></i>
+      <?php foreach ($page['projects'] as $project): ?>
+        <div class="col-lg-4 col-md-6">
+          <div class="project-card fade-in-up" data-category="<?= e($project['category']) ?>" id="proyecto-<?= e($project['id']) ?>">
+            <div class="project-card-img">
+              <div style="width:100%;height:100%;background:<?= e($project['background']) ?>;display:flex;align-items:center;justify-content:center;">
+                <i class="bi <?= e($project['icon']) ?>" style="font-size:3rem;color:<?= e($project['color']) ?>"></i>
+              </div>
+              <div class="project-card-overlay">
+                <?php if (isset($project['website'])): ?>
+                  <a href="<?= e($project['website']) ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom btn-sm">Visitar Web</a>
+                <?php else: ?>
+                  <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
+                <?php endif ?>
+              </div>
             </div>
-            <div class="project-card-overlay">
-              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h2 class="h5">Sistema de Inventarios</h2>
-            <p>Aplicación de gestión de inventarios con control de entradas, salidas y reportes en tiempo real.</p>
-            <div class="d-flex flex-wrap gap-1">
-              <span class="tech-tag">C#</span>
-              <span class="tech-tag">SQL Server</span>
-              <span class="tech-tag">.NET</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="project-card fade-in-up" data-category="web">
-          <div class="project-card-img">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(88,196,240,0.2), rgba(188,140,255,0.2));display:flex;align-items:center;justify-content:center;">
-              <i class="bi bi-shop" style="font-size:3rem;color:var(--accent-purple)"></i>
-            </div>
-            <div class="project-card-overlay">
-              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h2 class="h5">E-Commerce Corporativo</h2>
-            <p>Tienda en línea completa con carrito, pasarela de pagos y panel de administración.</p>
-            <div class="d-flex flex-wrap gap-1">
-              <span class="tech-tag">PHP</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">Bootstrap</span>
+            <div class="project-card-body">
+              <h2 class="h5"><?= e($project['title']) ?></h2>
+              <p><?= e($project['description']) ?></p>
+              <div class="d-flex flex-wrap gap-1">
+                <?php foreach ($project['tags'] as $tag): ?><span class="tech-tag"><?= e($tag) ?></span><?php endforeach ?>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="project-card fade-in-up" data-category="redes">
-          <div class="project-card-img">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(57,210,192,0.2), rgba(75,163,217,0.2));display:flex;align-items:center;justify-content:center;">
-              <i class="bi bi-hdd-rack" style="font-size:3rem;color:var(--accent-cyan)"></i>
-            </div>
-            <div class="project-card-overlay">
-              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h2 class="h5">Infraestructura de Red Corporativa</h2>
-            <p>Diseño e implementación de red LAN para oficinas con 50+ usuarios y cobertura Wi-Fi empresarial.</p>
-            <div class="d-flex flex-wrap gap-1">
-              <span class="tech-tag">MikroTik</span>
-              <span class="tech-tag">Ubiquiti</span>
-              <span class="tech-tag">Cat6</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 4 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="project-card fade-in-up" data-category="seguridad">
-          <div class="project-card-img">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(248,81,73,0.2), rgba(240,136,62,0.2));display:flex;align-items:center;justify-content:center;">
-              <i class="bi bi-camera-video" style="font-size:3rem;color:var(--accent-orange)"></i>
-            </div>
-            <div class="project-card-overlay">
-              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h2 class="h5">CCTV Planta Industrial</h2>
-            <p>Sistema de 32 cámaras IP con NVR, monitoreo remoto 24/7 y almacenamiento en la nube.</p>
-            <div class="d-flex flex-wrap gap-1">
-              <span class="tech-tag">Hikvision</span>
-              <span class="tech-tag">NVR</span>
-              <span class="tech-tag">PoE</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 5 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="project-card fade-in-up" data-category="web">
-          <div class="project-card-img">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(75,163,217,0.2), rgba(88,166,255,0.2));display:flex;align-items:center;justify-content:center;">
-              <i class="bi bi-laptop" style="font-size:3rem;color:var(--accent-blue)"></i>
-            </div>
-            <div class="project-card-overlay">
-              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h2 class="h5">Landing Page Energía Solar</h2>
-            <p>Página web optimizada para conversión de leads en el sector de energía renovable.</p>
-            <div class="d-flex flex-wrap gap-1">
-              <span class="tech-tag">HTML5</span>
-              <span class="tech-tag">CSS3</span>
-              <span class="tech-tag">JavaScript</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 6 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="project-card fade-in-up" data-category="software">
-          <div class="project-card-img">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(63,185,80,0.2), rgba(75,163,217,0.2));display:flex;align-items:center;justify-content:center;">
-              <i class="bi bi-receipt" style="font-size:3rem;color:var(--accent-green)"></i>
-            </div>
-            <div class="project-card-overlay">
-              <a href="/#contacto" class="btn btn-primary-custom btn-sm">Consultar un proyecto similar</a>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h2 class="h5">Sistema de Facturación</h2>
-            <p>Sistema de facturación electrónica CFDI integrado con SAT para PyMEs mexicanas.</p>
-            <div class="d-flex flex-wrap gap-1">
-              <span class="tech-tag">PHP</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">API SAT</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 7 -->
-      <div class="col-lg-4 col-md-6">
-        <div class="project-card fade-in-up" data-category="web">
-          <div class="project-card-img">
-            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(188,140,255,0.2), rgba(75,163,217,0.2));display:flex;align-items:center;justify-content:center;">
-              <i class="bi bi-globe" style="font-size:3rem;color:var(--accent-purple)"></i>
-            </div>
-            <div class="project-card-overlay">
-              <a href="https://ceopi.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary-custom btn-sm">Visitar Web</a>
-            </div>
-          </div>
-          <div class="project-card-body">
-            <h2 class="h5">Página Web CEOPI</h2>
-            <p>Diseño y desarrollo de página web institucional para la empresa ceopi.com.</p>
-            <div class="d-flex flex-wrap gap-1">
-              <span class="tech-tag">HTML5</span>
-              <span class="tech-tag">CSS3</span>
-              <span class="tech-tag">JavaScript</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <?php endforeach ?>
     </div>
   </div>
 </section>

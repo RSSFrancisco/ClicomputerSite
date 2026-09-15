@@ -21,11 +21,7 @@ $active = match ($page['file']) {
           <li class="nav-item"><a class="nav-link<?= $active === $href ? ' active' : '' ?>" href="<?= e($href) ?>"><?= e($label) ?></a></li>
         <?php endforeach ?>
       </ul>
-      <div class="nav-search" hidden>
-        <i class="bi bi-search nav-search-icon" aria-hidden="true"></i>
-        <input type="search" class="nav-search-input" placeholder="Buscar..." aria-label="Buscar en esta página" id="globalSearch">
-        <span class="nav-search-shortcut" aria-hidden="true">/</span>
-      </div>
+      <?= $view->render('partials/site-search', ['searchQuery' => $searchQuery ?? '']) ?>
       <div class="d-none d-xl-flex align-items-center gap-3">
         <button type="button" class="theme-toggle" hidden id="themeToggle" aria-label="Cambiar tema"><i class="bi bi-sun" aria-hidden="true"></i></button>
         <a href="/#contacto" class="btn btn-cta-nav">Cotizar</a>
