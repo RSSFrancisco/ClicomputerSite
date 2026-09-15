@@ -23,6 +23,7 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <?php endif ?>
   <?php if ($hasSecurityNetwork): ?>
     <link rel="stylesheet" href="<?= e(asset('css/security-network.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset('css/security-gallery.css')) ?>">
   <?php endif ?>
   <link rel="stylesheet" href="<?= e(asset('css/brand.css')) ?>">
   <script>
@@ -54,6 +55,9 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <?php if ($hasGlobalNetwork): ?>
     <script defer src="<?= e(asset('js/components/service-popovers.js')) ?>"></script>
     <script defer src="<?= e(asset('js/components/space-journey.js')) ?>"></script>
+  <?php endif ?>
+  <?php if ($hasSecurityNetwork): ?>
+    <script defer src="<?= e(asset('js/components/security-gallery.js')) ?>"></script>
   <?php endif ?>
   <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'views/contact-form', 'components/search', 'app'] as $script): ?>
     <script defer src="<?= e(asset('js/' . $script . '.js')) ?>"></script>

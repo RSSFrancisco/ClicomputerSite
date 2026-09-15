@@ -10,6 +10,7 @@
               <p class="hero-subtitle fade-in-up">Protege tu negocio y hogar con sistemas de vigilancia de última generación. Monitoreo remoto 24/7, alta definición y detección inteligente.</p>
               <div class="hero-actions fade-in-up">
                 <a href="/#contacto" class="btn btn-primary-custom"><i class="bi bi-chat-dots"></i> Cotizar Instalación</a>
+                <a href="#instalaciones" class="btn btn-outline-custom">Ver fotografías</a>
               </div>
             </div>
           </div>
@@ -19,6 +20,8 @@
         </div>
       </div>
     </section>
+
+    <?= $view->render('partials/security-gallery', ['photos' => $page['gallery']]) ?>
 
     <section class="services-section section-padding" style="background-color: var(--bg-subtle);">
       <div class="container">
