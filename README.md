@@ -51,7 +51,7 @@ Las cinco etiquetas interactivas del planeta se configuran en `config/site.php`,
 
 `app/Views/partials/security-network.php` genera cuatro cámaras, sus conexiones y los canales del monitor en la página de seguridad. `css/security-network.css` dibuja los equipos y anima las señales, el movimiento de las cámaras y el barrido de los canales. Para cambiar los nombres o posiciones de las cuatro cámaras, edita el arreglo `$cameras` del parcial; las posiciones corresponden a las cuatro esquinas definidas en CSS.
 
-Seguridad incluye también una galería de cuatro fotografías aportadas por el propietario y retocadas con la herramienta integrada de imágenes. `data/security-gallery.php` contiene sus títulos, descripciones y dimensiones; `app/Views/partials/security-gallery.php` las muestra en WebP con variantes de 480 y 960 píxeles, carga diferida y textos alternativos. Bootstrap Modal y `js/components/security-gallery.js` permiten ampliarlas, cerrar con Escape y regresar al enlace de origen. Sin JavaScript se abre el archivo de imagen directamente. Los recursos de esta galería solo se cargan en Seguridad. Consulta [el registro de edición y los prompts](docs/fotografias-seguridad.md).
+
 
 `js/components/network-animation.js` usa jQuery para controlar ambas ilustraciones mediante `data-network-animation`. Las pausa al salir de pantalla, ocultar la pestaña o activar movimiento reducido. Sin JavaScript se muestran estáticas. La plantilla maestra carga el CSS de cada ilustración solo en su página, y la copia local de [jQuery Slim 4.0.0](https://releases.jquery.com/) junto con el controlador compartido solo en inicio y seguridad. Este controlador no añade botones de pausa ni usa temporizadores de JavaScript.
 
