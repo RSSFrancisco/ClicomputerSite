@@ -10,6 +10,13 @@ return array (
   'locality' => 'Córdoba',
   'region' => 'Veracruz',
   'country' => 'MX',
+  'hours_display' => 'Lunes a viernes: 9:00 a 18:00',
+  'hours_days' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+  'hours_open' => '09:00',
+  'hours_close' => '18:00',
+  // Propiedad confirmada en Analytics desde el perfil del propietario.
+  // CLICOMPUTER_GA4_ID=disabled permite suspender la integración.
+  'analytics_id' => trim((string) (getenv('CLICOMPUTER_GA4_ID') ?: 'G-C5KG6QTZJP')),
   'network_services' => [
     [
       'id' => 'seguridad', 'label' => 'Seguridad', 'icon' => 'bi-shield-lock',
@@ -37,8 +44,8 @@ return array (
     0 => 
     array (
       'file' => 'index.html',
-      'title' => 'Software, páginas web y soporte en Córdoba | Clicomputer',
-      'description' => 'Desarrollo de software, páginas web, soporte técnico, redes y cámaras de seguridad en Córdoba, Veracruz. Cuéntanos tu proyecto y solicita una cotización.',
+      'title' => 'Cámaras, soporte y páginas web en Córdoba | Clicomputer',
+      'description' => 'Instalación de cámaras de seguridad, soporte técnico de computadoras y creación de páginas web en Córdoba, Veracruz. Consulta servicios y solicita tu cotización.',
       'label' => 'Inicio',
       'sections' => 
       array (

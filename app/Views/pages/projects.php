@@ -39,6 +39,7 @@
             <div class="project-card-body">
               <h2 class="h5"><?= e($project['title']) ?></h2>
               <p><?= e($project['description']) ?></p>
+              <?php if ($project['id'] === 'ceopi'): ?><p><a href="/proyecto-web-ceopi.html">Conocer el proyecto de CEOPI</a></p><?php endif ?>
               <div class="d-flex flex-wrap gap-1">
                 <?php foreach ($project['tags'] as $tag): ?><span class="tech-tag"><?= e($tag) ?></span><?php endforeach ?>
               </div>
@@ -47,6 +48,10 @@
         </div>
       <?php endforeach ?>
     </div>
+    <aside class="editorial-related"><h2>Instalación de cámaras en fotografías</h2>
+      <p>Consulta detalles del montaje, la canalización y el monitoreo en nuestra galería de videovigilancia.</p>
+      <a href="/proyecto-videovigilancia.html">Ver la instalación y sus fotografías</a>
+    </aside>
   </div>
 </section>
 

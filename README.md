@@ -98,13 +98,17 @@ Clonar el repositorio o hacer push a GitHub no publica automáticamente el sitio
 ## Seguimiento SEO
 
 - Usa la propiedad existente de Search Console o verifica el dominio con el registro DNS que Google indique. No se ha inventado un código de verificación.
-- Envía `https://www.clcomputer.com/sitemap.xml`. Se genera a partir de las nueve páginas públicas y omite fechas artificiales de actualización.
+- Envía `https://www.clcomputer.com/sitemap.xml`. Se genera a partir de las 16 páginas públicas y omite fechas artificiales de actualización.
 - Después de publicar, inspecciona inicio, seguridad y una página nueva; comprueba el HTML, la URL canónica y la indexación.
 - Ejecuta PageSpeed Insights en móvil y escritorio. Si existen datos de campo, revisa LCP ≤ 2.5 s, INP ≤ 200 ms y CLS ≤ 0.1 en el percentil 75. No se han atribuido puntuaciones a esta versión sin medirla publicada.
 - Guarda una línea de base de clics, impresiones, consultas y páginas de entrada para comparar después del nuevo rastreo.
 - Revisa el Perfil de Empresa: categoría, servicios, teléfono, ubicación o zona de atención, horarios, fotos y reseñas auténticas.
 
 Se añadió marcado `Organization`, `WebSite`, `WebPage`, `Service` y rutas de navegación según la página. No se han inventado direcciones de calle, reseñas, precios ni perfiles sociales. El marcado específico de negocio local puede completarse cuando estén confirmados los datos necesarios.
+
+La ampliación SEO local incluye `data/service-scopes.php`, `data/editorial.php`, guías y páginas de portafolio, horario centralizado y medición GA4 opcional. Consulta [implementación, mediciones y pendientes](docs/seo-implementacion.md) antes de activar Analytics. Las dependencias visuales de la plantilla principal se sirven desde el alojamiento y el logo usa WebP; no hay paso de compilación.
+
+Pruebas adicionales: `php tests/seo-content.php`, `php tests/search.php` y `node --test tests/contact-tracking.test.cjs tests/contact-form.test.cjs tests/animations.test.cjs`.
 
 La identidad web usa el logo completo y el símbolo originales proporcionados por el propietario, guardados en `assets/img/clicomputer-logo.png` y `assets/img/clicomputer-symbol.png`. El parcial `app/Views/partials/brand.php` comparte el logo entre navegación y pie; el símbolo se usa como favicon. La paleta se define en `css/variables.css` y su aplicación en `css/brand.css`. Consulta [la guía de identidad](docs/identidad.md). La imagen PNG de 1200 × 630 para compartir conserva por ahora el diseño anterior; `assets/img/social-card.svg` es su original editable.
 

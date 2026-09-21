@@ -1,0 +1,8 @@
+/* Inter Latin, Google Fonts. Licencia SIL OFL en assets/fonts/Inter.OFL.txt. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: optional;
+  src: url('../assets/fonts/inter-latin.woff2') format('woff2');
+}

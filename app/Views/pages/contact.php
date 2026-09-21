@@ -3,8 +3,8 @@
   <div class="container">
     <div class="section-header">
       <span class="section-badge"><i class="bi bi-envelope" aria-hidden="true"></i> Contacto</span>
-      <?php if ($standaloneContact ?? false): ?>
-        <h1>Prepara tu solicitud</h1>
+      <?php if (($standaloneContact ?? false) || ($page['standalone_contact'] ?? false)): ?>
+        <h1>Cotiza tu servicio en Córdoba, Veracruz</h1>
       <?php else: ?>
         <h2>Hablemos de tu <span class="text-gradient">proyecto</span></h2>
       <?php endif ?>
@@ -55,7 +55,7 @@
           <div><h4 class="h6">Email</h4><p><a href="mailto:<?= e($site['email']) ?>"><?= e($site['email']) ?></a></p></div></div>
         <div class="contact-info-item"><div class="contact-info-icon"><i class="bi bi-whatsapp" aria-hidden="true"></i></div>
           <div><h4 class="h6">WhatsApp</h4><p><a href="<?= e($whatsapp) ?>">Envíanos un mensaje</a></p></div></div>
-        <p>Lunes a viernes: 9:00 a 18:00. Consulta la disponibilidad para tu proyecto.</p>
+        <p><?= e($site['hours_display']) ?>. Consulta la disponibilidad para tu proyecto.</p>
       </div></div>
     </div>
   </div>

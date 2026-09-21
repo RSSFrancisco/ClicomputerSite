@@ -56,7 +56,7 @@ verify($status === 200 && str_starts_with($headers['content-type'], 'application
 verify(($suggestions['results'][0]['url'] ?? '') === '/seguridad.html', 'HTTP search lost the query');
 [$status, $headers, $body] = request('http://127.0.0.1:8780/buscar?q=wifi');
 verify($status === 200 && $headers['x-robots-tag'] === 'noindex, follow' && str_contains($body, 'Redes e infraestructura'), 'HTTP search HTML failed');
-echo "OK: nueve páginas MVC, recursos SEO, 404, redirección, búsqueda y formulario PHP por HTTP.\n";
+echo "OK: " . count($model->pages()) . " páginas MVC, recursos SEO, 404, redirección, búsqueda y formulario PHP por HTTP.\n";
 
 // Optional Apache checks use a separate loopback-only instance, never the system service.
 $httpd = '/usr/sbin/httpd';

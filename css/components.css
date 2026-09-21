@@ -26,6 +26,14 @@
 
 /* Without Bootstrap JS the navigation remains expanded and in document flow. */
 .cli-navbar:not(.navigation-ready) { position: static; background: var(--bg-default); }
+/* Mantener la misma geometría antes y después de inicializar el menú evita CLS.
+   Sin JavaScript se conserva la navegación expandida dentro del documento. */
+.js .cli-navbar:not(.navigation-ready) { position: fixed; }
+.js .theme-toggle[hidden] { display: flex !important; visibility: hidden; }
+@media (max-width: 1199.98px) {
+  .js .cli-navbar:not(.navigation-ready) .navbar-collapse { display: none; }
+  .js .cli-navbar:not(.navigation-ready) .navbar-toggler[hidden] { display: block !important; }
+}
 .skip-link { position: fixed; top: -100px; left: 1rem; z-index: 1000; padding: 1rem; background: var(--bg-default); }
 .skip-link:focus { top: 1rem; }
 :focus-visible { outline: 3px solid var(--brand-primary); outline-offset: 4px; }
@@ -350,7 +358,7 @@
   padding: var(--space-4xl) 0 var(--space-xl);
 }
 
-.cli-footer h5 {
+.cli-footer .h5 {
   font-size: var(--fs-base);
   margin-bottom: var(--space-lg);
   color: var(--text-primary);

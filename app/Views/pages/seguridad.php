@@ -7,7 +7,7 @@
             <div class="hero-content">
               <div class="section-badge fade-in-up"><i class="bi bi-shield-lock"></i> Videovigilancia Inteligente</div>
               <h1 class="hero-title fade-in-up">Cámaras de seguridad <span class="text-gradient">en Córdoba, Veracruz</span></h1>
-              <p class="hero-subtitle fade-in-up">Protege tu negocio y hogar con sistemas de vigilancia de última generación. Monitoreo remoto 24/7, alta definición y detección inteligente.</p>
+              <p class="hero-subtitle fade-in-up">Instalación de cámaras para hogares y negocios: cobertura, grabación y acceso remoto según las necesidades de tu inmueble. Revisamos el espacio para definir equipos y cableado.</p>
               <div class="hero-actions fade-in-up">
                 <a href="/#contacto" class="btn btn-primary-custom"><i class="bi bi-chat-dots"></i> Cotizar Instalación</a>
                 <a href="#instalaciones" class="btn btn-outline-custom">Ver instalaciones industriales</a>
@@ -22,6 +22,7 @@
     </section>
 
     <?= $view->render('partials/security-gallery', ['photos' => $page['gallery']]) ?>
+    <?= $view->render('partials/service-scope', compact('page')) ?>
 
     <section class="services-section section-padding" style="background-color: var(--bg-subtle);">
       <div class="container">

@@ -21,7 +21,7 @@ foreach ([
     'pc' => '/soporte-tecnico.html', 'reparación de computadora' => '/soporte-tecnico.html',
     'instalaciones industriales' => '/seguridad.html#industrialPhotos',
     'ceopi' => '/proyectos.html#proyecto-ceopi', 'facturación' => '/proyectos.html#proyecto-facturacion',
-    'contacto' => '/#contacto',
+    'contacto' => '/contacto.html',
 ] as $query => $expected) {
     $results = $search->find($query);
     verifySearch(($results[0]['url'] ?? '') === $expected, 'Destino incorrecto: ' . $query);
