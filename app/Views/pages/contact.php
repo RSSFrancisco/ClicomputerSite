@@ -48,7 +48,7 @@
       <div class="col-lg-5"><div class="contact-info-card">
         <h3 class="h4">Información de contacto</h3>
         <div class="contact-info-item"><div class="contact-info-icon"><i class="bi bi-geo-alt-fill" aria-hidden="true"></i></div>
-          <div><h4 class="h6">Zona de atención</h4><p><?= e($site['locality'] . ', ' . $site['region']) ?>, México</p></div></div>
+          <div><h4 class="h6">Zona de atención</h4><p><?= e($site['locality'] . ', ' . $site['region']) ?>, México</p><p><?= e($site['service_mode']) ?>.</p></div></div>
         <div class="contact-info-item"><div class="contact-info-icon"><i class="bi bi-telephone-fill" aria-hidden="true"></i></div>
           <div><h4 class="h6">Teléfono</h4><p><a href="tel:<?= e($site['telephone']) ?>"><?= e($site['telephone_display']) ?></a></p></div></div>
         <div class="contact-info-item"><div class="contact-info-icon"><i class="bi bi-envelope-fill" aria-hidden="true"></i></div>
