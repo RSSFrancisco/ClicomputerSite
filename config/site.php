@@ -10,10 +10,11 @@ return array (
   'locality' => 'Córdoba',
   'region' => 'Veracruz',
   'country' => 'MX',
-  'hours_display' => 'Lunes a viernes: 9:00 a 18:00',
-  'hours_days' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-  'hours_open' => '09:00',
-  'hours_close' => '18:00',
+  'hours_display' => 'Lunes a sábado: 10:00 a 19:00',
+  'hours_days' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+  'hours_open' => '10:00',
+  'hours_close' => '19:00',
+  'service_mode' => 'Atención a domicilio y en línea',
   // Propiedad confirmada en Analytics desde el perfil del propietario.
   // CLICOMPUTER_GA4_ID=disabled permite suspender la integración.
   'analytics_id' => trim((string) (getenv('CLICOMPUTER_GA4_ID') ?: 'G-C5KG6QTZJP')),

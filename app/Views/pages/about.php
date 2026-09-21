@@ -7,7 +7,7 @@
     </div>
     <div class="trust-grid" id="stats">
       <div><h3>Alcance definido</h3><p>Partimos del problema que necesitas resolver y acordamos el trabajo antes de empezar.</p></div>
-      <div><h3>Atención en Córdoba</h3><p>Comparte tu ubicación para confirmar la modalidad y disponibilidad del servicio.</p></div>
+      <div><h3>Atención en Córdoba</h3><p><?= e($site['service_mode']) ?>. Comparte lo que necesitas para consultar disponibilidad.</p></div>
       <div><h3>Contacto directo</h3><p><?= e($site['hours_display']) ?>. <a href="/contacto.html">Consulta disponibilidad y solicita una cotización</a>.</p></div>
     </div>
     <div class="content-links mt-4">
