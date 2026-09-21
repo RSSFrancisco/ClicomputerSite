@@ -16,6 +16,7 @@
   </div>
   <p class="service-details"><?= e($page['details']) ?></p>
 </div></section>
+<?= $view->render('partials/service-scope', compact('page')) ?>
 <section class="section-padding-sm service-process"><div class="container"><div class="row g-5">
   <div class="col-lg-6"><h2>Cómo iniciamos tu proyecto</h2><ol class="process-list">
     <?php foreach ($page['process'] as $step): ?><li><?= e($step) ?></li><?php endforeach ?>

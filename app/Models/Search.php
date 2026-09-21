@@ -47,13 +47,13 @@ final class Search
         $entries = [];
         foreach ($this->site->pages() as $page) {
             $extra = $this->config['pages'][$page['file']] ?? [];
-            $content = array_intersect_key($page, array_flip(['service', 'headline', 'intro', 'includes', 'details', 'process', 'faq']));
+            $content = array_intersect_key($page, array_flip(['service', 'headline', 'intro', 'includes', 'details', 'process', 'faq', 'scope', 'blocks']));
             if ($page['file'] === 'index.html') $content[] = $this->site->settings()['network_services'];
             $entries[] = [
                 'url' => $page['file'] === 'index.html' ? '/' : '/' . $page['file'],
                 'title' => $page['label'], 'description' => $page['description'],
                 'icon' => $page['icon'] ?? $extra['icon'] ?? 'bi-file-earmark-text',
-                'category' => isset($page['service']) ? 'Servicio' : 'Página',
+                'category' => isset($page['service']) ? 'Servicio' : (($page['kind'] ?? '') === 'guide' ? 'Guía' : 'Página'),
                 'keywords' => $extra['keywords'] ?? '', 'body' => $this->flatten($content),
             ];
             foreach ($page['projects'] ?? [] as $project) {

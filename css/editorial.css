@@ -1,0 +1,23 @@
+/* Contenido comercial y guías: usa los colores y espaciados de la identidad. */
+.editorial-header, .content-intro { max-width: 800px; margin-bottom: 2.5rem; }
+.editorial-header h1 { font: 400 clamp(2rem, 4vw, 3.3rem)/1.12 var(--font-brand); margin-bottom: 1.5rem; }
+.editorial-body { max-width: 760px; }
+.editorial-section { margin-block: 2.5rem; }
+.editorial-section h2, .scope-section h2, .editorial-related h2 { font-size: var(--fs-xl); margin-bottom: 1rem; }
+.editorial-section p, .scope-section p, .content-checklist { color: var(--text-secondary); line-height: 1.8; }
+.content-checklist { padding-left: 1.3rem; }
+.content-checklist li { padding-left: .3rem; margin-block: .8rem; }
+.editorial-byline { color: var(--text-secondary); font-size: .9rem; }
+.editorial-related { margin-top: 3rem; padding: clamp(1.25rem, 3vw, 2rem); border: 1px solid var(--border-default); background: var(--bg-card); border-radius: var(--radius-lg); }
+.content-links { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
+.content-links a, .editorial-body a { text-decoration: underline; text-underline-offset: .22em; }
+.scope-section { border-block: 1px solid var(--border-default); }
+.priority-links { display: flex; gap: .75rem 1.25rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.priority-links a { font-size: .9rem; text-decoration: underline; text-underline-offset: .2em; }
+.trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.trust-grid h3 { font-size: var(--fs-lg); }
+.trust-grid p { color: var(--text-secondary); margin-bottom: 0; }
+@media (max-width: 767px) { .trust-grid { grid-template-columns: 1fr; } }
+.analytics-settings { background: none; border: 0; color: var(--text-link); text-decoration: underline; padding: 1rem 0; }
+.analytics-consent { position: fixed; bottom: 1rem; left: 1rem; z-index: 1055; width: min(32rem, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow: auto; padding: 1.25rem; background: var(--bg-card); border: 1px solid var(--border-default); box-shadow: var(--shadow-lg); }
+.analytics-consent p { color: var(--text-secondary); font-size: .9rem; }

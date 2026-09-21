@@ -31,6 +31,7 @@ const ContactForm = (() => {
       link.hidden = false;
       result.textContent = 'Tu mensaje está preparado. Ábrelo en WhatsApp, revísalo y pulsa Enviar para hacérnoslo llegar.';
       link.focus();
+      globalThis.CliAnalytics?.track('quote_prepared');
     });
     form.addEventListener('input', (event) => {
       if (typeof event.target.setCustomValidity === 'function') event.target.setCustomValidity('');

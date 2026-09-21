@@ -1,6 +1,7 @@
 <?php
 $hasGlobalNetwork = in_array('home', $page['sections'] ?? [], true);
 $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
+$hasSecurityGallery = isset($page['gallery']);
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
@@ -9,11 +10,10 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?= $view->render('partials/seo', compact('page', 'site', 'canonical', 'schema')) ?>
   <link rel="icon" type="image/png" href="<?= e(asset('assets/img/clicomputer-symbol.png')) ?>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="<?= e(asset('css/fonts.css')) ?>">
+  <link rel="stylesheet" href="<?= e(asset('css/vendor/bootstrap.min.css')) ?>">
+  <link rel="stylesheet" href="<?= e(asset('css/vendor/bootstrap-icons.min.css')) ?>">
   <?php foreach (['variables', 'base', 'components', 'sections', 'responsive'] as $style): ?>
     <link rel="stylesheet" href="<?= e(asset('css/' . $style . '.css')) ?>">
   <?php endforeach ?>
@@ -23,11 +23,15 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
   <?php endif ?>
   <?php if ($hasSecurityNetwork): ?>
     <link rel="stylesheet" href="<?= e(asset('css/security-network.css')) ?>">
+  <?php endif ?>
+  <?php if ($hasSecurityGallery): ?>
     <link rel="stylesheet" href="<?= e(asset('css/security-gallery.css')) ?>">
   <?php endif ?>
   <link rel="stylesheet" href="<?= e(asset('css/brand.css')) ?>">
   <link rel="stylesheet" href="<?= e(asset('css/search.css')) ?>">
+  <link rel="stylesheet" href="<?= e(asset('css/editorial.css')) ?>">
   <script>
+    document.documentElement.classList.add('js');
     try {
       var theme = localStorage.getItem('cli-theme');
       document.documentElement.setAttribute('data-bs-theme', theme === 'light' || theme === 'dark' ? theme :
@@ -48,7 +52,8 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
     <?= $content ?>
   </main>
   <?= $view->render('partials/footer', compact('site')) ?>
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <?= $view->render('partials/analytics', compact('site', 'page', 'canonical')) ?>
+  <script defer src="<?= e(asset('js/vendor/bootstrap.bundle.min.js')) ?>"></script>
   <script defer src="<?= e(asset('js/vendor/jquery-4.0.0.slim.min.js')) ?>"></script>
   <?php if ($hasGlobalNetwork || $hasSecurityNetwork): ?>
     <script defer src="<?= e(asset('js/components/network-animation.js')) ?>"></script>
@@ -57,7 +62,7 @@ $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
     <script defer src="<?= e(asset('js/components/service-popovers.js')) ?>"></script>
     <script defer src="<?= e(asset('js/components/space-journey.js')) ?>"></script>
   <?php endif ?>
-  <?php if ($hasSecurityNetwork): ?>
+  <?php if ($hasSecurityGallery): ?>
     <script defer src="<?= e(asset('js/components/security-gallery.js')) ?>"></script>
   <?php endif ?>
   <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'views/contact-form', 'components/search', 'app'] as $script): ?>

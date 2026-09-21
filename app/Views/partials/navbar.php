@@ -1,9 +1,10 @@
 <?php
-$links = ['/#inicio' => 'Inicio', '/#servicios' => 'Servicios', '/#nosotros' => 'Nosotros',
-    '/seguridad.html' => 'Seguridad', '/proyectos.html' => 'Proyectos', '/#contacto' => 'Contacto'];
+$links = ['/#inicio' => 'Inicio', '/#servicios' => 'Servicios',
+    '/seguridad.html' => 'Cámaras', '/proyectos.html' => 'Proyectos', '/guias.html' => 'Guías', '/contacto.html' => 'Contacto'];
 $active = match ($page['file']) {
     'index.html' => '/#inicio', 'seguridad.html' => '/seguridad.html', 'proyectos.html' => '/proyectos.html',
-    default => isset($page['service']) ? '/#servicios' : '',
+    'contacto.html' => '/contacto.html', 'guias.html' => '/guias.html',
+    default => isset($page['service']) ? '/#servicios' : '/' . ($page['parent']['file'] ?? ''),
 };
 ?>
 <nav class="navbar navbar-expand-xl cli-navbar" id="mainNavbar" aria-label="Navegación principal">

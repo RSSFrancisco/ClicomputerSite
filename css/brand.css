@@ -1,6 +1,6 @@
 /* Identidad Clicomputer: logo original, azul, gris y tipografía editorial. */
 .cli-brand { display: inline-flex; align-items: center; }
-.cli-brand-logo { display: block; width: 210px; height: auto; }
+.cli-brand-logo { display: block; width: 210px; height: auto; aspect-ratio: 745 / 216; }
 .cli-navbar .navbar-brand { padding: 0; margin-right: 1.5rem; }
 .cli-navbar .navbar-brand img { width: 210px; height: auto; }
 

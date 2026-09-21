@@ -6,14 +6,18 @@
           <div class="col-lg-6">
             <div class="hero-content">
               <p class="brand-eyebrow">Clicomputer <span aria-hidden="true">/</span> <?= e($site['locality'] . ', ' . $site['region']) ?></p>
-              <h1 class="hero-title">Páginas web, software y <span class="text-brand">soporte en Córdoba.</span>
+              <h1 class="hero-title">Cámaras, soporte y páginas web <span class="text-brand">en Córdoba.</span>
               </h1>
-              <p class="hero-subtitle">Desde tu página web hasta la red y las cámaras de tu negocio. Te ayudamos a elegir,
-                instalar y mantener la tecnología que necesitas.</p>
+              <p class="hero-subtitle">Instalamos cámaras de seguridad, damos soporte a tus computadoras y creamos la página web de tu negocio en Córdoba, Veracruz.</p>
               <div class="hero-actions fade-in-up">
                 <a href="/#contacto" class="btn btn-primary-custom">Cuéntanos qué necesitas <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
                 <a href="/#servicios" class="btn btn-outline-custom">Ver servicios</a>
               </div>
+              <nav class="priority-links" aria-label="Servicios principales">
+                <a href="/seguridad.html">Instalación de cámaras</a>
+                <a href="/soporte-tecnico.html">Soporte técnico</a>
+                <a href="/desarrollo-web.html">Creación de páginas web</a>
+              </nav>
             </div>
           </div>
           <div class="col-lg-6">

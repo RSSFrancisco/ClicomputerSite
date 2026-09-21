@@ -11,12 +11,17 @@ final class Site
     public function __construct(Service $services)
     {
         $this->config = require ROOT_PATH . '/config/site.php';
-        $this->pages = array_merge($this->config['pages'], $services->all(), [[
+        $this->pages = array_merge($this->config['pages'], $services->all(), require ROOT_PATH . '/data/editorial.php', [[
             'file' => 'cv.html', 'label' => 'Perfil profesional',
             'title' => 'CV - Francisco Reyes Sánchez',
             'description' => 'Perfil profesional de Francisco Reyes Sánchez: experiencia en desarrollo de software, páginas web e infraestructura tecnológica. Consulta sus proyectos y habilidades.',
             'sections' => ['cv'],
         ]]);
+        $scopes = require ROOT_PATH . '/data/service-scopes.php';
+        foreach ($this->pages as &$page) {
+            if (isset($scopes[$page['file']])) $page['scope'] = $scopes[$page['file']];
+        }
+        unset($page);
     }
 
     public function settings(): array
