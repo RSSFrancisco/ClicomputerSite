@@ -7,7 +7,7 @@ return array (
   'telephone' => '+526567514187',
   'telephone_display' => '+52 656 751 4187',
   'email' => 'info@clcomputer.com',
-  // Buzón del dominio autorizado por el alojamiento; vacío usa el correo de contacto.
+  // Usuario SMTP predeterminado; la credencial privada puede seleccionar otro buzón Titan.
   'mail_from' => trim((string) (getenv('CLICOMPUTER_MAIL_FROM') ?: '')),
   'locality' => 'Córdoba',
   'region' => 'Veracruz',

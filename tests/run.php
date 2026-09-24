@@ -32,10 +32,17 @@ function document(string $html): DOMXPath
 
 $mailCalls = [];
 $mailAccepted = true;
-$mailer = new ContactMailer(static function ($to, $subject, $body, $headers) use (&$mailCalls, &$mailAccepted): bool {
+$testSmtp = ['username' => 'info@clcomputer.com', 'password' => 'test-password-not-real', 'port' => 587];
+ini_set('error_log', sys_get_temp_dir() . '/clicomputer-test-mail-' . getmypid() . '.log');
+$mailer = new ContactMailer(static function ($mail) use (&$mailCalls, &$mailAccepted): bool {
+    $mail->preSend();
+    $to = $mail->getToAddresses()[0][0];
+    $subject = $mail->Subject;
+    $body = base64_encode($mail->Body);
+    $headers = ['From' => $mail->FromName . ' <' . $mail->From . '>', 'Reply-To' => array_values($mail->getReplyToAddresses())[0][0]];
     $mailCalls[] = compact('to', 'subject', 'body', 'headers');
     return $mailAccepted;
-});
+}, $testSmtp);
 $rateLimiter = new ContactRateLimiter(sys_get_temp_dir() . '/clicomputer-test-' . bin2hex(random_bytes(8)), 100);
 $app = new Application($mailer, $rateLimiter);
 $model = new Site(new Service());
@@ -123,7 +130,7 @@ $xpath = document($sent->body);
 check(count($mailCalls) === 1, 'Expected one delivery');
 check($mailCalls[0]['to'] === $model->settings()['email'], 'Incorrect mail recipient');
 check($mailCalls[0]['headers']['Reply-To'] === $valid['email'], 'Missing visitor reply address');
-check($mailCalls[0]['headers']['From'] === 'Clicomputer <' . ($model->settings()['mail_from'] ?: $model->settings()['email']) . '>', 'Sender must belong to the site');
+check($mailCalls[0]['headers']['From'] === 'Clicomputer <' . $testSmtp['username'] . '>', 'Sender must be the authenticated mailbox');
 $mailText = str_replace("\r\n", "\n", base64_decode($mailCalls[0]['body'], true));
 check(str_contains($mailText, $valid['message']) && str_contains($mailText, 'Nombre: Ana Pérez'), 'Mail lost accents, values or line breaks');
 check($xpath->query('//textarea[@name="message"]')[0]->textContent === '', 'Successful form not cleared');

@@ -26,12 +26,19 @@ deployment:
       esac
 
       # Comprueba todos los archivos antes de modificar el sitio.
-      for item in app config data assets css js index.php .htaccess; do
+      for item in app config data assets css js index.php .htaccess scripts/check-smtp.php; do
         if [ ! -e "$item" ]; then
           echo "Falta un archivo o carpeta del despliegue: $item" >&2
           exit 1
         fi
       done
+
+      # Verifica TLS y autenticación antes de activar SMTP. No envía correos.
+      SMTP_CONFIG_PATH="${DEPLOY_PATH%/*}/clicomputer-private/smtp.json"
+      if ! CLICOMPUTER_SMTP_CONFIG="$SMTP_CONFIG_PATH" php scripts/check-smtp.php; then
+        echo "Configura primero $SMTP_CONFIG_PATH fuera de public_html. Consulta docs/correo-smtp.md." >&2
+        exit 1
+      fi
 
       # Conserva íntegro el .htaccess del alojamiento, incluidos los bloques de PHP.
       # Las reglas del proyecto deben figurar como un bloque continuo dentro de él.
