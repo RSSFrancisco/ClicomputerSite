@@ -44,12 +44,15 @@ foreach (['/sitemap.xml' => 'application/xml', '/robots.txt' => 'text/plain'] as
 }
 [$status, $headers] = request('http://127.0.0.1:8780/index.html?origen=prueba');
 verify($status === 301 && $headers['location'] === '/?origen=prueba', 'Legacy HTTP redirect failed');
-[$status, $headers, $body] = request('http://127.0.0.1:8780/contacto/preparar', [], [
-    'name' => 'Prueba local', 'service' => 'Desarrollo web', 'message' => 'Preparar borrador sin enviar.',
+// Probar validación por HTTP nunca debe generar un correo real.
+[$status, $headers, $body] = request('http://127.0.0.1:8780/contacto/enviar', [], [
+    'name' => 'Prueba local', 'email' => 'correo-invalido', 'service' => 'Desarrollo web', 'message' => 'Validación sin enviar.',
 ]);
-verify($status === 200 && $headers['cache-control'] === 'no-store', 'HTTP contact failed');
-verify(str_contains($body, 'https://wa.me/' . ltrim($model->settings()['telephone'], '+') . '?text='), 'PHP did not prepare the draft');
-verify(request('http://127.0.0.1:8780/contacto/preparar', [], ['name' => ''])[0] === 422, 'Invalid HTTP contact accepted');
+verify($status === 422 && $headers['cache-control'] === 'no-store', 'HTTP contact validation failed');
+verify(str_contains($body, 'Escribe un correo electrónico válido.'), 'PHP email error missing');
+[$status, $headers, $body] = request('http://127.0.0.1:8780/contacto/enviar?format=json', [], ['name' => '']);
+verify($status === 422 && str_starts_with($headers['content-type'], 'application/json') && json_decode($body, true)['sent'] === false, 'Invalid JSON contact accepted');
+verify(request('http://127.0.0.1:8780/contacto/preparar', [], ['name' => ''])[0] === 303, 'Legacy contact route still handles submissions');
 [$status, $headers, $body] = request('http://127.0.0.1:8780/buscar?q=camaras&format=json');
 $suggestions = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
 verify($status === 200 && str_starts_with($headers['content-type'], 'application/json'), 'HTTP search JSON failed');

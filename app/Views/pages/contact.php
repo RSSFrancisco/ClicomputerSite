@@ -8,19 +8,19 @@
       <?php else: ?>
         <h2>Hablemos de tu <span class="text-gradient">proyecto</span></h2>
       <?php endif ?>
-      <p>Cuéntanos qué necesitas. Puedes preparar tu solicitud aquí y enviarla por WhatsApp.</p>
+      <p>Cuéntanos qué necesitas. Envía tu solicitud por correo desde este formulario.</p>
     </div>
     <div class="row g-4">
       <div class="col-lg-7"><div class="contact-form-card">
-        <p><a href="<?= e($whatsapp) ?>">Abrir una conversación en WhatsApp</a> o <a href="mailto:<?= e($site['email']) ?>">escribirnos por correo</a>.</p>
-        <form id="contactForm" method="post" action="/contacto/preparar#contacto" data-whatsapp="<?= e($whatsapp) ?>" aria-describedby="contactHelp">
-          <p id="contactHelp">Al terminar, abre WhatsApp, revisa el mensaje y pulsa Enviar. Los campos marcados con * son obligatorios.</p>
-          <?php if ($errors): ?><p class="alert alert-danger" role="alert">Revisa los campos indicados antes de preparar tu mensaje.</p><?php endif ?>
+        <p>Tu solicitud llegará a <a href="mailto:<?= e($site['email']) ?>"><?= e($site['email']) ?></a>.</p>
+        <form id="contactForm" method="post" action="/contacto/enviar#contacto" aria-describedby="contactHelp">
+          <p id="contactHelp">Completa tus datos y pulsa Enviar solicitud. Los campos marcados con * son obligatorios.</p>
+          <div hidden aria-hidden="true"><label for="contactWebsite">Sitio web</label><input type="text" id="contactWebsite" name="website" tabindex="-1" autocomplete="off"></div>
           <div class="row g-3">
-            <?php foreach ([['name','contactName','Nombre completo *','text','name',80], ['email','contactEmail','Email (opcional)','email','email',120], ['phone','contactPhone','Teléfono (opcional)','tel','tel',25]] as [$key,$id,$label,$type,$autocomplete,$limit]): ?>
+            <?php foreach ([['name','contactName','Nombre completo *','text','name',80], ['email','contactEmail','Email *','email','email',120], ['phone','contactPhone','Teléfono (opcional)','tel','tel',25]] as [$key,$id,$label,$type,$autocomplete,$limit]): ?>
             <div class="col-md-6">
               <label class="form-label" for="<?= e($id) ?>"><?= e($label) ?></label>
-              <input type="<?= e($type) ?>" class="form-control" id="<?= e($id) ?>" name="<?= e($key) ?>" autocomplete="<?= e($autocomplete) ?>" maxlength="<?= $limit ?>" value="<?= e($values[$key] ?? '') ?>" <?= $key === 'name' ? 'required' : '' ?> <?= isset($errors[$key]) ? 'aria-invalid="true" aria-describedby="error-' . e($key) . '"' : '' ?>>
+              <input type="<?= e($type) ?>" class="form-control" id="<?= e($id) ?>" name="<?= e($key) ?>" autocomplete="<?= e($autocomplete) ?>" maxlength="<?= $limit ?>" value="<?= e($values[$key] ?? '') ?>" <?= in_array($key, ['name', 'email'], true) ? 'required' : '' ?> <?= isset($errors[$key]) ? 'aria-invalid="true" aria-describedby="error-' . e($key) . '"' : '' ?>>
               <?php if (isset($errors[$key])): ?><p class="text-danger" id="error-<?= e($key) ?>"><?= e($errors[$key]) ?></p><?php endif ?>
             </div>
             <?php endforeach ?>
@@ -39,11 +39,10 @@
               <textarea class="form-control" id="contactMessage" name="message" rows="5" maxlength="1000" required <?= isset($errors['message']) ? 'aria-invalid="true" aria-describedby="error-message"' : '' ?>><?= e($values['message'] ?? '') ?></textarea>
               <?php if (isset($errors['message'])): ?><p class="text-danger" id="error-message"><?= e($errors['message']) ?></p><?php endif ?>
             </div>
-            <div class="col-12"><button type="submit" class="btn btn-primary-custom w-100">Preparar mensaje de WhatsApp</button></div>
+            <div class="col-12"><button type="submit" class="btn btn-primary-custom w-100">Enviar solicitud por correo</button></div>
           </div>
         </form>
-        <div id="formAlerts" role="status" aria-live="polite" class="mt-3"><?= $draftUrl ? 'Tu mensaje está preparado. Ábrelo en WhatsApp, revísalo y pulsa Enviar para hacérnoslo llegar.' : '' ?></div>
-        <a id="preparedWhatsApp" class="btn btn-outline-custom mt-2" target="_blank" rel="noopener noreferrer" <?= $draftUrl ? 'href="' . e($draftUrl) . '"' : 'hidden' ?>>Abrir WhatsApp con mi solicitud</a>
+        <div id="formAlerts" role="status" aria-live="polite" tabindex="-1" class="mt-3<?= $contactStatus ? ($contactSent ? ' alert alert-success' : ' alert alert-danger') : '' ?>"><?= e($contactStatus) ?></div>
       </div></div>
       <div class="col-lg-5"><div class="contact-info-card">
         <h3 class="h4">Información de contacto</h3>

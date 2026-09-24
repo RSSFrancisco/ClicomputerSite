@@ -9,13 +9,15 @@ use App\Controllers\SearchController;
 use App\Models\Search;
 use App\Models\Service;
 use App\Models\Site;
+use App\Services\ContactMailer;
+use App\Services\ContactRateLimiter;
 
 final class Application
 {
     private Site $site;
     private PageController $pages;
 
-    public function __construct()
+    public function __construct(private ?ContactMailer $mailer = null, private ?ContactRateLimiter $contactRateLimiter = null)
     {
         $this->site = new Site(new Service());
         $this->pages = new PageController($this->site, new View());
@@ -28,10 +30,16 @@ final class Application
             $query = parse_url($uri, PHP_URL_QUERY);
             return new Response('', 301, ['Location' => '/' . ($query !== null ? '?' . $query : '')]);
         }
-        if ($path === '/contacto/preparar') {
+        if ($path === '/contacto/enviar') {
             if ($method === 'POST') {
-                return (new ContactController($this->site, $this->pages))->prepare($input);
+                parse_str(parse_url($uri, PHP_URL_QUERY) ?? '', $params);
+                return (new ContactController($this->site, $this->pages, $this->mailer ?? new ContactMailer(), $this->contactRateLimiter ?? new ContactRateLimiter()))
+                    ->send($input, ($params['format'] ?? '') === 'json');
             }
+            return new Response('', 303, ['Location' => '/#contacto']);
+        }
+        // Un formulario antiguo nunca debe enviar correo sin mostrar el nuevo flujo.
+        if ($path === '/contacto/preparar') {
             return new Response('', 303, ['Location' => '/#contacto']);
         }
         if (!in_array($method, ['GET', 'HEAD'], true)) {

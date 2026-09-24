@@ -25,12 +25,12 @@ final class ContactRequest
                 $errors[$key] = 'El texto excede el límite de ' . $limit . ' caracteres.';
             }
         }
-        foreach (['name', 'service', 'message'] as $key) {
+        foreach (['name', 'email', 'service', 'message'] as $key) {
             if ($values[$key] === '') {
                 $errors[$key] = 'Completa este campo.';
             }
         }
-        if ($values['email'] !== '' && !filter_var($values['email'], FILTER_VALIDATE_EMAIL)) {
+        if ($values['email'] !== '' && (preg_match('/[\r\n]/', $values['email']) || !filter_var($values['email'], FILTER_VALIDATE_EMAIL))) {
             $errors['email'] = 'Escribe un correo electrónico válido.';
         }
         if ($values['service'] !== '' && !in_array($values['service'], self::SERVICES, true)) {
