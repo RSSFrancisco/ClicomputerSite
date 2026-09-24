@@ -23,7 +23,7 @@ final class PageController
         $data = array_merge([
             'site' => $this->model->settings(), 'page' => $page,
             'canonical' => $this->model->url($page), 'schema' => (new Seo($this->model))->graph($page),
-            'pages' => $this->model->pages(), 'values' => [], 'errors' => [], 'draftUrl' => null,
+            'pages' => $this->model->pages(), 'values' => [], 'errors' => [], 'contactSent' => false, 'contactStatus' => '',
         ], $extra);
         $content = '';
         foreach ($page['sections'] ?? ['service'] as $section) {

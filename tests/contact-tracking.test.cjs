@@ -38,11 +38,12 @@ test('accepted contact events exclude draft text, mail addresses and arbitrary p
   app.click('https://wa.me/526567514187?text=PRIVATE_NAME_AND_MESSAGE');
   app.click('mailto:private@example.com?subject=PRIVATE_SUBJECT');
   app.click('tel:+526567514187');
-  app.window.CliAnalytics.track('quote_prepared', { name: 'PRIVATE_NAME' });
+  app.window.CliAnalytics.track('quote_sent', { name: 'PRIVATE_NAME' });
+  app.window.CliAnalytics.track('quote_prepared');
   app.window.CliAnalytics.track('generate_lead', 'whatsapp');
   app.window.CliAnalytics.track('contact_click', 'INVALID');
   const events = Array.from(app.window.dataLayer).filter(args => args[0] === 'event');
-  assert.deepEqual(events.map(args => args[1]), ['page_view', 'contact_click', 'contact_click', 'contact_click', 'quote_prepared']);
+  assert.deepEqual(events.map(args => args[1]), ['page_view', 'contact_click', 'contact_click', 'contact_click', 'quote_sent']);
   assert.deepEqual(events.slice(1, 4).map(args => args[2].contact_method), ['whatsapp', 'email', 'phone']);
   assert.equal(JSON.stringify(app.window.dataLayer).includes('PRIVATE'), false);
   assert.equal(events.every(args => args[2].page_location === 'https://www.clcomputer.com/contacto.html'), true);

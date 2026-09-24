@@ -7,6 +7,8 @@ use App\Core\Application;
 use App\Models\ContactRequest;
 use App\Models\Service;
 use App\Models\Site;
+use App\Services\ContactMailer;
+use App\Services\ContactRateLimiter;
 
 $checks = 0;
 function check(bool $condition, string $message): void
@@ -28,7 +30,14 @@ function document(string $html): DOMXPath
     return new DOMXPath($document);
 }
 
-$app = new Application();
+$mailCalls = [];
+$mailAccepted = true;
+$mailer = new ContactMailer(static function ($to, $subject, $body, $headers) use (&$mailCalls, &$mailAccepted): bool {
+    $mailCalls[] = compact('to', 'subject', 'body', 'headers');
+    return $mailAccepted;
+});
+$rateLimiter = new ContactRateLimiter(sys_get_temp_dir() . '/clicomputer-test-' . bin2hex(random_bytes(8)), 100);
+$app = new Application($mailer, $rateLimiter);
 $model = new Site(new Service());
 $documents = $titles = $descriptions = [];
 foreach ($model->pages() as $page) {
@@ -106,27 +115,57 @@ foreach (['/index.html?utm_source=qa', '/index.php?utm_source=qa'] as $uri) {
 }
 
 $valid = ['name' => ' Ana Pérez ', 'service' => 'Desarrollo web', 'email' => 'ana@example.com', 'phone' => '', 'message' => "Catálogo & soporte / redes\n¿Pueden cotizar?"];
-$draft = $app->handle('POST', '/contacto/preparar', $valid);
-check($draft->status === 200, 'Valid contact rejected');
-check($draft->headers['Cache-Control'] === 'no-store', 'Draft response may be cached');
-check($draft->headers['X-Robots-Tag'] === 'noindex, follow', 'Draft response can be indexed');
-$xpath = document($draft->body);
-$url = $xpath->query('//a[@id="preparedWhatsApp"]')[0]->getAttribute('href');
-check(parse_url($url, PHP_URL_HOST) === 'wa.me', 'Invalid WhatsApp host');
-check(parse_url($url, PHP_URL_PATH) === '/' . ltrim($model->settings()['telephone'], '+'), 'Invalid recipient');
-parse_str(parse_url($url, PHP_URL_QUERY), $query);
-check(str_contains($query['text'], $valid['message']), 'Draft lost accents or line breaks');
-check($xpath->query('//textarea[@name="message"]')[0]->textContent === $valid['message'], 'Form values cleared');
-check(!str_contains($draft->body, '¡Mensaje enviado!'), 'False delivery confirmation');
+$sent = $app->handle('POST', '/contacto/enviar', $valid);
+check($sent->status === 200, 'Valid contact rejected');
+check($sent->headers['Cache-Control'] === 'no-store', 'Contact response may be cached');
+check($sent->headers['X-Robots-Tag'] === 'noindex, follow', 'Contact response can be indexed');
+$xpath = document($sent->body);
+check(count($mailCalls) === 1, 'Expected one delivery');
+check($mailCalls[0]['to'] === $model->settings()['email'], 'Incorrect mail recipient');
+check($mailCalls[0]['headers']['Reply-To'] === $valid['email'], 'Missing visitor reply address');
+check($mailCalls[0]['headers']['From'] === 'Clicomputer <' . ($model->settings()['mail_from'] ?: $model->settings()['email']) . '>', 'Sender must belong to the site');
+$mailText = str_replace("\r\n", "\n", base64_decode($mailCalls[0]['body'], true));
+check(str_contains($mailText, $valid['message']) && str_contains($mailText, 'Nombre: Ana Pérez'), 'Mail lost accents, values or line breaks');
+check($xpath->query('//textarea[@name="message"]')[0]->textContent === '', 'Successful form not cleared');
+check(str_contains($xpath->evaluate('string(//*[@id="formAlerts"])'), 'enviado al servicio de correo'), 'Mail acceptance not confirmed');
+check($xpath->query('//form[@id="contactForm"]')[0]->getAttribute('action') === '/contacto/enviar#contacto', 'Form targets wrong endpoint');
+check($xpath->query('//input[@name="email" and @required]')->length === 1, 'Reply address must be required');
+check(!str_contains($sent->body, 'preparedWhatsApp'), 'WhatsApp draft remains');
 
-foreach ([[], ['name' => ['array']], array_merge($valid, ['email' => 'bad-email']), array_merge($valid, ['service' => 'Unknown']), array_merge($valid, ['message' => str_repeat('á', 1001)]), array_merge($valid, ['name' => "\xFF"])] as $input) {
-    $response = $app->handle('POST', '/contacto/preparar', $input);
+foreach ([[], ['name' => ['array']], array_merge($valid, ['email' => '']), array_merge($valid, ['email' => 'bad-email']), array_merge($valid, ['email' => "ana@example.com\r\nBcc: another@example.com"]), array_merge($valid, ['service' => 'Unknown']), array_merge($valid, ['message' => str_repeat('á', 1001)]), array_merge($valid, ['name' => "\xFF"]), array_merge($valid, ['website' => 'spam']), array_merge($valid, ['website' => ['array']])] as $input) {
+    $response = $app->handle('POST', '/contacto/enviar', $input);
     check($response->status === 422, 'Invalid input accepted');
-    check(document($response->body)->query('//a[@id="preparedWhatsApp" and @href]')->length === 0, 'Invalid draft has a link');
+    check(count($mailCalls) === 1, 'Invalid input reached the mail service');
 }
+$mailAccepted = false;
 $attack = array_merge($valid, ['message' => '</textarea><script>alert(1)</script>']);
-$response = $app->handle('POST', '/contacto/preparar', $attack);
+$response = $app->handle('POST', '/contacto/enviar', $attack);
+check($response->status === 503, 'Mail failure reported as success');
 check(!str_contains($response->body, '<script>alert(1)</script>'), 'Reflected HTML injection');
 check(str_contains($response->body, '&lt;/textarea&gt;'), 'Message was not escaped');
+check(document($response->body)->query('//textarea[@name="message"]')[0]->textContent === $attack['message'], 'Failure discarded the message');
+$failed = $app->handle('POST', '/contacto/enviar?format=json', $valid);
+check($failed->status === 503 && json_decode($failed->body, true)['sent'] === false, 'JSON mail failure reported as success');
+$mailAccepted = true;
+$jsonResponse = $app->handle('POST', '/contacto/enviar?format=json', $valid);
+$payload = json_decode($jsonResponse->body, true, 512, JSON_THROW_ON_ERROR);
+check($jsonResponse->status === 200 && $payload['sent'] === true, 'JSON success missing');
+check(!str_contains($jsonResponse->body, $valid['email']), 'JSON unnecessarily echoes personal data');
+$invalid = $app->handle('POST', '/contacto/enviar?format=json', ['email' => 'bad']);
+check($invalid->status === 422 && isset(json_decode($invalid->body, true)['errors']['email']), 'JSON field errors missing');
+$before = count($mailCalls);
+foreach (['GET', 'HEAD', 'POST'] as $method) {
+    check($app->handle($method, '/contacto/preparar', $valid)->status === 303, 'Old form route must show new flow');
+}
+check($app->handle('GET', '/contacto/enviar')->status === 303, 'GET can send mail');
+check(count($mailCalls) === $before, 'A legacy or GET request sent mail');
+$limitedApp = new Application($mailer, new ContactRateLimiter(sys_get_temp_dir() . '/clicomputer-limit-test-' . bin2hex(random_bytes(8)), 1));
+check($limitedApp->handle('POST', '/contacto/enviar', $valid)->status === 200, 'First submission blocked');
+check($limitedApp->handle('POST', '/contacto/enviar?format=json', $valid)->status === 429, 'Repeat submissions not limited');
+check(count($mailCalls) === $before + 1, 'Rate-limited submission reached mail service');
+foreach (['email', 'mail_from'] as $key) {
+    $settings = array_merge($model->settings(), [$key => "bad@example.com\r\nBcc: another@example.com"]);
+    check(!$mailer->send($valid, $settings), 'Configured header injection accepted');
+}
 
 echo "OK: $checks comprobaciones de PHP MVC, SEO, enlaces, validación y escape de datos.\n";

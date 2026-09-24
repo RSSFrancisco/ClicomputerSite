@@ -22,7 +22,7 @@
   } catch (_) { /* Una visita directa no tiene referrer. */ }
 
   function track(name, method) {
-    if (!allowed || !['contact_click', 'quote_prepared'].includes(name)) return;
+    if (!allowed || !['contact_click', 'quote_sent'].includes(name)) return;
     const parameters = { ...fields };
     if (name === 'contact_click') {
       if (!['whatsapp', 'phone', 'email'].includes(method)) return;

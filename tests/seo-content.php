@@ -16,11 +16,11 @@ check(str_contains($app->handle('GET', '/contacto.html')->body, $model->settings
 check(!str_contains($app->handle('GET', '/')->body, 'analyticsConfig'), 'Analytics is enabled without a real property');
 putenv('CLICOMPUTER_GA4_ID=G-TEST1234');
 $_SERVER['HTTP_HOST'] = 'www.clcomputer.com';
-$withAnalytics = new App\Core\Application();
+$withAnalytics = new App\Core\Application($mailer, $rateLimiter);
 check(str_contains($withAnalytics->handle('GET', '/contacto.html')->body, 'analyticsConfig'), 'Configured analytics missing');
 check(!str_contains($withAnalytics->handle('GET', '/buscar?q=private')->body, 'analyticsConfig'), 'Search query page has analytics');
 check(!str_contains($withAnalytics->handle('GET', '/404-private')->body, 'analyticsConfig'), '404 page has analytics');
-check(!str_contains($withAnalytics->handle('POST', '/contacto/preparar', $valid)->body, 'analyticsConfig'), 'Contact draft has analytics');
+check(!str_contains($withAnalytics->handle('POST', '/contacto/enviar', $valid)->body, 'analyticsConfig'), 'Contact response has analytics');
 $_SERVER['HTTP_HOST'] = '127.0.0.1:8780';
 check(!str_contains($withAnalytics->handle('GET', '/contacto.html')->body, 'analyticsConfig'), 'Local preview sends production analytics');
 unset($_SERVER['HTTP_HOST']);
