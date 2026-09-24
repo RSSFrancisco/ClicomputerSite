@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 define('ROOT_PATH', dirname(__DIR__));
 spl_autoload_register(static function (string $class): void {
+    if (strncmp($class, 'PHPMailer\\PHPMailer\\', 20) === 0) {
+        $file = ROOT_PATH . '/app/Vendor/PHPMailer/src/' . substr($class, 20) . '.php';
+        if (is_file($file)) require $file;
+        return;
+    }
     if (strncmp($class, 'App\\', 4) !== 0) {
         return;
     }
