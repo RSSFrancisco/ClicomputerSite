@@ -1,0 +1,7 @@
+{
+  "host": "localhost",
+  "port": 3306,
+  "database": "USUARIO_BASE",
+  "username": "USUARIO_MYSQL",
+  "password": "CAMBIA_ESTA_CLAVE"
+}

@@ -7,8 +7,6 @@ use App\Core\Application;
 use App\Models\ContactRequest;
 use App\Models\Service;
 use App\Models\Site;
-use App\Services\ContactMailer;
-use App\Services\ContactRateLimiter;
 
 $checks = 0;
 function check(bool $condition, string $message): void
@@ -30,21 +28,7 @@ function document(string $html): DOMXPath
     return new DOMXPath($document);
 }
 
-$mailCalls = [];
-$mailAccepted = true;
-$testSmtp = ['username' => 'info@clcomputer.com', 'password' => 'test-password-not-real', 'port' => 587];
-ini_set('error_log', sys_get_temp_dir() . '/clicomputer-test-mail-' . getmypid() . '.log');
-$mailer = new ContactMailer(static function ($mail) use (&$mailCalls, &$mailAccepted): bool {
-    $mail->preSend();
-    $to = $mail->getToAddresses()[0][0];
-    $subject = $mail->Subject;
-    $body = base64_encode($mail->Body);
-    $headers = ['From' => $mail->FromName . ' <' . $mail->From . '>', 'Reply-To' => array_values($mail->getReplyToAddresses())[0][0]];
-    $mailCalls[] = compact('to', 'subject', 'body', 'headers');
-    return $mailAccepted;
-}, $testSmtp);
-$rateLimiter = new ContactRateLimiter(sys_get_temp_dir() . '/clicomputer-test-' . bin2hex(random_bytes(8)), 100);
-$app = new Application($mailer, $rateLimiter);
+$app = new Application();
 $model = new Site(new Service());
 $documents = $titles = $descriptions = [];
 foreach ($model->pages() as $page) {
@@ -121,58 +105,52 @@ foreach (['/index.html?utm_source=qa', '/index.php?utm_source=qa'] as $uri) {
     check($response->status === 301 && $response->headers['Location'] === '/?utm_source=qa', 'Legacy index redirect failed');
 }
 
-$valid = ['name' => ' Ana Pérez ', 'service' => 'Desarrollo web', 'email' => 'ana@example.com', 'phone' => '', 'message' => "Catálogo & soporte / redes\n¿Pueden cotizar?"];
-$sent = $app->handle('POST', '/contacto/enviar', $valid);
-check($sent->status === 200, 'Valid contact rejected');
-check($sent->headers['Cache-Control'] === 'no-store', 'Contact response may be cached');
-check($sent->headers['X-Robots-Tag'] === 'noindex, follow', 'Contact response can be indexed');
-$xpath = document($sent->body);
-check(count($mailCalls) === 1, 'Expected one delivery');
-check($mailCalls[0]['to'] === $model->settings()['email'], 'Incorrect mail recipient');
-check($mailCalls[0]['headers']['Reply-To'] === $valid['email'], 'Missing visitor reply address');
-check($mailCalls[0]['headers']['From'] === 'Clicomputer <' . $testSmtp['username'] . '>', 'Sender must be the authenticated mailbox');
-$mailText = str_replace("\r\n", "\n", base64_decode($mailCalls[0]['body'], true));
-check(str_contains($mailText, $valid['message']) && str_contains($mailText, 'Nombre: Ana Pérez'), 'Mail lost accents, values or line breaks');
-check($xpath->query('//textarea[@name="message"]')[0]->textContent === '', 'Successful form not cleared');
-check(str_contains($xpath->evaluate('string(//*[@id="formAlerts"])'), 'enviado al servicio de correo'), 'Mail acceptance not confirmed');
-check($xpath->query('//form[@id="contactForm"]')[0]->getAttribute('action') === '/contacto/enviar#contacto', 'Form targets wrong endpoint');
-check($xpath->query('//input[@name="email" and @required]')->length === 1, 'Reply address must be required');
-check(!str_contains($sent->body, 'preparedWhatsApp'), 'WhatsApp draft remains');
-
-foreach ([[], ['name' => ['array']], array_merge($valid, ['email' => '']), array_merge($valid, ['email' => 'bad-email']), array_merge($valid, ['email' => "ana@example.com\r\nBcc: another@example.com"]), array_merge($valid, ['service' => 'Unknown']), array_merge($valid, ['message' => str_repeat('á', 1001)]), array_merge($valid, ['name' => "\xFF"]), array_merge($valid, ['website' => 'spam']), array_merge($valid, ['website' => ['array']])] as $input) {
-    $response = $app->handle('POST', '/contacto/enviar', $input);
-    check($response->status === 422, 'Invalid input accepted');
-    check(count($mailCalls) === 1, 'Invalid input reached the mail service');
+foreach (['/', '/contacto.html'] as $path) {
+    $response = $app->handle('GET', $path);
+    $contact = document($response->body);
+    check($contact->query('//section[@id="contacto"]//form')->length === 0, 'Contact still requires a form');
+    check($contact->query('//section[@id="contacto"]//input | //section[@id="contacto"]//textarea | //section[@id="contacto"]//select')->length === 0, 'Contact still asks for intermediate data entry');
+    check(!str_contains($response->body, 'contact-form.js'), 'Removed form script is still loaded');
+    $primary = $contact->query('//section[@id="contacto"]//a')[0];
+    check($primary->getAttribute('id') === 'contactWhatsApp', 'WhatsApp is not the first contact action');
+    check($primary->getAttribute('href') === 'https://wa.me/' . ltrim($model->settings()['telephone'], '+'), 'Wrong direct chat destination');
+    check($primary->getAttribute('target') === '_blank' && str_contains($primary->getAttribute('rel'), 'noreferrer'), 'Chat should preserve the page and omit referrer');
+    foreach (['tel:' . $model->settings()['telephone'], 'mailto:' . $model->settings()['email']] as $href) {
+        check($contact->query('//section[@id="contacto"]//a[@href="' . $href . '"]')->length === 1, 'Alternative contact option missing');
+    }
+    check(!str_contains($response->body, 'Preparar mensaje'), 'Intermediate preparation remains');
 }
-$mailAccepted = false;
+
+// Preserve messages from old HTML tabs, but never send mail or show the old form.
+$valid = ['name' => ' Ana Pérez ', 'service' => 'Desarrollo web', 'email' => 'ana@example.com', 'phone' => '', 'message' => "Catálogo & soporte / redes\n¿Pueden cotizar?"];
+foreach (['/contacto/preparar', '/contacto/enviar'] as $path) {
+    $legacy = $app->handle('POST', $path, $valid);
+    check($legacy->status === 200, 'Old HTML form cannot migrate');
+    check($legacy->headers['Cache-Control'] === 'no-store', 'Old contact response may be cached');
+    check($legacy->headers['X-Robots-Tag'] === 'noindex, follow', 'Old contact response can be indexed');
+    check($legacy->headers['Referrer-Policy'] === 'no-referrer', 'Draft response should not send a referrer');
+    $xpath = document($legacy->body);
+    $url = $xpath->query('//a[@id="contactWhatsApp"]')[0]->getAttribute('href');
+    parse_str(parse_url($url, PHP_URL_QUERY), $query);
+    check($query['text'] === ContactRequest::message(array_merge($valid, ['name' => 'Ana Pérez'])), 'Old submission lost its details');
+    check($xpath->query('//section[@id="contacto"]//form')->length === 0, 'Old HTML submission resurrected the form');
+    check(str_contains($legacy->body, 'pulsa Enviar') && !str_contains($legacy->body, 'alert-success'), 'Old submission reported as sent');
+    $invalid = $app->handle('POST', $path, ['name' => ['invalid']]);
+    check($invalid->status === 410, 'Invalid old form should show the replacement');
+    check(document($invalid->body)->query('//a[@id="contactWhatsApp"]')[0]->getAttribute('href') === 'https://wa.me/' . ltrim($model->settings()['telephone'], '+'), 'Invalid old form has no direct chat fallback');
+    foreach (['GET', 'HEAD'] as $method) {
+        $response = $app->handle($method, $path);
+        check($response->status === 303 && $response->headers['Location'] === '/contacto.html#contacto', 'Non-POST should show direct contact');
+    }
+}
 $attack = array_merge($valid, ['message' => '</textarea><script>alert(1)</script>']);
 $response = $app->handle('POST', '/contacto/enviar', $attack);
-check($response->status === 503, 'Mail failure reported as success');
-check(!str_contains($response->body, '<script>alert(1)</script>'), 'Reflected HTML injection');
-check(str_contains($response->body, '&lt;/textarea&gt;'), 'Message was not escaped');
-check(document($response->body)->query('//textarea[@name="message"]')[0]->textContent === $attack['message'], 'Failure discarded the message');
-$failed = $app->handle('POST', '/contacto/enviar?format=json', $valid);
-check($failed->status === 503 && json_decode($failed->body, true)['sent'] === false, 'JSON mail failure reported as success');
-$mailAccepted = true;
-$jsonResponse = $app->handle('POST', '/contacto/enviar?format=json', $valid);
-$payload = json_decode($jsonResponse->body, true, 512, JSON_THROW_ON_ERROR);
-check($jsonResponse->status === 200 && $payload['sent'] === true, 'JSON success missing');
-check(!str_contains($jsonResponse->body, $valid['email']), 'JSON unnecessarily echoes personal data');
-$invalid = $app->handle('POST', '/contacto/enviar?format=json', ['email' => 'bad']);
-check($invalid->status === 422 && isset(json_decode($invalid->body, true)['errors']['email']), 'JSON field errors missing');
-$before = count($mailCalls);
-foreach (['GET', 'HEAD', 'POST'] as $method) {
-    check($app->handle($method, '/contacto/preparar', $valid)->status === 303, 'Old form route must show new flow');
-}
-check($app->handle('GET', '/contacto/enviar')->status === 303, 'GET can send mail');
-check(count($mailCalls) === $before, 'A legacy or GET request sent mail');
-$limitedApp = new Application($mailer, new ContactRateLimiter(sys_get_temp_dir() . '/clicomputer-limit-test-' . bin2hex(random_bytes(8)), 1));
-check($limitedApp->handle('POST', '/contacto/enviar', $valid)->status === 200, 'First submission blocked');
-check($limitedApp->handle('POST', '/contacto/enviar?format=json', $valid)->status === 429, 'Repeat submissions not limited');
-check(count($mailCalls) === $before + 1, 'Rate-limited submission reached mail service');
-foreach (['email', 'mail_from'] as $key) {
-    $settings = array_merge($model->settings(), [$key => "bad@example.com\r\nBcc: another@example.com"]);
-    check(!$mailer->send($valid, $settings), 'Configured header injection accepted');
-}
+check(!str_contains($response->body, '<script>alert(1)</script>'), 'Legacy submission reflected HTML injection');
+$legacyJson = $app->handle('POST', '/contacto/enviar?format=json', $valid);
+$payload = json_decode($legacyJson->body, true, 512, JSON_THROW_ON_ERROR);
+check($legacyJson->status === 410 && $payload['sent'] === false, 'Old AJAX form reported a delivery');
+check(str_contains($payload['message'], 'WhatsApp') && str_contains($payload['message'], 'Copia'), 'Migration instruction missing');
+check(!str_contains($legacyJson->body, $valid['email']), 'Old JSON unnecessarily echoes personal data');
+check($legacyJson->headers['Cache-Control'] === 'no-store', 'Old response may be cached');
 
-echo "OK: $checks comprobaciones de PHP MVC, SEO, enlaces, validación y escape de datos.\n";
+echo "OK: $checks comprobaciones de PHP MVC, SEO, contacto directo, enlaces y compatibilidad de formularios anteriores.\n";

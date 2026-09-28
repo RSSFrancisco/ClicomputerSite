@@ -1,0 +1,48 @@
+-- MySQL 8+ / MariaDB: no elimina ni reemplaza datos existentes.
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(80) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  display_name VARCHAR(120) NOT NULL DEFAULT '',
+  email VARCHAR(254) NOT NULL DEFAULT '',
+  role VARCHAR(20) NOT NULL DEFAULT 'editor',
+  is_active TINYINT UNSIGNED NOT NULL DEFAULT 1,
+  revision INT UNSIGNED NOT NULL DEFAULT 1,
+  auth_version INT UNSIGNED NOT NULL DEFAULT 1,
+  created_at DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS blog_images (
+  id CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NOT NULL PRIMARY KEY,
+  mime VARCHAR(30) NOT NULL,
+  width INT UNSIGNED NOT NULL,
+  height INT UNSIGNED NOT NULL,
+  content MEDIUMBLOB NOT NULL,
+  created_at DATETIME NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS blog_posts (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  slug VARCHAR(180) CHARACTER SET ascii COLLATE ascii_bin NOT NULL UNIQUE,
+  title VARCHAR(180) NOT NULL,
+  excerpt VARCHAR(320) NOT NULL,
+  content MEDIUMTEXT NOT NULL,
+  category VARCHAR(20) NOT NULL,
+  status VARCHAR(20) NOT NULL DEFAULT 'draft',
+  image_id CHAR(32) CHARACTER SET ascii COLLATE ascii_bin NULL,
+  image_alt VARCHAR(200) NOT NULL DEFAULT '',
+  source_name VARCHAR(120) NOT NULL DEFAULT '',
+  source_url VARCHAR(1000) NOT NULL DEFAULT '',
+  revision INT UNSIGNED NOT NULL DEFAULT 1,
+  published_at DATETIME NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX blog_publication (status, published_at, id),
+  CONSTRAINT blog_post_image FOREIGN KEY (image_id) REFERENCES blog_images (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS blog_login_attempts (
+  address_hash CHAR(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL PRIMARY KEY,
+  attempts INT UNSIGNED NOT NULL,
+  expires_at BIGINT UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

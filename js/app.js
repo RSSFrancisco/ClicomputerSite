@@ -40,7 +40,7 @@ const App = (() => {
   }
   function init() {
     const modules = [
-      () => ContactForm.init(), () => ThemeSwitcher.init(), () => NavbarController.init(),
+      () => ThemeSwitcher.init(), () => NavbarController.init(),
       () => Animations.init(), () => SearchController.init(),
       initProjectFilters
     ];

@@ -19,6 +19,7 @@
               <li><a href="/#nosotros">Nosotros</a></li>
               <li><a href="/seguridad.html">Seguridad</a></li>
               <li><a href="/proyectos.html">Proyectos</a></li>
+              <li><a href="/noticias.html">Noticias</a></li>
               <li><a href="/guias.html">Guías</a></li>
               <li><a href="/contacto.html">Contacto</a></li>
             </ul>

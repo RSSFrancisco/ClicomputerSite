@@ -30,6 +30,9 @@ $hasSecurityGallery = isset($page['gallery']);
   <link rel="stylesheet" href="<?= e(asset('css/brand.css')) ?>">
   <link rel="stylesheet" href="<?= e(asset('css/search.css')) ?>">
   <link rel="stylesheet" href="<?= e(asset('css/editorial.css')) ?>">
+  <?php if (array_intersect(['news', 'news-preview', 'news-article', 'blog-admin'], $page['sections'] ?? [])): ?>
+    <link rel="stylesheet" href="<?= e(asset('css/news.css')) ?>">
+  <?php endif ?>
   <script>
     document.documentElement.classList.add('js');
     try {
@@ -65,7 +68,7 @@ $hasSecurityGallery = isset($page['gallery']);
   <?php if ($hasSecurityGallery): ?>
     <script defer src="<?= e(asset('js/components/security-gallery.js')) ?>"></script>
   <?php endif ?>
-  <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'views/contact-form', 'components/search', 'app'] as $script): ?>
+  <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'components/search', 'app'] as $script): ?>
     <script defer src="<?= e(asset('js/' . $script . '.js')) ?>"></script>
   <?php endforeach ?>
 </body>

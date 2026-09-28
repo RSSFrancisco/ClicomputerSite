@@ -10,7 +10,7 @@ $analyticsConfig = ['id' => $analyticsId, 'page' => $canonical, 'title' => $page
 <div class="container"><button type="button" class="analytics-settings" id="analyticsSettings" hidden>Preferencias de medición</button></div>
 <section class="analytics-consent" id="analyticsConsent" aria-labelledby="analyticsConsentTitle" hidden>
   <h2 id="analyticsConsentTitle" class="h5">Medición opcional de visitas</h2>
-  <p>Con tu permiso usamos Google Analytics para medir visitas y clics de contacto. No enviamos el texto que escribes en el formulario. Puedes cambiar tu elección en el pie de página.</p>
+  <p>Con tu permiso usamos Google Analytics para medir visitas y clics de contacto. No recopilamos el contenido de tus mensajes. Puedes cambiar tu elección en el pie de página.</p>
   <p><a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacidad de Google</a></p>
   <div class="d-flex gap-2 flex-wrap">
     <button type="button" class="btn btn-outline-custom" id="analyticsDecline">Continuar sin medición</button>

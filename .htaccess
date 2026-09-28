@@ -15,7 +15,7 @@ DirectoryIndex index.php
   RewriteRule ^ https://www.clcomputer.com%{REQUEST_URI} [R=301,L,NE]
 
   # Templates and tooling are not independent pages for visitors or search engines.
-  RewriteRule ^(?:app|config|data|views|templates|content|scripts|tests|docs|\.git)(?:/|$) - [F,L]
+  RewriteRule ^(?:app|config|data|database|views|templates|content|scripts|tests|docs|\.git)(?:/|$) - [F,L]
   RewriteRule ^(?:router\.php|README\.md|Clicomputer\ Site\.zip)$ - [F,L]
 
   # Existing public URLs now render through MVC, even if old HTML is left on the host.

@@ -6,48 +6,28 @@ namespace App\Controllers;
 use App\Core\Response;
 use App\Models\ContactRequest;
 use App\Models\Site;
-use App\Services\ContactMailer;
-use App\Services\ContactRateLimiter;
 
+/** Compatibilidad con formularios de pestañas antiguas. El contacto actual es directo. */
 final class ContactController
 {
-    public function __construct(private Site $site, private PageController $pages, private ContactMailer $mailer, private ContactRateLimiter $rateLimiter) {}
+    public function __construct(private Site $site, private PageController $pages) {}
 
-    public function send(array $input, bool $json = false): Response
+    public function showLegacyRequest(array $input): Response
     {
         [$values, $errors] = ContactRequest::validate($input);
-        $sent = false;
-        $status = 422;
-        $message = 'Revisa los campos indicados antes de enviar tu solicitud.';
-        // Campo señuelo: no se entrega correo de formularios rellenados automáticamente.
-        if (($input['website'] ?? '') !== '') {
-            $message = 'No pudimos enviar tu solicitud. Recarga la página e inténtalo de nuevo.';
-        } elseif (!$errors && !$this->rateLimiter->allow($_SERVER['REMOTE_ADDR'] ?? 'unknown')) {
-            $status = 429;
-            $message = 'No podemos aceptar más solicitudes en este momento. Espera 15 minutos o escríbenos al correo de contacto.';
-        } elseif (!$errors) {
-            $sent = $this->mailer->send($values, $this->site->settings());
-            $status = $sent ? 200 : 503;
-            $message = $sent
-                ? 'Tu solicitud se ha enviado al servicio de correo. Te responderemos al email que indicaste.'
-                : 'No pudimos enviar tu solicitud. Tus datos se conservan; inténtalo de nuevo más tarde o escríbenos al correo de contacto.';
+        $url = null;
+        $notice = 'Ahora te atendemos directamente por WhatsApp. Abre el chat para compartirnos tu consulta.';
+        if (!$errors) {
+            $phone = ltrim($this->site->settings()['telephone'], '+');
+            $url = 'https://wa.me/' . $phone . '?text=' . rawurlencode(ContactRequest::message($values));
+            $notice = 'Conservamos tu consulta en el enlace de WhatsApp. Abre el chat, revisa el mensaje y pulsa Enviar.';
         }
-        $headers = ['Cache-Control' => 'no-store', 'X-Robots-Tag' => 'noindex, follow'];
-        if ($json) {
-            return new Response(json_encode([
-                'sent' => $sent, 'message' => $message, 'errors' => (object) $errors,
-            ], JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), $status,
-                ['Content-Type' => 'application/json; charset=UTF-8'] + $headers);
-        }
-        $page = $this->site->find('/');
+        $page = $this->site->find('/contacto.html');
         $page['robots'] = 'noindex, follow';
-        $page['sections'] = ['contact'];
-        $page['label'] = 'Envía tu solicitud';
         $response = $this->pages->render($page, [
-            'values' => $sent ? [] : $values, 'errors' => $errors, 'contactSent' => $sent,
-            'contactStatus' => $message, 'standaloneContact' => true,
-        ], $status);
-        $response->headers += $headers;
+            'whatsappUrl' => $url, 'contactNotice' => $notice,
+        ], $errors ? 410 : 200);
+        $response->headers += ['Cache-Control' => 'no-store', 'X-Robots-Tag' => 'noindex, follow', 'Referrer-Policy' => 'no-referrer'];
         return $response;
     }
 }

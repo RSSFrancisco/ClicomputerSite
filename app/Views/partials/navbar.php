@@ -1,9 +1,9 @@
 <?php
 $links = ['/#inicio' => 'Inicio', '/#servicios' => 'Servicios',
-    '/seguridad.html' => 'Cámaras', '/proyectos.html' => 'Proyectos', '/guias.html' => 'Guías', '/contacto.html' => 'Contacto'];
+    '/seguridad.html' => 'Cámaras', '/proyectos.html' => 'Proyectos', '/noticias.html' => 'Noticias', '/guias.html' => 'Guías', '/contacto.html' => 'Contacto'];
 $active = match ($page['file']) {
     'index.html' => '/#inicio', 'seguridad.html' => '/seguridad.html', 'proyectos.html' => '/proyectos.html',
-    'contacto.html' => '/contacto.html', 'guias.html' => '/guias.html',
+    'contacto.html' => '/contacto.html', 'guias.html' => '/guias.html', 'noticias.html' => '/noticias.html',
     default => isset($page['service']) ? '/#servicios' : '/' . ($page['parent']['file'] ?? ''),
 };
 ?>

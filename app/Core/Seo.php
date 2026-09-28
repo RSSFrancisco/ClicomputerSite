@@ -53,6 +53,19 @@ final class Seo
                 'inLanguage' => 'es-MX', 'mainEntityOfPage' => ['@id' => $url . '#webpage'],
                 'author' => ['@id' => $base . '/#organization'], 'publisher' => ['@id' => $base . '/#organization']];
         }
+        if (($page['kind'] ?? '') === 'news') {
+            $post = $page['post'];
+            $graph[2]['mainEntity'] = ['@id' => $url . '#article'];
+            $article = ['@type' => 'BlogPosting', '@id' => $url . '#article',
+                'headline' => $post['title'], 'description' => $post['excerpt'],
+                'datePublished' => str_replace(' ', 'T', $post['published_at']) . 'Z',
+                'dateModified' => str_replace(' ', 'T', $post['updated_at']) . 'Z',
+                'articleSection' => \App\Models\Blog::CATEGORIES[$post['category']],
+                'inLanguage' => 'es-MX', 'mainEntityOfPage' => ['@id' => $url . '#webpage'],
+                'author' => ['@id' => $base . '/#organization'], 'publisher' => ['@id' => $base . '/#organization']];
+            if ($post['image_id']) $article['image'] = $base . '/noticias/imagen/' . $post['image_id'];
+            $graph[] = $article;
+        }
         if (isset($page['service'])) {
             $graph[2]['mainEntity'] = ['@id' => $url . '#service'];
             $graph[] = ['@type' => 'Service', '@id' => $url . '#service', 'url' => $url,

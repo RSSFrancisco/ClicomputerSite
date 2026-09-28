@@ -1,0 +1,1 @@
+<a class="crm-stat" href="<?= e($statLink) ?>"><div><span><?= e($statLabel) ?></span><i class="bi bi-<?= e($statIcon) ?>" aria-hidden="true"></i></div><strong><?= (int) $statValue ?></strong><small><?= e($statNote) ?></small></a>

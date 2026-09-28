@@ -1,0 +1,1 @@
+<header class="crm-header"><div><p class="crm-eyebrow">CLICOMPUTER / CRM</p><h1><?= e($adminTitle) ?></h1></div><span class="crm-private"><i class="bi bi-lock" aria-hidden="true"></i> Espacio privado</span></header>

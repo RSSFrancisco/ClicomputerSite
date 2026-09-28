@@ -55,7 +55,8 @@ return array (
         0 => 'home',
         1 => 'services',
         2 => 'about',
-        3 => 'contact',
+        3 => 'news-preview',
+        4 => 'contact',
       ),
     ),
     1 => 

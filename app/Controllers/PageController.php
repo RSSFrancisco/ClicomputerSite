@@ -14,6 +14,9 @@ final class PageController
 
     public function show(string $path): Response
     {
+        if (str_starts_with($path, '/noticias/') && $this->model->blog()->unavailable()) {
+            return new Response('Las noticias no están disponibles temporalmente. Intenta nuevamente más tarde.', 503, ['Content-Type' => 'text/plain; charset=UTF-8', 'Retry-After' => '300']);
+        }
         $page = $this->model->find($path);
         return $page ? $this->render($page) : $this->notFound();
     }
@@ -23,7 +26,9 @@ final class PageController
         $data = array_merge([
             'site' => $this->model->settings(), 'page' => $page,
             'canonical' => $this->model->url($page), 'schema' => (new Seo($this->model))->graph($page),
-            'pages' => $this->model->pages(), 'values' => [], 'errors' => [], 'contactSent' => false, 'contactStatus' => '',
+            'pages' => $this->model->pages(), 'whatsappUrl' => null, 'contactNotice' => '',
+            'newsPosts' => $this->model->blog()->publicPosts(), 'newsUnavailable' => $this->model->blog()->unavailable(),
+            'newsCategory' => '', 'newsPage' => 1, 'newsPageCount' => 1,
         ], $extra);
         $content = '';
         foreach ($page['sections'] ?? ['service'] as $section) {
@@ -44,10 +49,13 @@ final class PageController
 
     public function sitemap(): Response
     {
+        if ($this->model->blog()->unavailable()) return new Response('Sitemap temporalmente no disponible.', 503, ['Retry-After' => '300']);
         $xml = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
         foreach ($this->model->pages() as $page) {
-            $xml .= '  <url><loc>' . e($this->model->url($page)) . '</loc></url>' . "\n";
+            $xml .= '  <url><loc>' . e($this->model->url($page)) . '</loc>';
+            if (($page['kind'] ?? '') === 'news') $xml .= '<lastmod>' . e(str_replace(' ', 'T', $page['post']['updated_at']) . 'Z') . '</lastmod>';
+            $xml .= '</url>' . "\n";
         }
         return new Response($xml . '</urlset>' . "\n", 200, ['Content-Type' => 'application/xml; charset=UTF-8']);
     }

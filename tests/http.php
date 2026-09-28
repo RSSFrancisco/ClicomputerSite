@@ -38,28 +38,35 @@ foreach ($model->pages() as $page) {
 }
 verify(request('http://127.0.0.1:8780/no-existe.html')[0] === 404, 'Expected real HTTP 404');
 verify(request('http://127.0.0.1:8780/app/Views/pages/home.php')[0] === 404, 'Internal view exposed');
+verify(request('http://127.0.0.1:8780/database/blog.sql')[0] === 404, 'Blog schema exposed');
 foreach (['/sitemap.xml' => 'application/xml', '/robots.txt' => 'text/plain'] as $path => $type) {
     [$status, $headers] = request('http://127.0.0.1:8780' . $path);
     verify($status === 200 && str_starts_with($headers['content-type'], $type), 'Wrong dynamic resource type');
 }
 [$status, $headers] = request('http://127.0.0.1:8780/index.html?origen=prueba');
 verify($status === 301 && $headers['location'] === '/?origen=prueba', 'Legacy HTTP redirect failed');
-// Probar validación por HTTP nunca debe generar un correo real.
-[$status, $headers, $body] = request('http://127.0.0.1:8780/contacto/enviar', [], [
+// Las pestañas antiguas llevan al contacto directo sin enviar mensajes.
+[$status, $headers, $body] = request('http://127.0.0.1:8780/contacto/preparar', [], [
     'name' => 'Prueba local', 'email' => 'correo-invalido', 'service' => 'Desarrollo web', 'message' => 'Validación sin enviar.',
 ]);
-verify($status === 422 && $headers['cache-control'] === 'no-store', 'HTTP contact validation failed');
-verify(str_contains($body, 'Escribe un correo electrónico válido.'), 'PHP email error missing');
+verify($status === 410 && $headers['cache-control'] === 'no-store', 'Old contact must show the replacement');
+verify(str_contains($body, 'Escribir por WhatsApp') && !str_contains($body, 'id="contactForm"'), 'Direct chat replacement missing');
 [$status, $headers, $body] = request('http://127.0.0.1:8780/contacto/enviar?format=json', [], ['name' => '']);
-verify($status === 422 && str_starts_with($headers['content-type'], 'application/json') && json_decode($body, true)['sent'] === false, 'Invalid JSON contact accepted');
-verify(request('http://127.0.0.1:8780/contacto/preparar', [], ['name' => ''])[0] === 303, 'Legacy contact route still handles submissions');
+verify($status === 410 && str_starts_with($headers['content-type'], 'application/json') && json_decode($body, true)['sent'] === false, 'Legacy JSON contact reported delivery');
+[$status, $headers, $body] = request('http://127.0.0.1:8780/contacto/preparar', [], [
+    'name' => 'Prueba local', 'email' => 'prueba@example.com', 'service' => 'Desarrollo web', 'message' => 'Cotización de prueba sin envío.',
+]);
+verify($status === 200 && str_contains($body, 'https://wa.me/526567514187?text='), 'Old submission did not preserve the message');
+verify($headers['cache-control'] === 'no-store' && $headers['x-robots-tag'] === 'noindex, follow', 'Draft response privacy headers missing');
+verify(!str_contains($body, 'alert-success'), 'Draft reported as delivered');
+verify(request('http://127.0.0.1:8780/contacto/preparar')[0] === 303, 'GET draft endpoint must redirect');
 [$status, $headers, $body] = request('http://127.0.0.1:8780/buscar?q=camaras&format=json');
 $suggestions = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
 verify($status === 200 && str_starts_with($headers['content-type'], 'application/json'), 'HTTP search JSON failed');
 verify(($suggestions['results'][0]['url'] ?? '') === '/seguridad.html', 'HTTP search lost the query');
 [$status, $headers, $body] = request('http://127.0.0.1:8780/buscar?q=wifi');
 verify($status === 200 && $headers['x-robots-tag'] === 'noindex, follow' && str_contains($body, 'Redes e infraestructura'), 'HTTP search HTML failed');
-echo "OK: " . count($model->pages()) . " páginas MVC, recursos SEO, 404, redirección, búsqueda y formulario PHP por HTTP.\n";
+echo "OK: " . count($model->pages()) . " páginas MVC, recursos SEO, 404, redirección, búsqueda y contacto directo por HTTP.\n";
 
 // Optional Apache checks use a separate loopback-only instance, never the system service.
 $httpd = '/usr/sbin/httpd';
@@ -103,6 +110,7 @@ try {
         verify($status === 301 && $headers['location'] === 'https://www.clcomputer.com/?origen=prueba', 'Apache index redirect failed');
     }
     verify(request('http://127.0.0.1:8781/app/Views/pages/home.php', ['Host: localhost'])[0] === 403, 'Apache exposed internal views');
+    verify(request('http://127.0.0.1:8781/database/blog.sql', ['Host: localhost'])[0] === 403, 'Apache exposed blog schema');
     verify(request('http://127.0.0.1:8781/assets/img/favicon.svg', ['Host: localhost'])[0] === 200, 'Apache blocked a public asset');
     verify(request('http://127.0.0.1:8781/redes.html', ['Host: localhost'])[2] === 'MVC route marker', 'Apache did not route to MVC');
     verify(request('http://127.0.0.1:8781/buscar?q=camaras', ['Host: localhost'])[2] === 'MVC route marker', 'Apache did not route search to MVC');
