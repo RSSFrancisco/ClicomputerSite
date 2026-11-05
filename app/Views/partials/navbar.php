@@ -1,6 +1,6 @@
 <?php
 $links = ['/#inicio' => 'Inicio', '/#servicios' => 'Servicios',
-    '/seguridad.html' => 'Cámaras', '/proyectos.html' => 'Proyectos', '/noticias.html' => 'Noticias', '/guias.html' => 'Guías', '/contacto.html' => 'Contacto'];
+    '/seguridad.html' => 'Cámaras', '/proyectos.html' => 'Proyectos', '/noticias.html' => 'Noticias', '/guias.html' => 'Guías', '/eventos' => 'Eventos', '/contacto.html' => 'Contacto'];
 $active = match ($page['file']) {
     'index.html' => '/#inicio', 'seguridad.html' => '/seguridad.html', 'proyectos.html' => '/proyectos.html',
     'contacto.html' => '/contacto.html', 'guias.html' => '/guias.html', 'noticias.html' => '/noticias.html',
@@ -19,7 +19,7 @@ $active = match ($page['file']) {
     <div class="navbar-collapse" id="navbarMain">
       <ul class="navbar-nav mx-auto mb-2 mb-xl-0">
         <?php foreach ($links as $href => $label): ?>
-          <li class="nav-item"><a class="nav-link<?= $active === $href ? ' active' : '' ?>" href="<?= e($href) ?>"><?= e($label) ?></a></li>
+          <li class="nav-item"><a class="nav-link<?= $active === $href ? ' active' : '' ?>" href="<?= e($href) ?>"<?= $href === '/eventos' ? ' rel="nofollow"' : '' ?>><?= e($label) ?></a></li>
         <?php endforeach ?>
       </ul>
       <?= $view->render('partials/site-search', ['searchQuery' => $searchQuery ?? '']) ?>

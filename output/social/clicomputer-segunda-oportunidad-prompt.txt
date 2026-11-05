@@ -1,0 +1,28 @@
+Herramienta: ImageGen, generación integrada.
+Referencias: imagen de inspiración proporcionada por el usuario y logo original de Clicomputer.
+
+Use case: ads-marketing.
+Asset type: Finished Spanish social-media advertisement for Instagram/Facebook, portrait 4:5, 1200 x 1500 if possible, for the real Mexican company Clicomputer México. Output the final flat artwork, not a mockup or photo of a poster.
+
+Input images: Reference 1 is a humorous hand-lettered yellow sign, INSPIRATION ONLY for the laptop/ex joke. Do not copy the market scene, yellow sign, red tent, or Linux proposition. Reference 2 is the client's authentic Clicomputer logo: reproduce this logo faithfully, with its exact cyan geometric symbol and gray serif wordmark, in the top brand area on a light background. Do not redesign the logo. Add the small separate descriptor MÉXICO under the wordmark if useful.
+
+Concept: A laptop deserves another chance; your ex does not. Warm, witty Mexican Spanish, professionally art-directed and immediately readable on a phone. Advertise diagnosis, maintenance and repair, with no unsupported prices, deadlines, warranties, or guaranteed results.
+
+Art direction: Premium contemporary editorial poster, vibrant Clicomputer cyan #009ed3, deep charcoal/slate #18252b and #505e65, clean warm ivory. Very large confident condensed sans-serif headline, strong visual hierarchy, tactile subtle printed texture, intentionally playful hand-drawn underline and two small cyan heart doodles. Plenty of breathing room and a clear reading order. Avoid generic tech-ad neon gradients and dense circuit-board backgrounds.
+
+Composition: Generous safe margins. Top approximately 12 percent: original Clicomputer logo clearly legible, with MÉXICO as small descriptor. Upper-middle approximately 40 percent: main headline, four lines in dark charcoal, where SEGUNDA / OPORTUNIDAD are the strongest words. Beneath that, a punchline in contrasting cyan, large and witty. Lower-middle: one realistic silver laptop open in three-quarter view, attractive product photography/render, screen showing a minimal cyan heart / power icon and no operating-system branding. A few minimal doodle hearts near laptop, grounded by a soft shadow. Laptop should support the typography and must not obscure any text. Lower approximately 20 percent: minimal service text, then a high-contrast dark slate contact band with clear white text and a cyan WhatsApp icon. Website and city smaller but still readable. Everything should feel cohesive and polished.
+
+Exact visible text (spell correctly, preserve Spanish accents, do not add other wording):
+"CLICOMPUTER" appears only as the original Clicomputer logo wordmark in reference 2, preserving its actual capitalization.
+"MÉXICO"
+"TU LAPTOP MERECE UNA"
+"SEGUNDA"
+"OPORTUNIDAD."
+"TU EX NO. ;)"
+"Diagnóstico · Mantenimiento · Reparación"
+"Cotiza por WhatsApp"
+"+52 656 751 4187"
+"Córdoba, Veracruz"
+"www.clcomputer.com"
+
+Set the main headline as a dynamic typographic lockup so 'TU LAPTOP MERECE UNA' can wrap over two smaller lines above 'SEGUNDA OPORTUNIDAD.' Keep punctuation intentional. Make the phone number especially clear and render its digits EXACTLY. The website is clcomputer.com (letters c l c o m p u t e r), not clicomputer.com. Respect the logo and contact details. No fake social handles, no QR codes, no stock watermarks, no extra logos.

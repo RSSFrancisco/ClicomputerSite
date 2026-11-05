@@ -39,6 +39,14 @@ foreach ($model->pages() as $page) {
 verify(request('http://127.0.0.1:8780/no-existe.html')[0] === 404, 'Expected real HTTP 404');
 verify(request('http://127.0.0.1:8780/app/Views/pages/home.php')[0] === 404, 'Internal view exposed');
 verify(request('http://127.0.0.1:8780/database/blog.sql')[0] === 404, 'Blog schema exposed');
+foreach (['/eventos', '/eventos/anselmo-y-dulce', '/eventos/anselmo-y-dulce/calendario.ics', '/eventos/anselmo-y-dulce/invitacion.png'] as $path) {
+    [$status, $headers] = request('http://127.0.0.1:8780' . $path);
+    verify($status === 200 && ($headers['x-robots-tag'] ?? '') === 'noindex, nofollow', 'Event HTTP robots protection missing: ' . $path);
+}
+verify(request('http://127.0.0.1:8780/data/events/anselmo-y-dulce/invitacion.png')[0] === 404, 'Original invitation data exposed');
+[$status, $headers, $audio] = request('http://127.0.0.1:8780/eventos/anselmo-y-dulce/musica.mp3', ['Range: bytes=0-1']);
+verify($status === 206 && strlen($audio) === 2 && $headers['content-type'] === 'audio/mpeg', 'Music byte range cannot be played on mobile');
+verify($headers['x-robots-tag'] === 'noindex, nofollow' && $headers['accept-ranges'] === 'bytes', 'Music HTTP headers are missing');
 foreach (['/sitemap.xml' => 'application/xml', '/robots.txt' => 'text/plain'] as $path => $type) {
     [$status, $headers] = request('http://127.0.0.1:8780' . $path);
     verify($status === 200 && str_starts_with($headers['content-type'], $type), 'Wrong dynamic resource type');
@@ -114,6 +122,9 @@ try {
     verify(request('http://127.0.0.1:8781/assets/img/favicon.svg', ['Host: localhost'])[0] === 200, 'Apache blocked a public asset');
     verify(request('http://127.0.0.1:8781/redes.html', ['Host: localhost'])[2] === 'MVC route marker', 'Apache did not route to MVC');
     verify(request('http://127.0.0.1:8781/buscar?q=camaras', ['Host: localhost'])[2] === 'MVC route marker', 'Apache did not route search to MVC');
+    foreach (['/eventos', '/eventos/anselmo-y-dulce', '/eventos/anselmo-y-dulce/calendario.ics', '/eventos/anselmo-y-dulce/invitacion.png'] as $path) {
+        verify(request('http://127.0.0.1:8781' . $path, ['Host: localhost'])[2] === 'MVC route marker', 'Apache did not route event: ' . $path);
+    }
     echo "OK: reglas Apache de redirección, rutas y parámetros conservados, protección de vistas y recursos públicos.\n";
 } finally {
     proc_terminate($process);

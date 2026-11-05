@@ -67,6 +67,10 @@ check(count(array_unique($titles)) === count($titles), 'Duplicate titles');
 check(count(array_unique($descriptions)) === count($descriptions), 'Duplicate descriptions');
 // La búsqueda es una ruta pública, pero sus consultas no pertenecen al sitemap.
 $documents['/buscar'] = document($app->handle('GET', '/buscar')->body);
+// Las invitaciones tienen enlaces válidos sin pertenecer al catálogo indexable.
+foreach (['/eventos', '/eventos/anselmo-y-dulce'] as $path) {
+    $documents[$path] = document($app->handle('GET', $path)->body);
+}
 
 foreach ($documents as $currentPath => $xpath) {
     foreach ($xpath->query('//*[@href or @src]') as $node) {
@@ -84,7 +88,9 @@ foreach ($documents as $currentPath => $xpath) {
                 check(in_array(rawurldecode($parts['fragment']), $ids, true), 'Broken fragment: ' . $value);
             }
         } else {
-            check(is_file(ROOT_PATH . $target), 'Missing internal resource: ' . $value . ' on ' . $currentPath);
+            $eventResource = preg_match('~^/eventos/[a-z0-9-]+/(?:invitacion\.png|calendario\.ics|musica\.mp3)$~D', $target)
+                && $app->handle('GET', $target)->status === 200;
+            check($eventResource || is_file(ROOT_PATH . $target), 'Missing internal resource: ' . $value . ' on ' . $currentPath);
         }
     }
 }

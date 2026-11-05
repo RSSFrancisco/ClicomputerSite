@@ -21,6 +21,7 @@
               <li><a href="/proyectos.html">Proyectos</a></li>
               <li><a href="/noticias.html">Noticias</a></li>
               <li><a href="/guias.html">Guías</a></li>
+              <li><a href="/eventos" rel="nofollow">Eventos</a></li>
               <li><a href="/contacto.html">Contacto</a></li>
             </ul>
           </div>

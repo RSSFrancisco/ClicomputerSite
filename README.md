@@ -67,6 +67,9 @@ El servidor no envía mensajes, no almacena solicitudes y no requiere credencial
 
 ## Publicar en el alojamiento actual
 
+
+### Pasos de publicación
+
 1. Conserva un respaldo del sitio publicado y de su `.htaccess` actual. Integra las reglas del proveedor si ya existen, sin sobrescribirlas a ciegas.
 2. Comprueba que el alojamiento tiene PHP 8 habilitado, Apache 2.4, `mod_rewrite` y autorización para usar las directivas de `.htaccess`.
 3. Sube `app/`, `config/`, `data/`, `assets/`, `css/`, `js/` e `index.php`. Activa `.htaccess` después de subir todos los archivos. No hace falta subir `.git`, el ZIP del respaldo, pruebas, documentación ni `router.php`.
