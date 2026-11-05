@@ -8,6 +8,7 @@ use App\Controllers\BlogController;
 use App\Controllers\AdminController;
 use App\Controllers\PageController;
 use App\Controllers\SearchController;
+use App\Controllers\EventController;
 use App\Models\Search;
 use App\Models\Service;
 use App\Models\Site;
@@ -53,6 +54,9 @@ final class Application
         }
         if (!in_array($method, ['GET', 'HEAD'], true)) {
             return new Response('Método no permitido.', 405, ['Content-Type' => 'text/plain; charset=UTF-8', 'Allow' => 'GET, HEAD']);
+        }
+        if ($path === '/eventos' || $path === '/eventos.html' || str_starts_with($path, '/eventos/')) {
+            return (new EventController($this->site, new View(), $this->pages))->show($path);
         }
         if ($path === '/buscar') {
             parse_str(parse_url($uri, PHP_URL_QUERY) ?? '', $params);
