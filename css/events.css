@@ -103,6 +103,35 @@ em {
   flex-shrink:0;
 }
 
+.event-arrow {
+  flex-shrink:0;
+  font-size:14px;
+  vertical-align:-.08em;
+}
+
+.event-button .event-arrow {
+  font-size:16px;
+}
+
+.text-link .event-arrow {
+  margin-left:10px;
+  transition:transform .2s;
+}
+
+.text-link:hover .event-arrow {
+  transform:translateX(4px);
+}
+
+.event-back .event-arrow {
+  margin-left:13px;
+  color:var(--gold);
+}
+
+.event-footer a .event-arrow {
+  margin-left:6px;
+  font-size:10px;
+}
+
 .eyebrow {
   font-size:10px;
   font-weight:500;

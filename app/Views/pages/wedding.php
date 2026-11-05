@@ -1,7 +1,6 @@
 <?php
 $base = '/eventos/' . $event['slug'];
 $icons = [
-    'arrow' => '<path d="M5 12h14m-5-5 5 5-5 5"/>',
     'calendar' => '<rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16m-11 5h2"/>',
     'church' => '<path d="M12 2v6m-3-3h6M5 21V11l7-5 7 5v10M2 21h20M9 21v-6h6v6M2 21V12h3m14 0h3v9"/>',
     'celebration' => '<path d="m4 3 8 8 8-8M6 3h12M12 11v9m-4 1h8M5 3v3m14-3v3"/>',
@@ -25,7 +24,7 @@ $icon = static fn (string $name): string => '<svg class="event-icon" viewBox="0 
       <h1 id="wedding-title"><span><?= e($event['names'][0]) ?></span><span class="name-and">&</span><span><?= e($event['names'][1]) ?></span></h1>
       <p class="hero-message">El mejor capítulo de nuestra historia<br>comienza contigo a nuestro lado.</p>
       <div class="hero-date"><span>SÁBADO</span><time datetime="<?= e($event['date']) ?>">28 <span>NOVIEMBRE</span> 2026</time></div>
-      <a class="event-button" href="#celebracion">Acompáñanos <?= $icon('arrow') ?></a>
+      <a class="event-button" href="#celebracion">Acompáñanos <i class="fa-solid fa-arrow-right event-arrow" aria-hidden="true"></i></a>
     </div>
     <div class="hero-art">
       <span class="art-caption">UNA INVITACIÓN PARA TI</span>
@@ -33,7 +32,7 @@ $icon = static fn (string $name): string => '<svg class="event-icon" viewBox="0 
         <span class="frame-corner frame-corner-top" aria-hidden="true"></span>
         <a class="invitation-link" href="<?= e($base) ?>/invitacion.png" rel="nofollow" data-invitation-open aria-label="Ampliar la invitación de Anselmo y Dulce">
           <img class="invitation-image" src="<?= e($base) ?>/invitacion.png" width="1115" height="1599" fetchpriority="high" alt="Invitación original de nuestra boda, con rosas rojas y detalles dorados. Anselmo y Dulce, 28 de noviembre de 2026.">
-          <span class="invitation-hint">Ver invitación <span aria-hidden="true">↗</span></span>
+          <span class="invitation-hint">Ver invitación <i class="fa-solid fa-up-right-and-down-left-from-center event-arrow" aria-hidden="true"></i></span>
         </a>
         <span class="frame-corner frame-corner-bottom" aria-hidden="true"></span>
       </div>
@@ -60,7 +59,7 @@ $icon = static fn (string $name): string => '<svg class="event-icon" viewBox="0 
       <div><span data-count="seconds">—</span><span class="count-label">SEGUNDOS</span></div>
     </div>
     <noscript><p class="countdown-fallback">Te esperamos el <?= e($event['date_display']) ?> a las 4:00 p. m.</p></noscript>
-    <a class="text-link" href="<?= e($base) ?>/calendario.ics" download rel="nofollow"><?= $icon('calendar') ?> Aparta este día en tu calendario <?= $icon('arrow') ?></a>
+    <a class="text-link" href="<?= e($base) ?>/calendario.ics" download rel="nofollow"><?= $icon('calendar') ?> Aparta este día en tu calendario <i class="fa-solid fa-arrow-right event-arrow" aria-hidden="true"></i></a>
   </section>
 
   <section class="celebration-section" id="celebracion" aria-labelledby="celebration-title">
@@ -76,7 +75,7 @@ $icon = static fn (string $name): string => '<svg class="event-icon" viewBox="0 
         <h3><?= e($place['title']) ?></h3>
         <time class="venue-time" datetime="<?= e($place['start']) ?>"><?= e($place['time']) ?><?= $key === 'reception' ? '<span>Te esperamos puntual</span>' : '' ?></time>
         <div class="venue-location"><h4><?= e($place['venue']) ?></h4><p><?= e($place['address']) ?><?= isset($place['reference']) ? '<br>' . e($place['reference']) : '' ?></p></div>
-        <a class="venue-map" href="<?= e('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($place['venue'] . ', ' . $place['address'])) ?>" target="_blank" rel="nofollow noopener noreferrer"><?= $icon('pin') ?> Buscar en Google Maps <span aria-hidden="true">↗</span></a>
+        <a class="venue-map" href="<?= e('https://www.google.com/maps/search/?api=1&query=' . rawurlencode($place['venue'] . ', ' . $place['address'])) ?>" target="_blank" rel="nofollow noopener noreferrer"><?= $icon('pin') ?> Buscar en Google Maps <span aria-hidden="true"><i class="fa-solid fa-arrow-up-right-from-square event-arrow"></i></span></a>
       </article>
       <?php endforeach ?>
     </div>
@@ -88,10 +87,10 @@ $icon = static fn (string $name): string => '<svg class="event-icon" viewBox="0 
     <h2 id="closing-title" data-reveal>Hay momentos que son mejores<br><em>cuando los compartimos.</em></h2>
     <p data-reveal>Gracias por ser parte del nuestro.</p>
     <span class="closing-signature" data-reveal>Anselmo & Dulce</span>
-    <a class="closing-download" href="<?= e($base) ?>/invitacion.png" download="invitacion-anselmo-y-dulce.png" rel="nofollow">Descargar invitación <span aria-hidden="true">↓</span></a>
+    <a class="closing-download" href="<?= e($base) ?>/invitacion.png" download="invitacion-anselmo-y-dulce.png" rel="nofollow">Descargar invitación <i class="fa-solid fa-arrow-down event-arrow" aria-hidden="true"></i></a>
   </section>
 </main>
-<footer class="event-footer"><a href="/eventos" rel="nofollow">Eventos <span aria-hidden="true">↗</span></a><span>ANSELMO & DULCE <span class="footer-dot">·</span> 28.11.2026</span><a href="#inicio">Volver arriba ↑</a></footer>
+<footer class="event-footer"><a href="/eventos" rel="nofollow">Eventos <i class="fa-solid fa-arrow-right event-arrow" aria-hidden="true"></i></a><span>ANSELMO & DULCE <span class="footer-dot">·</span> 28.11.2026</span><a href="#inicio">Volver arriba <i class="fa-solid fa-arrow-up event-arrow" aria-hidden="true"></i></a></footer>
 <?php if (!empty($event['music'])): ?>
 <?php $musicUrl = $base . '/musica.mp3?v=' . substr(hash_file('sha256', ROOT_PATH . '/data/events/' . $event['slug'] . '/' . $event['music']['file']), 0, 12); ?>
 <audio class="wedding-audio" id="wedding-song" data-wedding-audio src="<?= e($musicUrl) ?>" autoplay loop controls preload="auto" aria-label="<?= e($event['music']['label'] . ' · ' . $event['music']['artist']) ?>"></audio>
