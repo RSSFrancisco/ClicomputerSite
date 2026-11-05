@@ -53,6 +53,7 @@ test('plays the local MP3 automatically in a loop without restarting on scroll',
   assert.equal(page.audio.autoplay, true);
   assert.equal(page.audio.loop, true);
   assert.equal(page.audio.volume, 0.35);
+  assert.equal(page.audio.muted, false);
   assert.equal(page.audio.controls, false);
   assert.equal(page.audio.hidden, true);
   assert.equal(page.music.hidden, false);
@@ -99,6 +100,21 @@ test('the music button activates once and ignores its own pointer event', async 
   assert.equal(page.audio.playCalls, 2);
   page.audio.emit('playing');
   assert.equal(page.label.textContent, 'Pausar música');
+});
+
+test('mobile gestures retry at the end of a tap when pointerdown is not enough', async () => {
+  for (const type of ['pointerup', 'touchend', 'click']) {
+    const page = setup({ playError: { name: 'NotAllowedError' } });
+    await Promise.resolve();
+    page.document.emit(type);
+    assert.equal(page.audio.playCalls, 2, type + ' should activate blocked playback');
+    page.audio.emit('playing');
+    page.document.emit(type);
+    assert.equal(page.audio.playCalls, 2, 'Playback should not restart after activation');
+    page.toggle.emit('click');
+    page.document.emit(type);
+    assert.equal(page.audio.playCalls, 2, 'A later tap must respect a voluntary pause');
+  }
 });
 
 test('unsupported audio fails cleanly and absent audio does not initialize a player', async () => {

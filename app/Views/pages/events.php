@@ -1,6 +1,6 @@
 <header class="event-header events-header">
   <a class="events-brand" href="/" rel="nofollow">Clicomputer<span>Momentos especiales</span></a>
-  <a class="event-back" href="/" rel="nofollow">Volver al sitio <span aria-hidden="true">↗</span></a>
+  <a class="event-back" href="/" rel="nofollow">Volver al sitio <i class="fa-solid fa-arrow-left event-arrow" aria-hidden="true"></i></a>
 </header>
 <main id="contenido" class="events-index">
   <div class="eyebrow">PARA COMPARTIR Y CELEBRAR</div>
@@ -13,7 +13,7 @@
       <span class="eyebrow">NUESTRA BODA</span>
       <h2><?= e(implode(' & ', $item['names'])) ?></h2>
       <p><?= e($item['date_display']) ?></p>
-      <span class="entry-action">Abrir invitación <span aria-hidden="true">↗</span></span>
+      <span class="entry-action">Abrir invitación <i class="fa-solid fa-arrow-right event-arrow" aria-hidden="true"></i></span>
     </div>
   </a>
   <?php endforeach ?>

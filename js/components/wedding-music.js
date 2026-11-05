@@ -9,6 +9,7 @@
   const label = music.querySelector('[data-music-label]');
   const status = music.querySelector('[data-music-status]');
   const track = status.textContent;
+  const gestureEvents = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
   let wantsPlayback = true;
   let attempt = 0;
 
@@ -19,8 +20,10 @@
     toggle.setAttribute('aria-pressed', String(state === 'playing'));
   };
   const removeGestureListeners = () => {
-    document.removeEventListener('pointerdown', onGesture, true);
-    document.removeEventListener('keydown', onGesture, true);
+    gestureEvents.forEach(type => document.removeEventListener(type, onGesture, true));
+  };
+  const addGestureListeners = () => {
+    gestureEvents.forEach(type => document.addEventListener(type, onGesture, true));
   };
   const unavailable = () => {
     wantsPlayback = false;
@@ -51,6 +54,7 @@
   audio.autoplay = true;
   audio.loop = true;
   audio.volume = 0.35;
+  audio.muted = false;
   audio.controls = false;
   audio.hidden = true;
   music.hidden = false;
@@ -63,8 +67,7 @@
   audio.addEventListener('pause', () => {
     if (wantsPlayback) {
       showState('blocked', 'Activar música', 'Toca para continuar');
-      document.addEventListener('pointerdown', onGesture, true);
-      document.addEventListener('keydown', onGesture, true);
+      addGestureListeners();
     } else showState('paused', 'Reproducir música', 'Música en pausa');
   });
   audio.addEventListener('error', unavailable);
@@ -77,7 +80,6 @@
     } else play();
   });
 
-  document.addEventListener('pointerdown', onGesture, true);
-  document.addEventListener('keydown', onGesture, true);
+  addGestureListeners();
   play();
 })();

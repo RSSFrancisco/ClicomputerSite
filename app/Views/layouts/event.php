@@ -22,6 +22,8 @@
   <link rel="icon" type="image/svg+xml" href="<?= e(asset('assets/img/wedding-monogram.svg')) ?>">
   <link rel="preload" href="/assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="<?= e(asset('css/fonts.css')) ?>">
+  <link rel="stylesheet" href="<?= e(asset('css/vendor/fontawesome/css/fontawesome.min.css')) ?>">
+  <link rel="stylesheet" href="<?= e(asset('css/vendor/fontawesome/css/solid.min.css')) ?>">
   <link rel="stylesheet" href="<?= e(asset('css/events.css')) ?>">
   <script defer src="<?= e(asset('js/components/events.js')) ?>"></script>
   <?php if ($event && !empty($event['music'])): ?>
