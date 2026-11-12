@@ -15,17 +15,20 @@ const ThemeSwitcher = (() => {
     applyTheme(theme);
     try { localStorage.setItem('cli-theme', theme); } catch (_) { /* Optional persistence. */ }
   }
+  function autoTheme() {
+    const hour = new Date().getHours();
+    return hour >= 7 && hour < 19 ? 'light' : 'dark';
+  }
   function init() {
-    const preference = window.matchMedia('(prefers-color-scheme: light)');
     const saved = savedTheme();
-    applyTheme(saved === 'dark' || saved === 'light' ? saved : preference.matches ? 'light' : 'dark');
+    applyTheme(saved === 'dark' || saved === 'light' ? saved : autoTheme());
     document.querySelectorAll('.theme-toggle').forEach((button) => {
       button.addEventListener('click', toggle);
       button.hidden = false;
     });
-    preference.addEventListener('change', () => {
-      if (!savedTheme()) applyTheme(preference.matches ? 'light' : 'dark');
-    });
+    if (!saved) {
+      setInterval(() => { if (!savedTheme()) applyTheme(autoTheme()); }, 5 * 60 * 1000);
+    }
   }
   return { init, toggle, applyTheme };
 })();
