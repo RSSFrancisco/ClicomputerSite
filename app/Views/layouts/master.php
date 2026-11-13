@@ -37,8 +37,9 @@ $hasSecurityGallery = isset($page['gallery']);
     document.documentElement.classList.add('js');
     try {
       var theme = localStorage.getItem('cli-theme');
-      document.documentElement.setAttribute('data-bs-theme', theme === 'light' || theme === 'dark' ? theme :
-        (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'));
+      var hour = new Date().getHours();
+      var dayTheme = hour >= 7 && hour < 19 ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-bs-theme', theme === 'light' || theme === 'dark' ? theme : dayTheme);
     } catch (_) { /* El contenido funciona también sin almacenamiento local. */ }
   </script>
 </head>
