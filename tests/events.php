@@ -121,6 +121,9 @@ $search = new Search($site);
 verifyEvent($search->find('Anselmo') === [] && $search->find('Dulce') === [], 'Invitation leaked into internal search');
 foreach ($site->pages() as $page) verifyEvent(!str_starts_with($page['file'], 'eventos'), 'Private invitation added to public catalog');
 foreach (['/', '/contacto.html'] as $path) {
-    verifyEvent(eventDocument($app->handle('GET', $path)->body)->query('//a[@href="/eventos" and @rel="nofollow"]')->length >= 1, 'Event section missing from navigation');
+    $document = eventDocument($app->handle('GET', $path)->body);
+    verifyEvent($document->query('//nav[@id="mainNavbar"]//a[@href="/#inicio"]')->length === 1, 'Main navigation links missing on ' . $path);
+    verifyEvent($document->query('//nav[@id="mainNavbar"]//a[starts-with(@href,"/eventos")]')->length === 0, 'Events appear in the main navigation on ' . $path);
+    verifyEvent($document->query('//footer//a[@href="/eventos" and @rel="nofollow"]')->length === 1, 'Event section missing from footer on ' . $path);
 }
 echo "OK: $checks comprobaciones de invitaciones, noindex/nofollow, catálogo, calendario, imagen y rutas.\n";
