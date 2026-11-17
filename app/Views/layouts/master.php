@@ -2,6 +2,7 @@
 $hasGlobalNetwork = in_array('home', $page['sections'] ?? [], true);
 $hasSecurityNetwork = in_array('seguridad', $page['sections'] ?? [], true);
 $hasSecurityGallery = isset($page['gallery']);
+$hasPcAssembly = $page['file'] === 'soporte-tecnico.html';
 ?>
 <!DOCTYPE html>
 <html lang="es-MX" data-bs-theme="dark">
@@ -27,6 +28,9 @@ $hasSecurityGallery = isset($page['gallery']);
   <?php if ($hasSecurityGallery): ?>
     <link rel="stylesheet" href="<?= e(asset('css/security-gallery.css')) ?>">
   <?php endif ?>
+  <?php if ($hasPcAssembly): ?>
+    <link rel="stylesheet" href="<?= e(asset('css/pc-assembly.css')) ?>">
+  <?php endif ?>
   <link rel="stylesheet" href="<?= e(asset('css/brand.css')) ?>">
   <link rel="stylesheet" href="<?= e(asset('css/search.css')) ?>">
   <link rel="stylesheet" href="<?= e(asset('css/editorial.css')) ?>">
@@ -46,9 +50,12 @@ $hasSecurityGallery = isset($page['gallery']);
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <?= $view->render('partials/navbar', ['page' => $page, 'searchQuery' => $searchQuery ?? '']) ?>
-  <main id="contenido"<?= $hasGlobalNetwork ? ' class="has-space-journey"' : '' ?>>
+  <main id="contenido"<?= $hasGlobalNetwork ? ' class="has-space-journey"' : '' ?><?= $hasPcAssembly ? ' data-pc-assembly-page' : '' ?>>
     <?php if ($hasGlobalNetwork): ?>
       <?= $view->render('partials/space-journey') ?>
+    <?php endif ?>
+    <?php if ($hasPcAssembly): ?>
+      <?= $view->render('partials/pc-assembly') ?>
     <?php endif ?>
     <?php if ($page['file'] !== 'index.html'): ?>
       <?= $view->render('partials/breadcrumb', compact('page')) ?>
@@ -68,6 +75,9 @@ $hasSecurityGallery = isset($page['gallery']);
   <?php endif ?>
   <?php if ($hasSecurityGallery): ?>
     <script defer src="<?= e(asset('js/components/security-gallery.js')) ?>"></script>
+  <?php endif ?>
+  <?php if ($hasPcAssembly): ?>
+    <script defer src="<?= e(asset('js/components/pc-assembly.js')) ?>"></script>
   <?php endif ?>
   <?php foreach (['components/theme-switcher', 'components/navbar', 'components/animations', 'components/search', 'app'] as $script): ?>
     <script defer src="<?= e(asset('js/' . $script . '.js')) ?>"></script>
